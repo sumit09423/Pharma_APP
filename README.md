@@ -28,9 +28,9 @@ Pharma Product Portal is a mobile application designed to streamline the interfa
 ### Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/pharma-product-portal.git
-
+```
+git clone https://github.com/yourusername/pharma-product-portal.git
+```
 cd pharma-product-portal
 
 Setup Backend
