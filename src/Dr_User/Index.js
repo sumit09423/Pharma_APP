@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Text } from 'react-native'
 import { Appbar, Avatar, Card, IconButton, Searchbar, useTheme } from 'react-native-paper'
-import { Camera } from 'lucide-react-native';
 
 const Landing = () => {
     const [searchQuery, setSearchQuery] = useState('');
