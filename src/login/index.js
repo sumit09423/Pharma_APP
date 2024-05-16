@@ -1,6 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {Button, useTheme} from 'react-native-paper';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { Button, useTheme } from 'react-native-paper';
 const logoImg = require('../images/LogoWithName.png');
 
 const Welcome = props => {
