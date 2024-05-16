@@ -1,6 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {Button, useTheme} from 'react-native-paper';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { Button, useTheme } from 'react-native-paper';
 const logoImg = require('../images/LogoWithName.png');
 
 const Welcome = props => {
@@ -73,7 +73,8 @@ const createStyles = theme =>
       position: 'absolute',
       bottom: 0,
       width: '100%',
-      borderRadius: 29,
+      borderTopLeftRadius: 29,
+      borderTopRightRadius: 29,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-evenly',
