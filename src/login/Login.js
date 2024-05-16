@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {TextInput, useTheme} from 'react-native-paper';
+import {Checkbox, IconButton, TextInput, useTheme} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const logoImg = require('../images/Logo.png');
 
 const Login = () => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [text, setText] = useState('');
+  const [checked, setChecked] = useState(false);
+
   return (
     <View style={styles.container}>
       <Image source={logoImg} style={styles.logo} />
@@ -34,8 +37,16 @@ const Login = () => {
         outlineStyle={styles.outlineTextBox}
         textColor="#818181"
         placeholderTextColor="#818181"
-        secureTextEntry
+        secureTextEntry={false}
         right={<TextInput.Icon icon="email" />}
+      />
+      <IconButton icon="eye-off" size={20} onPress={console.log('click')} />
+      <IconButton icon="close" size={20} onPress={() => {}} />
+      <Checkbox
+        status={checked ? 'checked' : 'unchecked'}
+        onPress={() => {
+          setChecked(!checked);
+        }}
       />
     </View>
   );
@@ -59,6 +70,7 @@ const createStyles = theme =>
       fontWeight: '600',
       fontFamily: 'Comfortaa',
       letterSpacing: -0.24,
+      marginBottom: 38,
     },
     outlineTextBox: {
       borderRadius: 10,
@@ -68,6 +80,7 @@ const createStyles = theme =>
     emailTextBox: {
       width: 316,
       paddingHorizontal: 6,
+      marginBottom: 15,
     },
     subtitle: {
       color: '#999999',
