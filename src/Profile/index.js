@@ -8,6 +8,7 @@ import {
   TextInput,
   useTheme,
 } from 'react-native-paper';
+import AppBar from '../components/AppBar';
 const logoImg = require('../images/Profile.png');
 
 const Profile = props => {
@@ -28,78 +29,84 @@ const Profile = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.step}>Step 1 to 3</Text>
-      <Text style={styles.welcome}>Your Profile</Text>
-      <Text style={[styles.signUpDetailText, styles.subtitleText]}>
-        Update your profile to get the product details from seller.
-      </Text>
+    <View style={styles.mainContainer}>
+      <AppBar props={props} />
+      <View style={styles.container}>
+        <Text style={styles.step}>Step 1 to 3</Text>
+        <Text style={styles.welcome}>Your Profile</Text>
+        <Text style={[styles.signUpDetailText, styles.subtitleText]}>
+          Update your profile to get the product details from seller.
+        </Text>
 
-      <View style={styles.imgDiv}>
-        <Image source={logoImg} style={styles.profileImg} />
+        <View style={styles.imgDiv}>
+          <Image source={logoImg} style={styles.profileImg} />
+        </View>
+
+        <TextInput
+          mode="outlined"
+          value={formValues.fname}
+          onChangeText={value => handleChange('fname', value)}
+          placeholder="First Name"
+          style={styles.emailTextBox}
+          outlineColor="transparent"
+          outlineStyle={styles.outlineTextBox}
+          textColor="#818181"
+          placeholderTextColor="#818181"
+        />
+
+        <TextInput
+          mode="outlined"
+          value={formValues.lname}
+          onChangeText={value => handleChange('lname', value)}
+          placeholder="Last Name"
+          style={styles.emailTextBox}
+          outlineColor="transparent"
+          outlineStyle={styles.outlineTextBox}
+          textColor="#818181"
+          placeholderTextColor="#818181"
+        />
+
+        <TextInput
+          mode="outlined"
+          value={formValues.degree}
+          onChangeText={value => handleChange('degree', value)}
+          placeholder="Dr's Degree"
+          style={styles.emailTextBox}
+          outlineColor="transparent"
+          outlineStyle={styles.outlineTextBox}
+          textColor="#818181"
+          placeholderTextColor="#818181"
+        />
+
+        <TextInput
+          mode="outlined"
+          value={formValues.licenceNumber}
+          onChangeText={value => handleChange('licenceNumber', value)}
+          placeholder="Licence Number"
+          style={styles.emailTextBox}
+          outlineColor="transparent"
+          outlineStyle={styles.outlineTextBox}
+          textColor="#818181"
+          placeholderTextColor="#818181"
+        />
+
+        <Button
+          mode="outlined"
+          onPress={() => props.navigation.navigate('Profile2')}
+          style={styles.LoginBtn}
+          textColor="#FFFFFF">
+          Continue <Icon source="arrow-right" color="white" size={18} />
+        </Button>
       </View>
-
-      <TextInput
-        mode="outlined"
-        value={formValues.fname}
-        onChangeText={value => handleChange('fname', value)}
-        placeholder="First Name"
-        style={styles.emailTextBox}
-        outlineColor="transparent"
-        outlineStyle={styles.outlineTextBox}
-        textColor="#818181"
-        placeholderTextColor="#818181"
-      />
-
-      <TextInput
-        mode="outlined"
-        value={formValues.lname}
-        onChangeText={value => handleChange('lname', value)}
-        placeholder="Last Name"
-        style={styles.emailTextBox}
-        outlineColor="transparent"
-        outlineStyle={styles.outlineTextBox}
-        textColor="#818181"
-        placeholderTextColor="#818181"
-      />
-
-      <TextInput
-        mode="outlined"
-        value={formValues.degree}
-        onChangeText={value => handleChange('degree', value)}
-        placeholder="Dr's Degree"
-        style={styles.emailTextBox}
-        outlineColor="transparent"
-        outlineStyle={styles.outlineTextBox}
-        textColor="#818181"
-        placeholderTextColor="#818181"
-      />
-
-      <TextInput
-        mode="outlined"
-        value={formValues.licenceNumber}
-        onChangeText={value => handleChange('licenceNumber', value)}
-        placeholder="Licence Number"
-        style={styles.emailTextBox}
-        outlineColor="transparent"
-        outlineStyle={styles.outlineTextBox}
-        textColor="#818181"
-        placeholderTextColor="#818181"
-      />
-
-      <Button
-        mode="outlined"
-        onPress={() => props.navigation.navigate('Profile2')}
-        style={styles.LoginBtn}
-        textColor="#FFFFFF">
-        Continue <Icon source="arrow-right" color="white" size={18} />
-      </Button>
     </View>
   );
 };
 
 const createStyles = theme =>
   StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+    },
     container: {
       display: 'flex',
       position: 'relative',

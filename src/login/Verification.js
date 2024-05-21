@@ -8,6 +8,7 @@ import {
   TextInput,
   useTheme,
 } from 'react-native-paper';
+import AppBar from '../components/AppBar';
 const logoImg = require('../images/Logo.png');
 
 const Verification = props => {
@@ -29,104 +30,109 @@ const Verification = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Verification</Text>
-      <Text style={[styles.signUpDetailText, styles.subtitleText]}>
-        Please check you message for a five-digit security code and enter it
-        below.
-      </Text>
+    <View style={styles.mainContainer}>
+      <AppBar props={props} />
 
-      <View style={styles.textBoxDiv}>
-        <TextInput
-          mode="outlined"
-          value={formValues.textBox1}
-          onChangeText={value => handleChange('textBox1', value)}
-          placeholder=""
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
-          maxLength={1}
-          underlineColor="transparent"
-          activeUnderlineColor="transparent"
-        />
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Verification</Text>
+        <Text style={[styles.signUpDetailText, styles.subtitleText]}>
+          Please check you message for a five-digit security code and enter it
+          below.
+        </Text>
 
-        <TextInput
-          mode="outlined"
-          value={formValues.textBox2}
-          onChangeText={value => handleChange('textBox2', value)}
-          placeholder=""
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
-          maxLength={1}
-        />
+        <View style={styles.textBoxDiv}>
+          <TextInput
+            mode="outlined"
+            value={formValues.textBox1}
+            onChangeText={value => handleChange('textBox1', value)}
+            placeholder=""
+            style={styles.emailTextBox}
+            outlineColor="transparent"
+            outlineStyle={styles.outlineTextBox}
+            textColor="#818181"
+            placeholderTextColor="#818181"
+            maxLength={1}
+            underlineColor="transparent"
+            activeUnderlineColor="transparent"
+          />
 
-        <TextInput
+          <TextInput
+            mode="outlined"
+            value={formValues.textBox2}
+            onChangeText={value => handleChange('textBox2', value)}
+            placeholder=""
+            style={styles.emailTextBox}
+            outlineColor="transparent"
+            outlineStyle={styles.outlineTextBox}
+            textColor="#818181"
+            placeholderTextColor="#818181"
+            maxLength={1}
+          />
+
+          <TextInput
+            mode="outlined"
+            value={formValues.textBox3}
+            onChangeText={value => handleChange('textBox3', value)}
+            placeholder=""
+            style={styles.emailTextBox}
+            outlineColor="transparent"
+            outlineStyle={styles.outlineTextBox}
+            textColor="#818181"
+            placeholderTextColor="#818181"
+            maxLength={1}
+            secureTextEntry={false}
+          />
+          <TextInput
+            mode="outlined"
+            value={formValues.textBox4}
+            onChangeText={value => handleChange('textBox4', value)}
+            placeholder=""
+            style={styles.emailTextBox}
+            outlineColor="transparent"
+            outlineStyle={styles.outlineTextBox}
+            textColor="#818181"
+            placeholderTextColor="#818181"
+            maxLength={1}
+            secureTextEntry={false}
+          />
+          <TextInput
+            mode="outlined"
+            value={formValues.textBox5}
+            onChangeText={value => handleChange('textBox5', value)}
+            placeholder=""
+            style={styles.emailTextBox}
+            outlineColor="transparent"
+            outlineStyle={styles.outlineTextBox}
+            textColor="#818181"
+            placeholderTextColor="#818181"
+            maxLength={1}
+            secureTextEntry={false}
+          />
+        </View>
+
+        <Text style={[styles.signUpDetailText, styles.termInfo]}>
+          Didn't get a code? {''}
+          <Text style={[styles.signUpText]}>Send again</Text>
+        </Text>
+
+        <Button
           mode="outlined"
-          value={formValues.textBox3}
-          onChangeText={value => handleChange('textBox3', value)}
-          placeholder=""
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
-          maxLength={1}
-          secureTextEntry={false}
-        />
-        <TextInput
-          mode="outlined"
-          value={formValues.textBox4}
-          onChangeText={value => handleChange('textBox4', value)}
-          placeholder=""
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
-          maxLength={1}
-          secureTextEntry={false}
-        />
-        <TextInput
-          mode="outlined"
-          value={formValues.textBox5}
-          onChangeText={value => handleChange('textBox5', value)}
-          placeholder=""
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
-          maxLength={1}
-          secureTextEntry={false}
-        />
+          onPress={() => props.navigation.navigate('Profile1')}
+          style={styles.LoginBtn}
+          textColor="#FFFFFF">
+          Verify <Icon source="arrow-right" color="white" size={18} />
+        </Button>
       </View>
-
-      <Text style={[styles.signUpDetailText, styles.termInfo]}>
-        Didn't get a code? {''}
-        <Text style={[styles.signUpText]}>Send again</Text>
-      </Text>
-
-      <Button
-        mode="outlined"
-        onPress={() => props.navigation.navigate('Profile1')}
-        style={styles.LoginBtn}
-        textColor="#FFFFFF">
-        Verify <Icon source="arrow-right" color="white" size={18} />
-      </Button>
     </View>
   );
 };
 
 const createStyles = theme =>
   StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+    },
     container: {
-      display: 'flex',
-      position: 'relative',
       flex: 1,
       paddingHorizontal: 32,
       backgroundColor: '#fbfbfb',

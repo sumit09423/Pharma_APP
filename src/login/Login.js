@@ -8,6 +8,8 @@ import {
   useTheme,
 } from 'react-native-paper';
 const logoImg = require('../images/Logo.png');
+const googleImg = require('../images/Google.png');
+const fbImg = require('../images/Facebook.png');
 
 const Login = props => {
   const theme = useTheme();
@@ -96,6 +98,7 @@ const Login = props => {
           onPress={() => null}
           style={[styles.googleFbBtn, styles.googleBtn]}
           textColor="#000000">
+          {/* <Image source={googleImg} style={styles.googleImg} /> */}
           With Google
         </Button>
         <Button
@@ -103,6 +106,7 @@ const Login = props => {
           onPress={() => null}
           style={[styles.googleFbBtn, styles.fbBtn]}
           textColor="#000000">
+          {/* <Image source={fbImg} style={styles.fbImg} /> */}
           With Facebook
         </Button>
       </View>
@@ -202,7 +206,6 @@ const createStyles = theme =>
     },
     googleFbDiv: {
       width: '100%',
-      display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
@@ -215,6 +218,9 @@ const createStyles = theme =>
       fontSize: 13,
       fontWeight: 300,
     },
+    // googleImg: {
+    //   width: 25,
+    // },
     signUpDetailText: {
       marginTop: 29,
       fontFamily: 'Poppins',
