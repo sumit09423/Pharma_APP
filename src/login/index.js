@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { Button, useTheme } from 'react-native-paper';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import {Button, useTheme} from 'react-native-paper';
 const logoImg = require('../images/LogoWithName.png');
 
 const Welcome = props => {
@@ -25,7 +25,7 @@ const Welcome = props => {
           </Button>
           <Button
             mode="contained"
-            onPress={() => console.log('Pressed')}
+            onPress={() => props.navigation.navigate('SignUp')}
             style={[styles.signupBtn, styles.btn]}
             textColor={theme.colors.themeColor}
             buttonColor="#FFFFFF">
@@ -45,6 +45,7 @@ const createStyles = theme =>
       alignItems: 'center',
       position: 'relative',
       flex: 1,
+      backgroundColor: '#fbfbfb',
     },
     logo: {
       marginTop: 158,
