@@ -7,15 +7,14 @@ import {
   TextInput,
   useTheme,
 } from 'react-native-paper';
-const logoImg = require('../images/Logo.png');
 
-const Login = props => {
+const SignUp = props => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
-  const [checked, setChecked] = useState(false);
   const [formValues, setFormValues] = useState({
     email: '',
+    contact: '',
     password: '',
   });
 
@@ -32,14 +31,36 @@ const Login = props => {
 
   return (
     <View style={styles.container}>
-      <Image source={logoImg} style={styles.logo} />
-      <Text style={styles.welcome}>Welcome back!</Text>
+      <Text style={styles.welcome}>Welcome to Doctor Hub</Text>
+      <Text style={[styles.signUpDetailText, styles.subtitleText]}>
+        Already have an account ?{' '}
+        <Text
+          style={[
+            styles.signUpText,
+            {paddingLeft: 4, marginLeft: 5, marginTop: 20},
+          ]}
+          onPress={() => props.navigation.navigate('Login')}>
+          Log In
+        </Text>
+      </Text>
 
       <TextInput
         mode="outlined"
         value={formValues.email}
         onChangeText={value => handleChange('email', value)}
         placeholder="Email"
+        style={styles.emailTextBox}
+        outlineColor="transparent"
+        outlineStyle={styles.outlineTextBox}
+        textColor="#818181"
+        placeholderTextColor="#818181"
+      />
+
+      <TextInput
+        mode="outlined"
+        value={formValues.contact}
+        onChangeText={value => handleChange('contact', value)}
+        placeholder="Contact Number"
         style={styles.emailTextBox}
         outlineColor="transparent"
         outlineStyle={styles.outlineTextBox}
@@ -66,24 +87,12 @@ const Login = props => {
         }
       />
 
-      <View style={styles.innerDiv}>
-        <View style={styles.rpDiv}>
-          <Checkbox
-            status={checked ? 'checked' : 'unchecked'}
-            onPress={() => {
-              setChecked(!checked);
-            }}
-          />
-          <Text style={styles.rpText}>Remember password</Text>
-        </View>
-        <Text style={styles.fpText}>Forgot password?</Text>
-      </View>
       <Button
         mode="outlined"
-        onPress={() => props.navigation.navigate('Login')}
+        onPress={() => props.navigation.navigate('Verification')}
         style={styles.LoginBtn}
         textColor="#FFFFFF">
-        Log In
+        Sign Up
       </Button>
       <View style={styles.orDiv}>
         <View style={styles.line} />
@@ -106,13 +115,16 @@ const Login = props => {
           With Facebook
         </Button>
       </View>
-      <Text style={styles.signUpDetailText}>
-        Don't have an account{' '}
+      <Text style={[styles.signUpDetailText, styles.termInfo]}>
+        By Clicking sign up you are agreeing to the{' '}
         <Text
-          style={styles.signUpText}
-          onPress={() => props.navigation.navigate('SignUp')}>
-          Sign Up
-        </Text>
+          style={[
+            styles.signUpText,
+            {paddingLeft: 4, marginLeft: 5, marginTop: 20},
+          ]}>
+          Terms of use
+        </Text>{' '}
+        and the <Text style={styles.signUpText}>Privacy Policy</Text>
       </Text>
     </View>
   );
@@ -122,23 +134,19 @@ const createStyles = theme =>
   StyleSheet.create({
     container: {
       display: 'flex',
-      alignItems: 'center',
       position: 'relative',
       flex: 1,
       paddingHorizontal: 32,
       backgroundColor: '#fbfbfb',
     },
-    logo: {
-      marginTop: 88,
-      marginBottom: 8,
-    },
     welcome: {
       color: '#000000',
-      fontSize: 16,
       fontWeight: '600',
+      fontSize: 16,
+      marginTop: 10,
+      //   marginBottom: 12,
       fontFamily: 'Comfortaa',
       letterSpacing: -0.24,
-      marginBottom: 38,
     },
     outlineTextBox: {
       borderRadius: 10,
@@ -146,7 +154,6 @@ const createStyles = theme =>
       borderColor: '#B9B9B9',
     },
     emailTextBox: {
-      width: 316,
       paddingHorizontal: 6,
       marginBottom: 15,
     },
@@ -216,13 +223,22 @@ const createStyles = theme =>
       fontWeight: 300,
     },
     signUpDetailText: {
-      marginTop: 29,
       fontFamily: 'Poppins',
       fontSize: 13,
     },
     signUpText: {
       color: theme.colors.themeColor,
     },
+    termInfo: {
+      marginTop: 29,
+      width: 283,
+      textAlign: 'center',
+      lineHeight: 19.5,
+    },
+    subtitleText: {
+      marginTop: 10,
+      marginBottom: 28,
+    },
   });
 
-export default Login;
+export default SignUp;
