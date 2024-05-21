@@ -3,20 +3,21 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {
   Button,
   Checkbox,
+  Icon,
   IconButton,
   TextInput,
   useTheme,
 } from 'react-native-paper';
-const logoImg = require('../images/Logo.png');
+const logoImg = require('../images/Profile.png');
 
-const Login = props => {
+const Profile = props => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const [secureTextEntry, setSecureTextEntry] = useState(true);
-  const [checked, setChecked] = useState(false);
   const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
+    fname: '',
+    lname: '',
+    degree: '',
+    licenceNumber: '',
   });
 
   const handleChange = (name, value) => {
@@ -26,94 +27,73 @@ const Login = props => {
     });
   };
 
-  const toggleSecureTextEntry = () => {
-    setSecureTextEntry(!secureTextEntry);
-  };
-
   return (
     <View style={styles.container}>
-      <Image source={logoImg} style={styles.logo} />
-      <Text style={styles.welcome}>Welcome back!</Text>
+      <Text style={styles.step}>Step 1 to 3</Text>
+      <Text style={styles.welcome}>Your Profile</Text>
+      <Text style={[styles.signUpDetailText, styles.subtitleText]}>
+        Update your profile to get the product details from seller.
+      </Text>
 
-      <TextInput
-        mode="outlined"
-        value={formValues.email}
-        onChangeText={value => handleChange('email', value)}
-        placeholder="Email"
-        style={styles.emailTextBox}
-        outlineColor="transparent"
-        outlineStyle={styles.outlineTextBox}
-        textColor="#818181"
-        placeholderTextColor="#818181"
-      />
-
-      <TextInput
-        mode="outlined"
-        value={formValues.password}
-        onChangeText={value => handleChange('password', value)}
-        placeholder="Password"
-        style={styles.emailTextBox}
-        outlineColor="transparent"
-        outlineStyle={styles.outlineTextBox}
-        textColor="#818181"
-        placeholderTextColor="#818181"
-        secureTextEntry={secureTextEntry}
-        right={
-          <TextInput.Icon
-            icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
-            onPress={toggleSecureTextEntry}
-          />
-        }
-      />
-
-      <View style={styles.innerDiv}>
-        <View style={styles.rpDiv}>
-          <Checkbox
-            status={checked ? 'checked' : 'unchecked'}
-            onPress={() => {
-              setChecked(!checked);
-            }}
-          />
-          <Text style={styles.rpText}>Remember password</Text>
-        </View>
-        <Text style={styles.fpText}>Forgot password?</Text>
+      <View style={styles.imgDiv}>
+        <Image source={logoImg} style={styles.profileImg} />
       </View>
+
+      <TextInput
+        mode="outlined"
+        value={formValues.fname}
+        onChangeText={value => handleChange('fname', value)}
+        placeholder="First Name"
+        style={styles.emailTextBox}
+        outlineColor="transparent"
+        outlineStyle={styles.outlineTextBox}
+        textColor="#818181"
+        placeholderTextColor="#818181"
+      />
+
+      <TextInput
+        mode="outlined"
+        value={formValues.lname}
+        onChangeText={value => handleChange('lname', value)}
+        placeholder="Last Name"
+        style={styles.emailTextBox}
+        outlineColor="transparent"
+        outlineStyle={styles.outlineTextBox}
+        textColor="#818181"
+        placeholderTextColor="#818181"
+      />
+
+      <TextInput
+        mode="outlined"
+        value={formValues.degree}
+        onChangeText={value => handleChange('degree', value)}
+        placeholder="Dr's Degree"
+        style={styles.emailTextBox}
+        outlineColor="transparent"
+        outlineStyle={styles.outlineTextBox}
+        textColor="#818181"
+        placeholderTextColor="#818181"
+      />
+
+      <TextInput
+        mode="outlined"
+        value={formValues.licenceNumber}
+        onChangeText={value => handleChange('licenceNumber', value)}
+        placeholder="Licence Number"
+        style={styles.emailTextBox}
+        outlineColor="transparent"
+        outlineStyle={styles.outlineTextBox}
+        textColor="#818181"
+        placeholderTextColor="#818181"
+      />
+
       <Button
         mode="outlined"
-        onPress={() => props.navigation.navigate('Login')}
+        onPress={() => props.navigation.navigate('Profile2')}
         style={styles.LoginBtn}
         textColor="#FFFFFF">
-        Log In
+        Continue <Icon source="arrow-right" color="white" size={18} />
       </Button>
-      <View style={styles.orDiv}>
-        <View style={styles.line} />
-        <Text style={styles.orText}>OR</Text>
-        <View style={styles.line} />
-      </View>
-      <View style={styles.googleFbDiv}>
-        <Button
-          mode="outlined"
-          onPress={() => null}
-          style={[styles.googleFbBtn, styles.googleBtn]}
-          textColor="#000000">
-          With Google
-        </Button>
-        <Button
-          mode="outlined"
-          onPress={() => null}
-          style={[styles.googleFbBtn, styles.fbBtn]}
-          textColor="#000000">
-          With Facebook
-        </Button>
-      </View>
-      <Text style={styles.signUpDetailText}>
-        Don't have an account{' '}
-        <Text
-          style={styles.signUpText}
-          onPress={() => props.navigation.navigate('SignUp')}>
-          Sign Up
-        </Text>
-      </Text>
     </View>
   );
 };
@@ -122,23 +102,24 @@ const createStyles = theme =>
   StyleSheet.create({
     container: {
       display: 'flex',
-      alignItems: 'center',
       position: 'relative',
       flex: 1,
       paddingHorizontal: 32,
       backgroundColor: '#fbfbfb',
     },
-    logo: {
-      marginTop: 88,
-      marginBottom: 8,
+    step: {
+      marginTop: 10,
+      color: '#454545',
+      fontSize: 12,
     },
     welcome: {
       color: '#000000',
-      fontSize: 16,
       fontWeight: '600',
+      fontSize: 16,
+      marginTop: 10,
+      //   marginBottom: 12,
       fontFamily: 'Comfortaa',
       letterSpacing: -0.24,
-      marginBottom: 38,
     },
     outlineTextBox: {
       borderRadius: 10,
@@ -146,32 +127,16 @@ const createStyles = theme =>
       borderColor: '#B9B9B9',
     },
     emailTextBox: {
-      width: 316,
       paddingHorizontal: 6,
       marginBottom: 15,
     },
-    innerDiv: {
-      // width: '100%',
-      // flex: 1,
+    imgDiv: {
       display: 'flex',
-      flexDirection: 'row',
       alignItems: 'center',
+      marginTop: 16,
+      marginBottom: 28,
     },
-    rpDiv: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    rpText: {
-      color: '#736D6D',
-      fontSize: 12,
-      fontFamily: 'Poppins',
-    },
-    fpText: {
-      color: '#999999',
-      fontFamily: 'Poppins',
-      fontSize: 13,
-    },
+
     LoginBtn: {
       backgroundColor: '#0EC5C1',
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
@@ -216,13 +181,23 @@ const createStyles = theme =>
       fontWeight: 300,
     },
     signUpDetailText: {
-      marginTop: 29,
       fontFamily: 'Poppins',
       fontSize: 13,
+      lineHeight: 19.5,
     },
     signUpText: {
       color: theme.colors.themeColor,
     },
+    termInfo: {
+      marginTop: 29,
+      width: 283,
+      textAlign: 'center',
+      lineHeight: 19.5,
+    },
+    subtitleText: {
+      marginTop: 10,
+      marginBottom: 28,
+    },
   });
 
-export default Login;
+export default Profile;
