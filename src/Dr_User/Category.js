@@ -5,14 +5,14 @@ import { useNavigation } from '@react-navigation/native';
 const SalesMan = require('../images/SalesMan.png');
 const UserAvailable = require('../images/UserAvailable.png');
 
-const Landing = () => {
+const Category = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const theme = useTheme();
     const styles = createStyles(theme);
     const navigation = useNavigation(); // Hook for navigation
 
     const handlePress = () => {
-        navigation.navigate('Category'); // Navigate to the Details screen
+        navigation.navigate('SearchProduct'); // Navigate to the Details screen
     };
 
     return (
@@ -23,7 +23,7 @@ const Landing = () => {
                         welcome back
                     </Text>
                     <Text style={styles.text2}>
-                        Krunal Rethod
+                        Dr Hub
                     </Text>
                 </View>
                 <IconButton icon="bell-outline" size={24} onPress={() => { }} />
@@ -37,26 +37,9 @@ const Landing = () => {
                     style={styles.searchBar}
                 />
             </View>
-            <TouchableOpacity style={[styles.cardContainer, styles.cardCommonContainer]} onPress={handlePress}>
-                <Card.Title
-                    title="Star medica Hub"
-                    subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                    titleStyle={[styles.cardText, { fontSize: 24 }]}
-                    subtitleNumberOfLines={null}
-                    subtitleVariant="bodyMedium"
-                    subtitleStyle={[styles.cardText, { lineHeight: 18, color: "#767575" }]}
-                    left={(props) => (
-                        <Image
-                            source={SalesMan}
-                            style={{ width: 65, height: 65, borderRadius: 20 }}
-                        />
-                    )}
-                />
-            </TouchableOpacity>
-
             <TouchableOpacity style={[styles.cardContainer2, styles.cardCommonContainer]} onPress={handlePress}>
                 <Card.Title
-                    title="Dr Hub"
+                    title="Gynecologist"
                     subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
                     titleStyle={[styles.cardText, { fontSize: 24 }]}
                     subtitleNumberOfLines={null}
@@ -71,9 +54,26 @@ const Landing = () => {
                 />
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.cardContainer2, styles.cardCommonContainer]} onPress={handlePress}>
+            <TouchableOpacity style={[styles.cardContainer2, styles.cardCommonContainer]} >
                 <Card.Title
-                    title="Company"
+                    title="Pediatrician"
+                    subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
+                    titleStyle={[styles.cardText, { fontSize: 24 }]}
+                    subtitleNumberOfLines={null}
+                    subtitleVariant="bodyMedium"
+                    subtitleStyle={[styles.cardText, { lineHeight: 18, color: "#767575" }]}
+                    left={(props) => (
+                        <Image
+                            source={UserAvailable}
+                            style={{ width: 65, height: 65, borderRadius: 20 }}
+                        />
+                    )}
+                />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={[styles.cardContainer2, styles.cardCommonContainer]}>
+                <Card.Title
+                    title="GP Doctors"
                     subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
                     titleStyle={[styles.cardText, { fontSize: 24 }]}
                     subtitleNumberOfLines={null}
@@ -162,4 +162,4 @@ const createStyles = theme =>
         },
     });
 
-export default Landing;
+export default Category;
