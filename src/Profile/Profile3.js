@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {
   Button,
   Checkbox,
@@ -10,6 +10,8 @@ import {
   ToggleButton,
   useTheme,
 } from 'react-native-paper';
+import AppBar from '../components/AppBar';
+import {SafeAreaView} from 'react-native-safe-area-context';
 const logoImg = require('../images/Profile.png');
 
 const categoryData = [
@@ -65,62 +67,66 @@ const Profile3 = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.step}>Step 3 to 3</Text>
-      <Text style={styles.welcome}>Add Department of Doctor</Text>
-      <Text style={[styles.signUpDetailText, styles.subtitleText]}>
-        Update your profile to get the product details from seller.
-      </Text>
+    <ScrollView style={styles.mainContainer}>
+      <AppBar props={props} />
+      <View style={styles.container}>
+        <Text style={styles.step}>Step 3 to 3</Text>
+        <Text style={styles.welcome}>Add Department of Doctor</Text>
+        <Text style={[styles.signUpDetailText, styles.subtitleText]}>
+          Update your profile to get the product details from seller.
+        </Text>
 
-      <Searchbar
-        placeholder="Search Catagory"
-        onChangeText={setSearchQuery}
-        value={searchQuery}
-      />
+        <Searchbar
+          placeholder="Search Catagory"
+          onChangeText={setSearchQuery}
+          value={searchQuery}
+        />
 
-      <View style={styles.chipDiv}>
-        {Object.entries(checkedItems).map(([key, value], index) => {
-          if (value)
-            return (
-              <Chip
-                onClose={() => handleClose(key, value)}
-                compact={true}
-                key={index}
-                style={styles.chip}
-                textStyle={styles.chipText}>
-                {key}
-              </Chip>
-            );
+        <View style={styles.chipDiv}>
+          {Object.entries(checkedItems).map(([key, value], index) => {
+            if (value)
+              return (
+                <Chip
+                  onClose={() => handleClose(key, value)}
+                  compact={true}
+                  key={index}
+                  style={styles.chip}
+                  textStyle={styles.chipText}>
+                  {key}
+                </Chip>
+              );
+          })}
+        </View>
+
+        {categoryData?.map((item, index) => {
+          return (
+            <Checkbox.Item
+              label={item.label}
+              status={checkedItems[item.label] ? 'checked' : 'unchecked'}
+              onPress={() => handleChange(item.label)}
+              key={index}
+            />
+          );
         })}
+
+        <Button
+          mode="outlined"
+          onPress={() => props.navigation.navigate('Profile2')}
+          style={styles.LoginBtn}
+          textColor="#FFFFFF">
+          Done
+        </Button>
       </View>
-
-      {categoryData?.map((item, index) => {
-        return (
-          <Checkbox.Item
-            label={item.label}
-            status={checkedItems[item.label] ? 'checked' : 'unchecked'}
-            onPress={() => handleChange(item.label)}
-            key={index}
-          />
-        );
-      })}
-
-      <Button
-        mode="outlined"
-        onPress={() => props.navigation.navigate('Profile2')}
-        style={styles.LoginBtn}
-        textColor="#FFFFFF">
-        Done
-      </Button>
-    </View>
+    </ScrollView>
   );
 };
 
 const createStyles = theme =>
   StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+    },
     container: {
-      // display: 'flex',
-      // position: 'relative',
       flex: 1,
       paddingHorizontal: 32,
       backgroundColor: '#fbfbfb',
@@ -186,6 +192,7 @@ const createStyles = theme =>
       fontSize: 14,
       fontWeight: 700,
       marginTop: 12,
+      marginBottom: 24,
     },
     signUpDetailText: {
       fontFamily: 'Poppins',
