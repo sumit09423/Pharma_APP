@@ -1,13 +1,7 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {
-  Button,
-  Checkbox,
-  Icon,
-  IconButton,
-  TextInput,
-  useTheme,
-} from 'react-native-paper';
+import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
 const logoImg = require('../images/Profile.png');
 
@@ -29,7 +23,7 @@ const Profile = props => {
   };
 
   return (
-    <View style={styles.mainContainer}>
+    <SafeAreaView style={styles.mainContainer}>
       <AppBar props={props} />
       <View style={styles.container}>
         <Text style={styles.step}>Step 1 to 3</Text>
@@ -98,7 +92,7 @@ const Profile = props => {
           Continue <Icon source="arrow-right" color="white" size={18} />
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -118,6 +112,8 @@ const createStyles = theme =>
       marginTop: 10,
       color: '#454545',
       fontSize: 12,
+      fontWeight: '600',
+      letterSpacing: -0.24,
     },
     welcome: {
       color: '#000000',
@@ -143,7 +139,6 @@ const createStyles = theme =>
       marginTop: 16,
       marginBottom: 28,
     },
-
     LoginBtn: {
       backgroundColor: '#0EC5C1',
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
@@ -156,41 +151,11 @@ const createStyles = theme =>
       fontWeight: 700,
       marginTop: 12,
     },
-    orDiv: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginVertical: 20,
-    },
-    line: {
-      flex: 1,
-      height: 1,
-      backgroundColor: '#ccc',
-    },
-    orText: {
-      marginHorizontal: 10,
-      fontSize: 13,
-      color: '#888',
-    },
-    googleFbDiv: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-    googleFbBtn: {
-      borderRadius: 4,
-      borderWidth: 1,
-      borderColor: '#e6e6e6',
-      backgroundColor: '#e9ebeb',
-      fontFamily: 'IBM Plex Sans',
-      fontSize: 13,
-      fontWeight: 300,
-    },
     signUpDetailText: {
       fontFamily: 'Poppins',
       fontSize: 13,
       lineHeight: 19.5,
+      color: '#999999',
     },
     signUpText: {
       color: theme.colors.themeColor,

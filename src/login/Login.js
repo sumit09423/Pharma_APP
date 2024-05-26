@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {
-  Button,
-  Checkbox,
-  IconButton,
-  TextInput,
-  useTheme,
-} from 'react-native-paper';
+import {Button, Checkbox, TextInput, useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
@@ -33,7 +28,7 @@ const Login = props => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image source={logoImg} style={styles.logo} />
       <Text style={styles.welcome}>Welcome back!</Text>
 
@@ -75,11 +70,14 @@ const Login = props => {
             onPress={() => {
               setChecked(!checked);
             }}
+            uncheckedColor="#D7D7D7"
+            color="#D7D7D7"
           />
           <Text style={styles.rpText}>Remember password</Text>
         </View>
         <Text style={styles.fpText}>Forgot password?</Text>
       </View>
+
       <Button
         mode="outlined"
         onPress={() => props.navigation.navigate('Login')}
@@ -87,29 +85,38 @@ const Login = props => {
         textColor="#FFFFFF">
         Log In
       </Button>
+
       <View style={styles.orDiv}>
         <View style={styles.line} />
         <Text style={styles.orText}>OR</Text>
         <View style={styles.line} />
       </View>
+
       <View style={styles.googleFbDiv}>
         <Button
           mode="outlined"
           onPress={() => null}
           style={[styles.googleFbBtn, styles.googleBtn]}
-          textColor="#000000">
-          {/* <Image source={googleImg} style={styles.googleImg} /> */}
+          textColor="#000000"
+          labelStyle={styles.googleFbLabel}
+          contentStyle={styles.googleFbContent}
+          compact={true}>
+          <Image source={googleImg} style={styles.googleFbImg} />
           With Google
         </Button>
         <Button
           mode="outlined"
           onPress={() => null}
           style={[styles.googleFbBtn, styles.fbBtn]}
-          textColor="#000000">
-          {/* <Image source={fbImg} style={styles.fbImg} /> */}
+          textColor="#000000"
+          labelStyle={styles.googleFbLabel}
+          contentStyle={styles.googleFbContent}
+          compact={true}>
+          <Image source={fbImg} style={styles.googleFbImg} />
           With Facebook
         </Button>
       </View>
+
       <Text style={styles.signUpDetailText}>
         Don't have an account{' '}
         <Text
@@ -118,7 +125,7 @@ const Login = props => {
           Sign Up
         </Text>
       </Text>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -214,17 +221,29 @@ const createStyles = theme =>
       borderWidth: 1,
       borderColor: '#e6e6e6',
       backgroundColor: '#e9ebeb',
-      fontFamily: 'IBM Plex Sans',
-      fontSize: 13,
-      fontWeight: 300,
+      paddingVertical: 0,
     },
-    // googleImg: {
-    //   width: 25,
-    // },
+    googleFbLabel: {
+      fontFamily: 'IBM Plex Sans',
+      fontSize: 14,
+      fontWeight: 300,
+      paddingVertical: 0,
+    },
+    googleFbContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+      paddingHorizontal: 6,
+    },
+    googleFbImg: {
+      width: 16,
+      height: 16,
+    },
     signUpDetailText: {
       marginTop: 29,
       fontFamily: 'Poppins',
       fontSize: 13,
+      color: '#999999',
     },
     signUpText: {
       color: theme.colors.themeColor,

@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {
   Button,
-  Checkbox,
   Icon,
-  IconButton,
   TextInput,
   ToggleButton,
   useTheme,
 } from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppBar from '../components/AppBar';
 
@@ -37,7 +36,7 @@ const Profile2 = props => {
   };
 
   return (
-    <View style={styles.mainContainer}>
+    <SafeAreaView style={styles.mainContainer}>
       <AppBar props={props} />
       <View style={styles.container}>
         <Text style={styles.step}>Step 2 to 3</Text>
@@ -131,7 +130,7 @@ const Profile2 = props => {
           Continue <Icon source="arrow-right" color="#FFFFFF" size={18} />
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -150,6 +149,8 @@ const createStyles = theme =>
       marginTop: 10,
       color: '#454545',
       fontSize: 12,
+      fontWeight: '600',
+      letterSpacing: -0.24,
     },
     welcome: {
       color: '#000000',
@@ -182,7 +183,6 @@ const createStyles = theme =>
       borderRadius: 10,
       fontSize: 35,
     },
-
     LoginBtn: {
       backgroundColor: '#0EC5C1',
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
@@ -199,6 +199,7 @@ const createStyles = theme =>
       fontFamily: 'Poppins',
       fontSize: 13,
       lineHeight: 19.5,
+      color: '#999999',
     },
     subtitleText: {
       marginTop: 10,
