@@ -1,13 +1,14 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {Button, useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 const logoImg = require('../images/LogoWithName.png');
 
 const Welcome = props => {
   const theme = useTheme();
   const styles = createStyles(theme);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image source={logoImg} style={styles.logo} />
       <Text style={styles.title}>Let's get started!</Text>
       <Text style={styles.subtitle}>
@@ -34,7 +35,7 @@ const Welcome = props => {
         </View>
         <Text style={styles.loginText}>Are you a seller? Get here! </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

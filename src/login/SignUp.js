@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {
-  Appbar,
-  Button,
-  Checkbox,
-  IconButton,
-  TextInput,
-  useTheme,
-} from 'react-native-paper';
+import {Button, TextInput, useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
+const googleImg = require('../images/Google.png');
+const fbImg = require('../images/Facebook.png');
 
 const SignUp = props => {
   const theme = useTheme();
@@ -32,7 +28,7 @@ const SignUp = props => {
   };
 
   return (
-    <View style={styles.mainContainer}>
+    <SafeAreaView style={styles.mainContainer}>
       <AppBar props={props} />
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to Doctor Hub</Text>
@@ -98,27 +94,38 @@ const SignUp = props => {
           textColor="#FFFFFF">
           Sign Up
         </Button>
+
         <View style={styles.orDiv}>
           <View style={styles.line} />
           <Text style={styles.orText}>OR</Text>
           <View style={styles.line} />
         </View>
+
         <View style={styles.googleFbDiv}>
           <Button
             mode="outlined"
             onPress={() => null}
             style={[styles.googleFbBtn, styles.googleBtn]}
-            textColor="#000000">
+            textColor="#000000"
+            labelStyle={styles.googleFbLabel}
+            contentStyle={styles.googleFbContent}
+            compact={true}>
+            <Image source={googleImg} style={styles.googleFbImg} />
             With Google
           </Button>
           <Button
             mode="outlined"
             onPress={() => null}
             style={[styles.googleFbBtn, styles.fbBtn]}
-            textColor="#000000">
+            textColor="#000000"
+            labelStyle={styles.googleFbLabel}
+            contentStyle={styles.googleFbContent}
+            compact={true}>
+            <Image source={fbImg} style={styles.googleFbImg} />
             With Facebook
           </Button>
         </View>
+
         <Text style={[styles.signUpDetailText, styles.termInfo]}>
           By Clicking sign up you are agreeing to the{' '}
           <Text
@@ -131,7 +138,7 @@ const SignUp = props => {
           and the <Text style={styles.signUpText}>Privacy Policy</Text>
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -224,13 +231,28 @@ const createStyles = theme =>
       borderWidth: 1,
       borderColor: '#e6e6e6',
       backgroundColor: '#e9ebeb',
+      paddingVertical: 0,
+    },
+    googleFbLabel: {
       fontFamily: 'IBM Plex Sans',
-      fontSize: 13,
+      fontSize: 14,
       fontWeight: 300,
+      paddingVertical: 0,
+    },
+    googleFbContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+      paddingHorizontal: 6,
+    },
+    googleFbImg: {
+      width: 16,
+      height: 16,
     },
     signUpDetailText: {
       fontFamily: 'Poppins',
       fontSize: 13,
+      color: '#999999',
     },
     signUpText: {
       color: theme.colors.themeColor,
