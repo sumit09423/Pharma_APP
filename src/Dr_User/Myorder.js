@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Appbar, Text } from 'react-native-paper'
 
-const Myorder = () => {
+const Myorder = (props) => {
     return (
         <View>
             <Appbar.Header style={styles.appbar}>

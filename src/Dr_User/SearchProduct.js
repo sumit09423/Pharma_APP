@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Appbar, Searchbar, Text } from 'react-native-paper';
+import { Appbar, IconButton, Searchbar, Text } from 'react-native-paper';
 import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -65,7 +65,12 @@ const SearchProduct = props => {
                         {item.description}
                     </Text>
                 </View>
-                <Text style={styles.iconContainer}>h</Text>
+                <IconButton
+                    icon="chevron-right"
+                    size={24}
+                    onPress={() => {
+                    }}
+                />
             </View>
         </TouchableOpacity>
     );

@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, FlatList } from 'react-native';
-import { Appbar, Searchbar } from 'react-native-paper';
+import { Appbar, IconButton, Searchbar } from 'react-native-paper';
 
 const MultipleProduct = (props) => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -54,7 +54,13 @@ const MultipleProduct = (props) => {
                 </View>
             </View>
             <View style={styles.viewContainer}>
-                <Text>H</Text>
+                <IconButton
+                    icon="chevron-right"
+                    size={24}
+                    onPress={() => {
+                        // Handle button press
+                    }}
+                />
             </View>
         </TouchableOpacity>
     );

@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Appbar, IconButton } from 'react-native-paper';
 const productImage = require("../images/ProductImage1.png");
 
 const ProductDetails = (props) => {
@@ -21,8 +21,23 @@ const ProductDetails = (props) => {
                 />
             </View>
             <View style={styles.detailsContainer}>
-                <Text style={styles.title}>Propofol injection</Text>
-                <Text style={styles.subtitle}>Injections</Text>
+                <View style={styles.flexContainer}>
+                    <View>
+                        <Text style={styles.title}>Propofol injection</Text>
+                        <Text style={styles.subtitle}>Injections</Text>
+                    </View>
+                    <View>
+                        <IconButton
+                            icon="cards-heart-outline"
+                            size={24}
+                            onPress={() => {
+                                // Handle button press
+                            }}
+                        />
+                    </View>
+
+                </View>
+
                 <View style={styles.brandContainer}>
                     <Text style={styles.brandTitle}>Troyofol Brand name</Text>
                     <Text style={styles.brandName}>Troyaca</Text>
@@ -133,6 +148,11 @@ const styles = StyleSheet.create({
     otherText: {
         fontSize: 20,
     },
+    flexContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
+    }
 });
 
 export default ProductDetails;
