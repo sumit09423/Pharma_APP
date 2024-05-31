@@ -80,7 +80,7 @@ const Login = props => {
 
       <Button
         mode="outlined"
-        onPress={() => props.navigation.navigate('Login')}
+        onPress={() => props.navigation.navigate('Landing')}
         style={styles.LoginBtn}
         textColor="#FFFFFF">
         Log In

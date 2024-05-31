@@ -115,7 +115,7 @@ const Profile3 = props => {
 
           <Button
             mode="outlined"
-            onPress={() => {}}
+            onPress={() => props.navigation.navigate('Landing')}
             style={styles.LoginBtn}
             textColor="#FFFFFF">
             Done
