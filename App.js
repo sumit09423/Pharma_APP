@@ -29,97 +29,67 @@ const App = () => {
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{ title: '', headerShown: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SignUp"
           component={SignUp}
-          options={{
-            title: '',
-            headerStyle: {
-              // backgroundColor: 'transparent',
-              // elevation: 0,
-            },
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Verification"
           component={Verification}
-          options={{
-            title: '',
-            headerStyle: {
-              // backgroundColor: 'transparent',
-              // elevation: 0,
-            },
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Profile1"
           component={Profile}
-          options={{
-            title: '',
-            headerStyle: {
-              // backgroundColor: 'transparent',
-              // elevation: 0,
-            },
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Profile2"
           component={Profile2}
-          options={{
-            title: '',
-            headerStyle: {
-              // backgroundColor: 'transparent',
-              // elevation: 0,
-            },
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Profile3"
           component={Profile3}
-          options={{
-            title: '',
-            headerStyle: {
-              // backgroundColor: 'transparent',
-              // elevation: 0,
-            },
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Landing"
           component={Landing}
-          options={{ title: '', headerShown: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Category"
           component={Category}
-          options={{ title: '', headerShown: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SearchProduct"
           component={SearchProduct}
-          options={{ title: '', headerShown: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="MultipleProduct"
           component={MultipleProduct}
-          options={{ title: '', headerShown: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="ProductCategory"
           component={ProductCategory}
-          options={{ title: '', headerShown: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="ProductDetails"
           component={ProductDetails}
-          options={{ title: '', headerShown: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Myorder"
           component={Myorder}
-          options={{ title: '', headerShown: false }}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

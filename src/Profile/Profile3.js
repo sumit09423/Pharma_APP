@@ -1,15 +1,9 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {
-  Button,
-  Checkbox,
-  Chip,
-  IconButton,
-  Searchbar,
-  TextInput,
-  ToggleButton,
-  useTheme,
-} from 'react-native-paper';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Button, Checkbox, Chip, Searchbar, useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AppBar from '../components/AppBar';
 const logoImg = require('../images/Profile.png');
 
 const categoryData = [
@@ -65,62 +59,80 @@ const Profile3 = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.step}>Step 3 to 3</Text>
-      <Text style={styles.welcome}>Add Department of Doctor</Text>
-      <Text style={[styles.signUpDetailText, styles.subtitleText]}>
-        Update your profile to get the product details from seller.
-      </Text>
+    <SafeAreaView style={styles.mainContainer}>
+      <ScrollView>
+        <AppBar props={props} />
+        <View style={styles.container}>
+          <Text style={styles.step}>Step 3 to 3</Text>
+          <Text style={styles.welcome}>Add Department of Doctor</Text>
+          <Text style={[styles.signUpDetailText, styles.subtitleText]}>
+            Update your profile to get the product details from seller.
+          </Text>
 
-      <Searchbar
-        placeholder="Search Catagory"
-        onChangeText={setSearchQuery}
-        value={searchQuery}
-      />
-
-      <View style={styles.chipDiv}>
-        {Object.entries(checkedItems).map(([key, value], index) => {
-          if (value)
-            return (
-              <Chip
-                onClose={() => handleClose(key, value)}
-                compact={true}
-                key={index}
-                style={styles.chip}
-                textStyle={styles.chipText}>
-                {key}
-              </Chip>
-            );
-        })}
-      </View>
-
-      {categoryData?.map((item, index) => {
-        return (
-          <Checkbox.Item
-            label={item.label}
-            status={checkedItems[item.label] ? 'checked' : 'unchecked'}
-            onPress={() => handleChange(item.label)}
-            key={index}
+          <Searchbar
+            placeholder="Search Catagory"
+            onChangeText={setSearchQuery}
+            value={searchQuery}
+            style={styles.searchbar}
           />
-        );
-      })}
 
-      <Button
-        mode="outlined"
-        onPress={() => props.navigation.navigate('Profile2')}
-        style={styles.LoginBtn}
-        textColor="#FFFFFF">
-        Done
-      </Button>
-    </View>
+          <View style={styles.chipDiv}>
+            {Object.entries(checkedItems).map(([key, value], index) => {
+              if (value)
+                return (
+                  <Chip
+                    onClose={() => handleClose(key, value)}
+                    closeIcon={() => (
+                      <MaterialCommIcon
+                        name="close"
+                        size={20}
+                        color="#ffffff"
+                      />
+                    )}
+                    compact={true}
+                    key={index}
+                    style={styles.chip}
+                    textStyle={styles.chipText}>
+                    {key}
+                  </Chip>
+                );
+            })}
+          </View>
+
+          {categoryData?.map((item, index) => {
+            return (
+              <Checkbox.Item
+                label={item.label}
+                status={checkedItems[item.label] ? 'checked' : 'unchecked'}
+                onPress={() => handleChange(item.label)}
+                uncheckedColor="#D7D7D7"
+                color="#D7D7D7"
+                labelStyle={{fontFamily: 'Comfortaa', letterSpacing: -0.24}}
+                key={index}
+              />
+            );
+          })}
+
+          <Button
+            mode="outlined"
+            onPress={() => {}}
+            style={styles.LoginBtn}
+            textColor="#FFFFFF">
+            Done
+          </Button>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const createStyles = theme =>
   StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+      height: '100%',
+    },
     container: {
-      // display: 'flex',
-      // position: 'relative',
       flex: 1,
       paddingHorizontal: 32,
       backgroundColor: '#fbfbfb',
@@ -129,6 +141,8 @@ const createStyles = theme =>
       marginTop: 10,
       color: '#454545',
       fontSize: 12,
+      fontWeight: '600',
+      letterSpacing: -0.24,
     },
     welcome: {
       color: '#000000',
@@ -138,38 +152,20 @@ const createStyles = theme =>
       fontFamily: 'Comfortaa',
       letterSpacing: -0.24,
     },
-    outlineTextBox: {
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#B9B9B9',
+    searchbar: {
+      backgroundColor: '#F3F6F6',
     },
-    emailTextBox: {
-      paddingHorizontal: 6,
-      marginBottom: 15,
-    },
-    toggleDiv: {
-      marginTop: 16,
-      marginBottom: 55,
-      flexDirection: 'row',
-      justifyContent: 'center',
-    },
-    toggleBtn: {
-      borderColor: '#EAEAEA',
-      borderWidth: 1,
-      marginHorizontal: 15,
-      width: 60,
-      height: 60,
-      borderRadius: 10,
-    },
-
     chipDiv: {
       display: 'flex',
       flexDirection: 'row',
+      flexWrap: 'wrap',
       marginTop: 16,
       marginBottom: 24,
+      // overflow: 'auto',
     },
     chip: {
       marginRight: 7,
+      marginBottom: 7,
       backgroundColor: '#2BB1FD',
     },
     chipText: {
@@ -186,11 +182,13 @@ const createStyles = theme =>
       fontSize: 14,
       fontWeight: 700,
       marginTop: 12,
+      marginBottom: 24,
     },
     signUpDetailText: {
       fontFamily: 'Poppins',
       fontSize: 13,
       lineHeight: 19.5,
+      color: '#999999',
     },
     subtitleText: {
       marginTop: 10,

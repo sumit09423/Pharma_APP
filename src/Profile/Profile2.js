@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {
   Button,
-  Checkbox,
-  IconButton,
+  Icon,
   TextInput,
   ToggleButton,
   useTheme,
 } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AppBar from '../components/AppBar';
 
 const logoImg = require('../images/Profile.png');
 
@@ -35,106 +36,111 @@ const Profile2 = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.step}>Step 2 to 3</Text>
-      <Text style={styles.welcome}>Other Information</Text>
-      <Text style={[styles.signUpDetailText, styles.subtitleText]}>
-        Update your profile to get the product details from seller.
-      </Text>
+    <SafeAreaView style={styles.mainContainer}>
+      <AppBar props={props} />
+      <View style={styles.container}>
+        <Text style={styles.step}>Step 2 to 3</Text>
+        <Text style={styles.welcome}>Other Information</Text>
+        <Text style={[styles.signUpDetailText, styles.subtitleText]}>
+          Update your profile to get the product details from seller.
+        </Text>
 
-      <View style={styles.toggleDiv}>
-        <ToggleButton
-          icon={() => (
-            <Icon
-              name="doctor"
-              size={30}
-              color={toggle === 'male' ? '#ffffff' : '#b0b0b0'}
+        <View style={styles.toggleDiv}>
+          <ToggleButton
+            icon={() => (
+              <MaterialCommIcon
+                name="doctor"
+                size={30}
+                color={toggle === 'male' ? '#ffffff' : '#b0b0b0'}
+              />
+            )}
+            value="male"
+            status={toggle === 'male' ? 'checked' : 'unchecked'}
+            onPress={value => handleToggle('male')}
+            style={[
+              styles.toggleBtn,
+              {
+                backgroundColor:
+                  toggle === 'male' ? theme.colors.themeColor : 'white',
+              },
+            ]}
+          />
+          <ToggleButton
+            icon={() => (
+              <MaterialCommIcon
+                name="mother-nurse"
+                size={30}
+                color={toggle === 'female' ? '#ffffff' : '#b0b0b0'}
+              />
+            )}
+            value="female"
+            status={toggle === 'female' ? 'checked' : 'unchecked'}
+            onPress={value => handleToggle('female')}
+            style={[
+              styles.toggleBtn,
+              {
+                backgroundColor:
+                  toggle === 'female' ? theme.colors.themeColor : 'white',
+              },
+            ]}
+          />
+        </View>
+
+        <TextInput
+          mode="outlined"
+          value={formValues.fname}
+          onChangeText={value => handleChange('fname', value)}
+          placeholder="Birth Date"
+          style={styles.emailTextBox}
+          outlineColor="transparent"
+          outlineStyle={styles.outlineTextBox}
+          textColor="#818181"
+          placeholderTextColor="#818181"
+          left={
+            <TextInput.Icon
+              icon="calendar-month-outline"
+              color={theme.colors.themeColor}
             />
-          )}
-          value="male"
-          status={toggle === 'male' ? 'checked' : 'unchecked'}
-          onPress={value => handleToggle('male')}
-          style={[
-            styles.toggleBtn,
-            {
-              backgroundColor:
-                toggle === 'male' ? theme.colors.themeColor : 'white',
-            },
-          ]}
+          }
         />
-        <ToggleButton
-          icon={() => (
-            <Icon
-              name="mother-nurse"
-              size={30}
-              color={toggle === 'female' ? '#ffffff' : '#b0b0b0'}
+
+        <TextInput
+          mode="outlined"
+          value={formValues.lname}
+          onChangeText={value => handleChange('lname', value)}
+          placeholder="Address"
+          style={styles.emailTextBox}
+          outlineColor="transparent"
+          outlineStyle={styles.outlineTextBox}
+          textColor="#818181"
+          placeholderTextColor="#818181"
+          left={
+            <TextInput.Icon
+              icon="map-marker-outline"
+              color={theme.colors.themeColor}
             />
-          )}
-          value="female"
-          status={toggle === 'female' ? 'checked' : 'unchecked'}
-          onPress={value => handleToggle('female')}
-          style={[
-            styles.toggleBtn,
-            {
-              backgroundColor:
-                toggle === 'female' ? theme.colors.themeColor : 'white',
-            },
-          ]}
+          }
         />
+
+        <Button
+          mode="outlined"
+          onPress={() => props.navigation.navigate('Profile3')}
+          style={styles.LoginBtn}
+          textColor="#FFFFFF">
+          Continue <Icon source="arrow-right" color="#FFFFFF" size={18} />
+        </Button>
       </View>
-
-      <TextInput
-        mode="outlined"
-        value={formValues.fname}
-        onChangeText={value => handleChange('fname', value)}
-        placeholder="Birth Date"
-        style={styles.emailTextBox}
-        outlineColor="transparent"
-        outlineStyle={styles.outlineTextBox}
-        textColor="#818181"
-        placeholderTextColor="#818181"
-        left={
-          <TextInput.Icon
-            icon="calendar-month-outline"
-            color={theme.colors.themeColor}
-          />
-        }
-      />
-
-      <TextInput
-        mode="outlined"
-        value={formValues.lname}
-        onChangeText={value => handleChange('lname', value)}
-        placeholder="Address"
-        style={styles.emailTextBox}
-        outlineColor="transparent"
-        outlineStyle={styles.outlineTextBox}
-        textColor="#818181"
-        placeholderTextColor="#818181"
-        left={
-          <TextInput.Icon
-            icon="map-marker-outline"
-            color={theme.colors.themeColor}
-          />
-        }
-      />
-
-      <Button
-        mode="outlined"
-        onPress={() => props.navigation.navigate('Profile3')}
-        style={styles.LoginBtn}
-        textColor="#FFFFFF">
-        Continue <Icon source="arrow-right" color="white" size={18} />
-      </Button>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const createStyles = theme =>
   StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+    },
     container: {
       display: 'flex',
-      position: 'relative',
       flex: 1,
       paddingHorizontal: 32,
       backgroundColor: '#fbfbfb',
@@ -143,6 +149,8 @@ const createStyles = theme =>
       marginTop: 10,
       color: '#454545',
       fontSize: 12,
+      fontWeight: '600',
+      letterSpacing: -0.24,
     },
     welcome: {
       color: '#000000',
@@ -175,7 +183,6 @@ const createStyles = theme =>
       borderRadius: 10,
       fontSize: 35,
     },
-
     LoginBtn: {
       backgroundColor: '#0EC5C1',
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
@@ -192,6 +199,7 @@ const createStyles = theme =>
       fontFamily: 'Poppins',
       fontSize: 13,
       lineHeight: 19.5,
+      color: '#999999',
     },
     subtitleText: {
       marginTop: 10,
