@@ -1,5 +1,5 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import Welcome from './src/login';
 import Login from './src/login/Login';
@@ -24,12 +24,12 @@ const App = () => {
         <Stack.Screen
           name="Welcome"
           component={Welcome}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{title: '', headerShown: false}}
+          options={{ title: '', headerShown: false }}
         />
         <Stack.Screen
           name="SignUp"
@@ -89,7 +89,7 @@ const App = () => {
         <Stack.Screen
           name="Landing"
           component={Landing}
-          options={{title: '', headerShown: false}}
+          options={{ title: '', headerShown: false }}
         />
         <Stack.Screen
           name="Category"
