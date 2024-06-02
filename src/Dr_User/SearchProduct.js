@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Appbar, IconButton, Searchbar, Text } from 'react-native-paper';
+import React, {useState} from 'react';
+import {Appbar, IconButton, Searchbar, Text} from 'react-native-paper';
 import {
   FlatList,
   Image,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const SalesMan = require('../images/Medisine.png');
 
@@ -16,36 +16,43 @@ const SearchProduct = props => {
   const [searchQuery, setSearchQuery] = useState('');
   const data = [
     {
+      id: 1,
       title: 'Injectables',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'injectablesIcon',
     },
     {
+      id: 2,
       title: 'Sinusitis',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'sinusitisIcon',
     },
     {
+      id: 3,
       title: 'Tonsillitis',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'tonsillitisIcon',
     },
     {
+      id: 4,
       title: 'Mauris posuere ullamcorper',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'maurisIcon',
     },
     {
+      id: 5,
       title: 'Nullo blandit lectus',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'nulloIcon',
     },
     {
+      id: 6,
       title: 'Donec dopibus dignissim',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'donecIcon',
     },
     {
+      id: 7,
       title: 'Nunc non odio id',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'nuncIcon',
@@ -56,14 +63,14 @@ const SearchProduct = props => {
     item.title.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({item}) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('MultipleProduct', { item })}>
+      onPress={() => navigation.navigate('MultipleProduct', {item})}>
       <View style={styles.cardContainer}>
         <View style={styles.ImageView}>
           <Image
             source={SalesMan}
-            style={{ width: 40, height: 40, borderRadius: 20 }}
+            style={{width: 40, height: 40, borderRadius: 20}}
           />
         </View>
         <View style={styles.textcontainer}>
@@ -72,14 +79,13 @@ const SearchProduct = props => {
             {item.description}
           </Text>
         </View>
-        <IconButton icon="chevron-right" size={24} onPress={() => { }} />
+        <IconButton icon="chevron-right" size={24} onPress={() => {}} />
       </View>
     </TouchableOpacity>
   );
 
   return (
     <>
-
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={() => props.navigation.goBack()} />
         <Appbar.Content
@@ -90,7 +96,6 @@ const SearchProduct = props => {
         <Appbar.Action icon="dots-vertical" />
       </Appbar.Header>
       <View style={styles.container}>
-
         <View style={styles.titleContainer1}>
           <Searchbar
             placeholder="Search"
@@ -104,7 +109,6 @@ const SearchProduct = props => {
           data={filteredData}
           renderItem={renderItem}
           keyExtractor={item => item.id}
-          key={item => item.id}
         />
       </View>
     </>
@@ -113,7 +117,7 @@ const SearchProduct = props => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#fff"
+    backgroundColor: '#fff',
   },
   container: {
     flex: 1,
@@ -131,7 +135,7 @@ const styles = StyleSheet.create({
   searchBar: {
     marginBottom: 4,
     borderRadius: 12,
-    backgroundColor: "#F3F6F6",
+    backgroundColor: '#F3F6F6',
   },
   cardContainer: {
     backgroundColor: '#F5F5F9',
