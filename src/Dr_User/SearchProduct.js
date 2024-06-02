@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Appbar, IconButton, Searchbar, Text} from 'react-native-paper';
+import React, { useState } from 'react';
+import { Appbar, IconButton, Searchbar, Text } from 'react-native-paper';
 import {
   FlatList,
   Image,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const SalesMan = require('../images/Medisine.png');
 
@@ -56,14 +56,14 @@ const SearchProduct = props => {
     item.title.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('MultipleProduct', {item})}>
+      onPress={() => navigation.navigate('MultipleProduct', { item })}>
       <View style={styles.cardContainer}>
         <View style={styles.ImageView}>
           <Image
             source={SalesMan}
-            style={{width: 40, height: 40, borderRadius: 20}}
+            style={{ width: 40, height: 40, borderRadius: 20 }}
           />
         </View>
         <View style={styles.textcontainer}>
@@ -72,14 +72,15 @@ const SearchProduct = props => {
             {item.description}
           </Text>
         </View>
-        <IconButton icon="chevron-right" size={24} onPress={() => {}} />
+        <IconButton icon="chevron-right" size={24} onPress={() => { }} />
       </View>
     </TouchableOpacity>
   );
 
   return (
     <>
-      <Appbar.Header>
+
+      <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={() => props.navigation.goBack()} />
         <Appbar.Content
           title="Gynecologist Medicine"
@@ -88,8 +89,8 @@ const SearchProduct = props => {
         <Appbar.Action icon="magnify" />
         <Appbar.Action icon="dots-vertical" />
       </Appbar.Header>
-
       <View style={styles.container}>
+
         <View style={styles.titleContainer1}>
           <Searchbar
             placeholder="Search"
@@ -111,11 +112,13 @@ const SearchProduct = props => {
 };
 
 const styles = StyleSheet.create({
+  header: {
+    backgroundColor: "#fff"
+  },
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    paddingVertical: 8,
-    padding: 20,
+    paddingHorizontal: 20,
   },
   containerMain: {
     flex: 1,
@@ -126,8 +129,9 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   searchBar: {
-    marginBottom: 12,
+    marginBottom: 4,
     borderRadius: 12,
+    backgroundColor: "#F3F6F6",
   },
   cardContainer: {
     backgroundColor: '#F5F5F9',

@@ -17,7 +17,7 @@ const Category = () => {
 
     return (
         <View style={styles.container}>
-            <Appbar.Header>
+            <Appbar.Header style={styles.header} >
                 <View style={styles.titleContainer}>
                     <Text style={styles.text1}>
                         welcome back
@@ -102,6 +102,9 @@ const Category = () => {
 
 const createStyles = theme =>
     StyleSheet.create({
+        header: {
+            backgroundColor: "#fff"
+        },
         text1: {
             color: "#9C9C9C",
             fontFamily: "Comfortaa"
@@ -130,7 +133,7 @@ const createStyles = theme =>
             height: 95,
             justifyContent: 'center',
             alignItems: 'center',
-            paddingHorizontal: 20,
+            paddingHorizontal: 10,
             borderRadius: 15,
             marginVertical: 6
         },
@@ -139,7 +142,7 @@ const createStyles = theme =>
             borderRadius: 20
         },
         cardText: {
-            paddingHorizontal: 20
+            paddingHorizontal: 16
         },
         cardContainer: {
             backgroundColor: "#E9F4F4",

@@ -17,7 +17,7 @@ const Landing = () => {
 
     return (
         <View style={styles.container}>
-            <Appbar.Header>
+            <Appbar.Header style={styles.header}>
                 <View style={styles.titleContainer}>
                     <Text style={styles.text1}>
                         welcome back
@@ -103,6 +103,9 @@ const Landing = () => {
 
 const createStyles = theme =>
     StyleSheet.create({
+        header: {
+            backgroundColor: "#fff"
+        },
         text1: {
             color: "#9C9C9C",
             fontFamily: "Comfortaa"

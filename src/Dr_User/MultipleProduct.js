@@ -153,7 +153,8 @@ const styles = StyleSheet.create({
         fontSize: 8
     },
     searchBar: {
-        borderRadius: 20
+        borderRadius: 20,
+        backgroundColor: "#F3F6F6",
     }
 });
 
