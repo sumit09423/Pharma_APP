@@ -3,7 +3,7 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Appbar, Card, IconButton, Searchbar, Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 const SalesMan = require('../images/SalesMan.png');
-const UserAvailable = require('../images/UserAvailable.png');
+const UserAvailable = require('../images/user2.png');
 
 const Category = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -41,7 +41,7 @@ const Category = () => {
                 <Card.Title
                     title="Gynecologist"
                     subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
-                    titleStyle={[styles.cardText, { fontSize: 24 }]}
+                    titleStyle={[styles.cardText, { fontSize: 22 }]}
                     subtitleNumberOfLines={null}
                     subtitleVariant="bodyMedium"
                     subtitleStyle={[styles.cardText, { lineHeight: 18, color: "#767575" }]}
@@ -51,6 +51,7 @@ const Category = () => {
                             style={{ width: 65, height: 65, borderRadius: 20 }}
                         />
                     )}
+                    leftStyle={styles.leftStyle}
                 />
             </TouchableOpacity>
 
@@ -58,7 +59,7 @@ const Category = () => {
                 <Card.Title
                     title="Pediatrician"
                     subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
-                    titleStyle={[styles.cardText, { fontSize: 24 }]}
+                    titleStyle={[styles.cardText, { fontSize: 22 }]}
                     subtitleNumberOfLines={null}
                     subtitleVariant="bodyMedium"
                     subtitleStyle={[styles.cardText, { lineHeight: 18, color: "#767575" }]}
@@ -68,6 +69,7 @@ const Category = () => {
                             style={{ width: 65, height: 65, borderRadius: 20 }}
                         />
                     )}
+                    leftStyle={styles.leftStyle}
                 />
             </TouchableOpacity>
 
@@ -75,7 +77,7 @@ const Category = () => {
                 <Card.Title
                     title="GP Doctors"
                     subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
-                    titleStyle={[styles.cardText, { fontSize: 24 }]}
+                    titleStyle={[styles.cardText, { fontSize: 22 }]}
                     subtitleNumberOfLines={null}
                     subtitleVariant="bodyMedium"
                     subtitleStyle={[styles.cardText, { lineHeight: 18, color: "#767575" }]}
@@ -85,6 +87,7 @@ const Category = () => {
                             style={{ width: 65, height: 65, borderRadius: 20 }}
                         />
                     )}
+                    leftStyle={styles.leftStyle}
                 />
             </TouchableOpacity>
             <View style={styles.btncontainer}>
@@ -112,7 +115,7 @@ const createStyles = theme =>
         container: {
             flex: 1,
             backgroundColor: "#FFFFFF",
-            padding: 16
+            padding: 20
         },
         titleContainer: {
             flex: 1,
@@ -124,7 +127,7 @@ const createStyles = theme =>
             marginBottom: 6
         },
         cardCommonContainer: {
-            height: 123,
+            height: 95,
             justifyContent: 'center',
             alignItems: 'center',
             paddingHorizontal: 20,
@@ -151,15 +154,18 @@ const createStyles = theme =>
         },
         button: {
             backgroundColor: '#00c4cc',
-            paddingVertical: 10,
-            paddingHorizontal: 20,
             borderRadius: 30,
+            paddingVertical: 13,
+            paddingHorizontal: 40,
         },
         buttonText: {
             color: '#ffffff',
             fontSize: 20,
             fontWeight: 'bold',
         },
+        leftStyle: {
+            paddingRight: 50
+        }
     });
 
 export default Category;
