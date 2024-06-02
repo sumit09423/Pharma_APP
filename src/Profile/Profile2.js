@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {
   Button,
   Icon,
@@ -38,7 +38,7 @@ const Profile2 = props => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <AppBar props={props} />
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.step}>Step 2 to 3</Text>
         <Text style={styles.welcome}>Other Information</Text>
         <Text style={[styles.signUpDetailText, styles.subtitleText]}>
@@ -129,7 +129,7 @@ const Profile2 = props => {
           textColor="#FFFFFF">
           Continue <Icon source="arrow-right" color="#FFFFFF" size={18} />
         </Button>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -194,6 +194,7 @@ const createStyles = theme =>
       fontSize: 14,
       fontWeight: 700,
       marginTop: 12,
+      marginBottom: 24,
     },
     signUpDetailText: {
       fontFamily: 'Poppins',

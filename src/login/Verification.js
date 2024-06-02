@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
@@ -26,7 +26,7 @@ const Verification = props => {
     <SafeAreaView style={styles.mainContainer}>
       <AppBar props={props} />
 
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.welcome}>Verification</Text>
         <Text style={[styles.signUpDetailText, styles.subtitleText]}>
           Please check you message for a five-digit security code and enter it
@@ -115,7 +115,7 @@ const Verification = props => {
           textColor="#FFFFFF">
           Verify <Icon source="arrow-right" color="white" size={18} />
         </Button>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -166,6 +166,7 @@ const createStyles = theme =>
       fontSize: 14,
       fontWeight: 700,
       marginTop: 12,
+      marginBottom: 24,
     },
     signUpDetailText: {
       fontFamily: 'Poppins',

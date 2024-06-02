@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Button, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
@@ -30,7 +30,7 @@ const SignUp = props => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <AppBar props={props} />
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.welcome}>Welcome to Doctor Hub</Text>
         <Text style={[styles.signUpDetailText, styles.subtitleText]}>
           Already have an account ?{' '}
@@ -137,7 +137,7 @@ const SignUp = props => {
           </Text>{' '}
           and the <Text style={styles.signUpText}>Privacy Policy</Text>
         </Text>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -262,6 +262,7 @@ const createStyles = theme =>
       width: 283,
       textAlign: 'center',
       lineHeight: 19.5,
+      marginBottom: 24,
     },
     subtitleText: {
       marginTop: 10,

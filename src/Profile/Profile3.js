@@ -62,7 +62,7 @@ const Profile3 = props => {
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView>
         <AppBar props={props} />
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <Text style={styles.step}>Step 3 to 3</Text>
           <Text style={styles.welcome}>Add Department of Doctor</Text>
           <Text style={[styles.signUpDetailText, styles.subtitleText]}>
@@ -120,7 +120,7 @@ const Profile3 = props => {
             textColor="#FFFFFF">
             Done
           </Button>
-        </View>
+        </ScrollView>
       </ScrollView>
     </SafeAreaView>
   );

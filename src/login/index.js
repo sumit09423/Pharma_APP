@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 const logoImg = require('../images/LogoWithName.png');
@@ -17,21 +17,23 @@ const Welcome = props => {
       <View style={styles.innerDiv}>
         <Text>...</Text>
         <View style={styles.btnDiv}>
-          <Button
-            mode="outlined"
+          <TouchableOpacity
             onPress={() => props.navigation.navigate('Login')}
             style={[styles.loginBtn, styles.btn]}
-            textColor="#FFFFFF">
-            Login
-          </Button>
-          <Button
-            mode="contained"
+            activeOpacity={0.8}>
+            <Text style={{color: '#FFFFFF'}}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => props.navigation.navigate('SignUp')}
             style={[styles.signupBtn, styles.btn]}
-            textColor={theme.colors.themeColor}
-            buttonColor="#FFFFFF">
-            Sign Up
-          </Button>
+            activeOpacity={0.8}>
+            <Text
+              style={{
+                color: theme.colors.themeColor,
+              }}>
+              Sign Up
+            </Text>
+          </TouchableOpacity>
         </View>
         <Text style={styles.loginText}>Are you a seller? Get here! </Text>
       </View>
@@ -93,6 +95,12 @@ const createStyles = theme =>
       borderRadius: 8,
       borderWidth: 1,
       borderColor: '#F0FEFE',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    signupBtn: {
+      backgroundColor: '#FFFFFF',
     },
     loginText: {
       color: '#FFFFFF',

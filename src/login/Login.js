@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Button, Checkbox, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 const logoImg = require('../images/Logo.png');
@@ -29,102 +36,88 @@ const Login = props => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image source={logoImg} style={styles.logo} />
-      <Text style={styles.welcome}>Welcome back!</Text>
+      <ScrollView contentContainerStyle={styles.scrollViewDiv}>
+        <Image source={logoImg} style={styles.logo} />
+        <Text style={styles.welcome}>Welcome back!</Text>
+        <TextInput
+          mode="outlined"
+          value={formValues.email}
+          onChangeText={value => handleChange('email', value)}
+          placeholder="Email"
+          style={styles.emailTextBox}
+          outlineColor="transparent"
+          outlineStyle={styles.outlineTextBox}
+          textColor="#818181"
+          placeholderTextColor="#818181"
+        />
 
-      <TextInput
-        mode="outlined"
-        value={formValues.email}
-        onChangeText={value => handleChange('email', value)}
-        placeholder="Email"
-        style={styles.emailTextBox}
-        outlineColor="transparent"
-        outlineStyle={styles.outlineTextBox}
-        textColor="#818181"
-        placeholderTextColor="#818181"
-      />
+        <TextInput
+          mode="outlined"
+          value={formValues.password}
+          onChangeText={value => handleChange('password', value)}
+          placeholder="Password"
+          style={styles.emailTextBox}
+          outlineColor="transparent"
+          outlineStyle={styles.outlineTextBox}
+          textColor="#818181"
+          placeholderTextColor="#818181"
+          secureTextEntry={secureTextEntry}
+          right={
+            <TextInput.Icon
+              icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
+              onPress={toggleSecureTextEntry}
+            />
+          }
+        />
 
-      <TextInput
-        mode="outlined"
-        value={formValues.password}
-        onChangeText={value => handleChange('password', value)}
-        placeholder="Password"
-        style={styles.emailTextBox}
-        outlineColor="transparent"
-        outlineStyle={styles.outlineTextBox}
-        textColor="#818181"
-        placeholderTextColor="#818181"
-        secureTextEntry={secureTextEntry}
-        right={
-          <TextInput.Icon
-            icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
-            onPress={toggleSecureTextEntry}
-          />
-        }
-      />
-
-      <View style={styles.innerDiv}>
-        <View style={styles.rpDiv}>
-          <Checkbox
-            status={checked ? 'checked' : 'unchecked'}
-            onPress={() => {
-              setChecked(!checked);
-            }}
-            uncheckedColor="#D7D7D7"
-            color="#D7D7D7"
-          />
-          <Text style={styles.rpText}>Remember password</Text>
+        <View style={styles.innerDiv}>
+          <View style={styles.rpDiv}>
+            <Checkbox
+              status={checked ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setChecked(!checked);
+              }}
+              uncheckedColor="#D7D7D7"
+              color="#D7D7D7"
+            />
+            <Text style={styles.rpText}>Remember password</Text>
+          </View>
+          <Text style={styles.fpText}>Forgot password?</Text>
         </View>
-        <Text style={styles.fpText}>Forgot password?</Text>
-      </View>
 
-      <Button
-        mode="outlined"
-        onPress={() => props.navigation.navigate('Landing')}
-        style={styles.LoginBtn}
-        textColor="#FFFFFF">
-        Log In
-      </Button>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('Landing')}
+          style={styles.LoginBtn}
+          activeOpacity={0.8}>
+          <Text style={styles.loginText}>Log In</Text>
+        </TouchableOpacity>
 
-      <View style={styles.orDiv}>
-        <View style={styles.line} />
-        <Text style={styles.orText}>OR</Text>
-        <View style={styles.line} />
-      </View>
+        <View style={styles.orDiv}>
+          <View style={styles.line} />
+          <Text style={styles.orText}>OR</Text>
+          <View style={styles.line} />
+        </View>
 
-      <View style={styles.googleFbDiv}>
-        <Button
-          mode="outlined"
-          onPress={() => null}
-          style={[styles.googleFbBtn, styles.googleBtn]}
-          textColor="#000000"
-          labelStyle={styles.googleFbLabel}
-          contentStyle={styles.googleFbContent}
-          compact={true}>
-          <Image source={googleImg} style={styles.googleFbImg} />
-          With Google
-        </Button>
-        <Button
-          mode="outlined"
-          onPress={() => null}
-          style={[styles.googleFbBtn, styles.fbBtn]}
-          textColor="#000000"
-          labelStyle={styles.googleFbLabel}
-          contentStyle={styles.googleFbContent}
-          compact={true}>
-          <Image source={fbImg} style={styles.googleFbImg} />
-          With Facebook
-        </Button>
-      </View>
+        <View style={styles.googleFbDiv}>
+          <TouchableOpacity onPress={() => null} style={[styles.googleFbBtn]}>
+            <Image source={googleImg} style={styles.googleFbImg} />
+            <Text style={styles.googleFbLabel}>With Google</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => null} style={[styles.googleFbBtn]}>
+            <Image source={fbImg} style={styles.googleFbImg} />
+            <Text style={styles.googleFbLabel}>With Facebook</Text>
+          </TouchableOpacity>
+        </View>
 
-      <Text style={styles.signUpDetailText}>
-        Don't have an account{' '}
-        <Text
-          style={styles.signUpText}
-          onPress={() => props.navigation.navigate('SignUp')}>
-          Sign Up
+        <Text style={styles.signUpDetailText}>
+          Don't have an account{' '}
+          <Text
+            style={styles.signUpText}
+            onPress={() => props.navigation.navigate('SignUp')}>
+            Sign Up
+          </Text>
         </Text>
-      </Text>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -132,12 +125,12 @@ const Login = props => {
 const createStyles = theme =>
   StyleSheet.create({
     container: {
-      display: 'flex',
-      alignItems: 'center',
-      position: 'relative',
       flex: 1,
-      paddingHorizontal: 32,
       backgroundColor: '#fbfbfb',
+    },
+    scrollViewDiv: {
+      paddingHorizontal: 32,
+      alignItems: 'center',
     },
     logo: {
       marginTop: 88,
@@ -188,12 +181,16 @@ const createStyles = theme =>
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 5,
+      paddingVertical: 16,
       borderRadius: 10,
+      marginTop: 12,
+    },
+    loginText: {
+      textAlign: 'center',
       fontFamily: 'Comfortaa',
       fontSize: 14,
-      fontWeight: 700,
-      marginTop: 12,
+      fontWeight: '600',
+      color: '#FFFFFF',
     },
     orDiv: {
       flexDirection: 'row',
@@ -222,28 +219,27 @@ const createStyles = theme =>
       borderColor: '#e6e6e6',
       backgroundColor: '#e9ebeb',
       paddingVertical: 0,
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 18,
+      paddingVertical: 11,
     },
     googleFbLabel: {
       fontFamily: 'IBM Plex Sans',
       fontSize: 14,
-      fontWeight: 300,
-      paddingVertical: 0,
-    },
-    googleFbContent: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-evenly',
-      paddingHorizontal: 6,
+      fontWeight: '300',
+      paddingLeft: 10,
     },
     googleFbImg: {
-      width: 16,
-      height: 16,
+      width: 24,
+      height: 24,
     },
     signUpDetailText: {
       marginTop: 29,
       fontFamily: 'Poppins',
       fontSize: 13,
       color: '#999999',
+      marginBottom: 24,
     },
     signUpText: {
       color: theme.colors.themeColor,
