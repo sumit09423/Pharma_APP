@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Button, Checkbox, Chip, Searchbar, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -113,13 +119,12 @@ const Profile3 = props => {
             );
           })}
 
-          <Button
+          <TouchableOpacity
             mode="outlined"
             onPress={() => props.navigation.navigate('Landing')}
-            style={styles.LoginBtn}
-            textColor="#FFFFFF">
-            Done
-          </Button>
+            style={styles.LoginBtn}>
+            <Text style={{color: '#FFFFFF'}}>Done</Text>
+          </TouchableOpacity>
         </ScrollView>
       </ScrollView>
     </SafeAreaView>
@@ -176,13 +181,15 @@ const createStyles = theme =>
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 5,
+      paddingVertical: 16,
       borderRadius: 10,
       fontFamily: 'Comfortaa',
       fontSize: 14,
       fontWeight: 700,
       marginTop: 12,
       marginBottom: 24,
+      flexDirection: 'row',
+      justifyContent: 'center',
     },
     signUpDetailText: {
       fontFamily: 'Poppins',

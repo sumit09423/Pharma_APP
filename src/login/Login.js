@@ -99,11 +99,17 @@ const Login = props => {
         </View>
 
         <View style={styles.googleFbDiv}>
-          <TouchableOpacity onPress={() => null} style={[styles.googleFbBtn]}>
+          <TouchableOpacity
+            onPress={() => null}
+            style={[styles.googleFbBtn]}
+            activeOpacity={0.8}>
             <Image source={googleImg} style={styles.googleFbImg} />
             <Text style={styles.googleFbLabel}>With Google</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => null} style={[styles.googleFbBtn]}>
+          <TouchableOpacity
+            onPress={() => null}
+            style={[styles.googleFbBtn]}
+            activeOpacity={0.8}>
             <Image source={fbImg} style={styles.googleFbImg} />
             <Text style={styles.googleFbLabel}>With Facebook</Text>
           </TouchableOpacity>
@@ -218,17 +224,17 @@ const createStyles = theme =>
       borderWidth: 1,
       borderColor: '#e6e6e6',
       backgroundColor: '#e9ebeb',
-      paddingVertical: 0,
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: 18,
-      paddingVertical: 11,
+      paddingHorizontal: 9,
+      paddingVertical: 7,
     },
     googleFbLabel: {
       fontFamily: 'IBM Plex Sans',
       fontSize: 14,
       fontWeight: '300',
       paddingLeft: 10,
+      color: '#000000',
     },
     googleFbImg: {
       width: 24,

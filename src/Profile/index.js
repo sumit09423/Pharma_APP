@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
@@ -84,13 +91,13 @@ const Profile = props => {
           placeholderTextColor="#818181"
         />
 
-        <Button
-          mode="outlined"
+        <TouchableOpacity
           onPress={() => props.navigation.navigate('Profile2')}
           style={styles.LoginBtn}
-          textColor="#FFFFFF">
-          Continue <Icon source="arrow-right" color="white" size={18} />
-        </Button>
+          activeOpacity={0.8}>
+          <Text style={{color: '#FFFFFF'}}>Continue</Text>
+          <Icon source="arrow-right" color="white" size={18} />
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -144,13 +151,15 @@ const createStyles = theme =>
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 5,
+      paddingVertical: 16,
       borderRadius: 10,
       fontFamily: 'Comfortaa',
       fontSize: 14,
       fontWeight: 700,
       marginTop: 12,
       marginBottom: 24,
+      flexDirection: 'row',
+      justifyContent: 'center',
     },
     signUpDetailText: {
       fontFamily: 'Poppins',

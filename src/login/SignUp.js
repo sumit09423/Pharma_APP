@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Button, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
@@ -87,13 +94,12 @@ const SignUp = props => {
           }
         />
 
-        <Button
-          mode="outlined"
+        <TouchableOpacity
           onPress={() => props.navigation.navigate('Verification')}
           style={styles.LoginBtn}
-          textColor="#FFFFFF">
-          Sign Up
-        </Button>
+          activeOpacity={0.8}>
+          <Text style={styles.loginText}>Sign Up</Text>
+        </TouchableOpacity>
 
         <View style={styles.orDiv}>
           <View style={styles.line} />
@@ -102,40 +108,26 @@ const SignUp = props => {
         </View>
 
         <View style={styles.googleFbDiv}>
-          <Button
-            mode="outlined"
+          <TouchableOpacity
             onPress={() => null}
-            style={[styles.googleFbBtn, styles.googleBtn]}
-            textColor="#000000"
-            labelStyle={styles.googleFbLabel}
-            contentStyle={styles.googleFbContent}
-            compact={true}>
+            style={[styles.googleFbBtn]}
+            activeOpacity={0.8}>
             <Image source={googleImg} style={styles.googleFbImg} />
-            With Google
-          </Button>
-          <Button
-            mode="outlined"
+            <Text style={styles.googleFbLabel}>With Google</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => null}
-            style={[styles.googleFbBtn, styles.fbBtn]}
-            textColor="#000000"
-            labelStyle={styles.googleFbLabel}
-            contentStyle={styles.googleFbContent}
-            compact={true}>
+            style={[styles.googleFbBtn]}
+            activeOpacity={0.8}>
             <Image source={fbImg} style={styles.googleFbImg} />
-            With Facebook
-          </Button>
+            <Text style={styles.googleFbLabel}>With Facebook</Text>
+          </TouchableOpacity>
         </View>
 
         <Text style={[styles.signUpDetailText, styles.termInfo]}>
-          By Clicking sign up you are agreeing to the{' '}
-          <Text
-            style={[
-              styles.signUpText,
-              {paddingLeft: 4, marginLeft: 5, marginTop: 20},
-            ]}>
-            Terms of use
-          </Text>{' '}
-          and the <Text style={styles.signUpText}>Privacy Policy</Text>
+          By Clicking sign up you are agreeing to the {'\n'}
+          <Text style={[styles.signUpText]}>Terms of use</Text> and the{' '}
+          <Text style={styles.signUpText}>Privacy Policy</Text>
         </Text>
       </ScrollView>
     </SafeAreaView>
@@ -197,12 +189,16 @@ const createStyles = theme =>
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 5,
+      paddingVertical: 16,
       borderRadius: 10,
+      marginTop: 12,
+    },
+    loginText: {
+      textAlign: 'center',
       fontFamily: 'Comfortaa',
       fontSize: 14,
-      fontWeight: 700,
-      marginTop: 12,
+      fontWeight: '600',
+      color: '#FFFFFF',
     },
     orDiv: {
       flexDirection: 'row',
@@ -231,23 +227,21 @@ const createStyles = theme =>
       borderWidth: 1,
       borderColor: '#e6e6e6',
       backgroundColor: '#e9ebeb',
-      paddingVertical: 0,
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 9,
+      paddingVertical: 7,
     },
     googleFbLabel: {
       fontFamily: 'IBM Plex Sans',
       fontSize: 14,
-      fontWeight: 300,
-      paddingVertical: 0,
-    },
-    googleFbContent: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-evenly',
-      paddingHorizontal: 6,
+      fontWeight: '300',
+      paddingLeft: 10,
+      color: '#000000',
     },
     googleFbImg: {
-      width: 16,
-      height: 16,
+      width: 24,
+      height: 24,
     },
     signUpDetailText: {
       fontFamily: 'Poppins',
