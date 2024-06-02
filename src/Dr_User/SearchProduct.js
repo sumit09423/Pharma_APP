@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#FFFFFF",
         paddingVertical: 8,
-        padding: 16
+        padding: 20
     },
     containerMain: {
         flex: 1,
@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12
     },
     title: {
-        fontSize: 14,
-        fontWeight: '400',
+        fontSize: 15,
+        fontWeight: "bold",
         fontFamily: "Comfortaa"
     },
     description: {

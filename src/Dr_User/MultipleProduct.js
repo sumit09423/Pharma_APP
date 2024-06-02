@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
     productTitle: {
         fontSize: 16,
         fontWeight: 'bold',
-        borderRadius: 4
+        borderRadius: 4,
+        color: "#000"
     },
     productSubtitle: {
         color: '#666',
