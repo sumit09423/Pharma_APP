@@ -122,7 +122,8 @@ const Profile3 = props => {
           <TouchableOpacity
             mode="outlined"
             onPress={() => props.navigation.navigate('Landing')}
-            style={styles.LoginBtn}>
+            style={styles.LoginBtn}
+            activeOpacity={0.8}>
             <Text style={{color: '#FFFFFF'}}>Done</Text>
           </TouchableOpacity>
         </ScrollView>
