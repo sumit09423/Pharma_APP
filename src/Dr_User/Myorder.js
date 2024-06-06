@@ -16,47 +16,43 @@ const Myorder = (props) => {
     const total = orderTotal - itemDiscount;
 
     const renderItem = ({ item }) => (
-
-        <View style={styles.productContainer}>
+        <View style={styles.productContainer} >
             <View style={styles.imgcontainer}>
                 <Image source={item.srcCode} style={styles.productImage} />
             </View>
             <View style={styles.productDetails}>
-                <View style={styles.textContainer}>
-                    <Text style={styles.productName} numberOfLines={1} >{item.name}</Text>
-                    {/* <IconButton
-                        icon="delete-outline"
-                        size={18}
-                        onPress={() => {
-                            // Handle button press
-                        }}
-                    /> */}
-                </View>
-
-
-                <Text style={styles.productDescription}>{item.description}</Text>
-                <View style={styles.PriceView}>
-                    <Text style={styles.productPrice}>Price: ₹{item.price}</Text>
-                </View>
-                <View>
+                <View style={styles.childcontainer}>
+                    <View >
+                        <Text style={styles.productName} >{item.name}</Text>
+                        <Text style={styles.productDescription}>{item.description}</Text>
+                    </View>
                     <View>
+                        <IconButton
+                            icon="delete-outline"
+                            size={18}
+                        />
+                    </View>
+                </View>
+                <View style={styles.cartContainer}>
+                    <View>
+                        <Text style={styles.productPrice}>Price: ₹{item.price}</Text>
                         <Text style={styles.productQty}>Qty: {item.qty}</Text>
                     </View>
                     <View style={styles.inccontainer}>
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button1}>
                             <Text style={styles.buttonText}>−</Text>
                         </TouchableOpacity>
                         <View style={styles.countContainer}>
                             <Text style={styles.countText}>1</Text>
                         </View>
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button1}>
                             <Text style={styles.buttonText}>+</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
-        </View>
 
+        </View>
     );
     return (
         <View style={styles.container} >
@@ -108,7 +104,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginHorizontal: 8,
         marginVertical: 8,
-        borderRadius: 12,
+        borderRadius: 8,
         borderBottomColor: '#ccc',
         backgroundColor: "#F9F9F9",
         paddingHorizontal: 14,
@@ -123,15 +119,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#F3F6F6",
     },
     productImage: {
-        width: 110,
-        height: 90,
+        width: 95,
+        height: 85,
         borderRadius: 12
     },
     productDetails: {
         paddingHorizontal: 14,
         flex: 1,
-        // justifyContent: "space-between"
-        rowGap: 8
+        flexDirection: "column"
 
     },
     productName: {
@@ -172,10 +167,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between"
     },
-    textContainer: {
-        display: "flex",
-        flexDirection: "row",
-    },
     sectionContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -192,35 +183,42 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#FFFFFF',
-        fontSize: 20,
+        fontSize: 158,
     },
     inccontainer: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#e0f7f9',
         borderRadius: 25,
-        padding: 5,
+        padding: 2,
     },
-    button: {
+    button1: {
         backgroundColor: '#00bcd4',
         borderRadius: 20,
-        width: 40,
-        height: 40,
+        width: 30,
+        height: 30,
         justifyContent: 'center',
         alignItems: 'center',
     },
     buttonText: {
         color: 'white',
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: 'bold',
     },
     countContainer: {
-        marginHorizontal: 20,
+        marginHorizontal: 16,
     },
     countText: {
-        fontSize: 24,
+        fontSize: 18,
         fontWeight: 'bold',
     },
+    childcontainer: {
+        flexDirection: "row"
+    },
+    cartContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between"
+    }
 
 })
 
