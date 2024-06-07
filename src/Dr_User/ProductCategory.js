@@ -52,7 +52,9 @@ const ProductCategory = (props) => {
     const renderItem = ({ item }) => (
 
         <View style={styles.productContainer}>
-            <Image source={item.srcCode} style={styles.productImage} />
+            <View style={styles.imgcontainer}>
+                <Image source={item.srcCode} style={styles.productImage} />
+            </View>
             <View style={styles.productDetails}>
                 <Text style={styles.productName} numberOfLines={1} >{item.name}</Text>
                 <Text style={styles.productDescription}>{item.description}</Text>
@@ -65,7 +67,7 @@ const ProductCategory = (props) => {
 
 
                 <TouchableOpacity style={styles.addToCartButton} onPress={() => navigation.navigate('ProductDetails', { item })} >
-                    <Button style={styles.addToCartText} textColor='#FFFFFF' size="sm">Add to Cart</Button>
+                    <Text style={styles.addToCartText} textColor='#FFFFFF'>Add to Cart</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -108,12 +110,13 @@ const styles = StyleSheet.create({
     },
     productContainer: {
         flexDirection: 'row',
-        padding: 8,
         marginHorizontal: 12,
         marginVertical: 8,
         borderRadius: 12,
         borderBottomColor: '#ccc',
         backgroundColor: "#F9F9F9",
+        paddingHorizontal: 14,
+        paddingVertical: 8
     },
     searchContainer: {
         backgroundColor: "#ffffff",
@@ -121,15 +124,17 @@ const styles = StyleSheet.create({
     searchBar: {
         borderRadius: 20,
         marginHorizontal: 16,
+        backgroundColor: "#F3F6F6",
     },
     productImage: {
-        width: 130,
-        height: 100,
+        width: 100,
+        height: 105,
         borderRadius: 12
     },
     productDetails: {
-        paddingHorizontal: 8,
-        flex: 1
+        paddingHorizontal: 14,
+        flex: 1,
+
     },
     productName: {
         fontSize: 14,
@@ -154,16 +159,24 @@ const styles = StyleSheet.create({
     addToCartButton: {
         backgroundColor: '#0ec5c1',
         borderRadius: 5,
-        marginTop: 5,
-        width: 110
+        marginTop: 3,
+        width: 110,
+        paddingHorizontal: 18,
+        paddingVertical: 7,
+
+
     },
     addToCartText: {
         color: "#FFFFFF",
+        fontWeight: "bold"
     },
     PriceView: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between"
+    },
+    imgcontainer: {
+
     }
 });
 

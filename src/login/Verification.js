@@ -1,10 +1,16 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
 
-const Verification = props => {
+const Verification = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [formValues, setFormValues] = useState({
@@ -24,9 +30,13 @@ const Verification = props => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <AppBar props={props} />
+      <AppBar
+        navigation={navigation}
+        backBordered={true}
+        actionButton={false}
+      />
 
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.welcome}>Verification</Text>
         <Text style={[styles.signUpDetailText, styles.subtitleText]}>
           Please check you message for a five-digit security code and enter it
@@ -108,14 +118,14 @@ const Verification = props => {
           <Text style={[styles.signUpText]}>Send again</Text>
         </Text>
 
-        <Button
-          mode="outlined"
-          onPress={() => props.navigation.navigate('Profile1')}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Profile1')}
           style={styles.LoginBtn}
-          textColor="#FFFFFF">
-          Verify <Icon source="arrow-right" color="white" size={18} />
-        </Button>
-      </View>
+          activeOpacity={0.8}>
+          <Text style={{color: '#FFFFFF'}}>Verify</Text>
+          <Icon source="arrow-right" color="white" size={18} />
+        </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -160,12 +170,15 @@ const createStyles = theme =>
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 5,
+      paddingVertical: 16,
       borderRadius: 10,
       fontFamily: 'Comfortaa',
       fontSize: 14,
       fontWeight: 700,
       marginTop: 12,
+      marginBottom: 24,
+      flexDirection: 'row',
+      justifyContent: 'center',
     },
     signUpDetailText: {
       fontFamily: 'Poppins',

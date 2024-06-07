@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {
   Button,
   Icon,
@@ -13,7 +19,7 @@ import AppBar from '../components/AppBar';
 
 const logoImg = require('../images/Profile.png');
 
-const Profile2 = props => {
+const Profile2 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [formValues, setFormValues] = useState({
@@ -37,8 +43,12 @@ const Profile2 = props => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <AppBar props={props} />
-      <View style={styles.container}>
+      <AppBar
+        navigation={navigation}
+        backBordered={true}
+        actionButton={false}
+      />
+      <ScrollView style={styles.container}>
         <Text style={styles.step}>Step 2 to 3</Text>
         <Text style={styles.welcome}>Other Information</Text>
         <Text style={[styles.signUpDetailText, styles.subtitleText]}>
@@ -122,14 +132,14 @@ const Profile2 = props => {
           }
         />
 
-        <Button
-          mode="outlined"
-          onPress={() => props.navigation.navigate('Profile3')}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Profile3')}
           style={styles.LoginBtn}
-          textColor="#FFFFFF">
-          Continue <Icon source="arrow-right" color="#FFFFFF" size={18} />
-        </Button>
-      </View>
+          activeOpacity={0.8}>
+          <Text style={{color: '#FFFFFF'}}>Continue</Text>
+          <Icon source="arrow-right" color="#FFFFFF" size={18} />
+        </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -188,12 +198,15 @@ const createStyles = theme =>
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 5,
+      paddingVertical: 16,
       borderRadius: 10,
       fontFamily: 'Comfortaa',
       fontSize: 14,
       fontWeight: 700,
       marginTop: 12,
+      marginBottom: 24,
+      flexDirection: 'row',
+      justifyContent: 'center',
     },
     signUpDetailText: {
       fontFamily: 'Poppins',

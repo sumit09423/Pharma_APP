@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Button, Checkbox, Chip, Searchbar, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -33,7 +39,7 @@ const categoryData = [
   },
 ];
 
-const Profile3 = props => {
+const Profile3 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [checkedItems, setCheckedItems] = useState(
@@ -61,8 +67,12 @@ const Profile3 = props => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView>
-        <AppBar props={props} />
-        <View style={styles.container}>
+        <AppBar
+          navigation={navigation}
+          backBordered={true}
+          actionButton={false}
+        />
+        <ScrollView style={styles.container}>
           <Text style={styles.step}>Step 3 to 3</Text>
           <Text style={styles.welcome}>Add Department of Doctor</Text>
           <Text style={[styles.signUpDetailText, styles.subtitleText]}>
@@ -113,14 +123,13 @@ const Profile3 = props => {
             );
           })}
 
-          <Button
-            mode="outlined"
-            onPress={() => props.navigation.navigate('Landing')}
+          <TouchableOpacity
+            onPress={() => navigation.replace('Main')}
             style={styles.LoginBtn}
-            textColor="#FFFFFF">
-            Done
-          </Button>
-        </View>
+            activeOpacity={0.8}>
+            <Text style={{color: '#FFFFFF'}}>Done</Text>
+          </TouchableOpacity>
+        </ScrollView>
       </ScrollView>
     </SafeAreaView>
   );
@@ -130,11 +139,10 @@ const createStyles = theme =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
-      height: '100%',
     },
     container: {
+      paddingHorizontal: 20,
       flex: 1,
-      paddingHorizontal: 32,
       backgroundColor: '#fbfbfb',
     },
     step: {
@@ -176,13 +184,15 @@ const createStyles = theme =>
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 5,
+      paddingVertical: 16,
       borderRadius: 10,
       fontFamily: 'Comfortaa',
       fontSize: 14,
       fontWeight: 700,
       marginTop: 12,
       marginBottom: 24,
+      flexDirection: 'row',
+      justifyContent: 'center',
     },
     signUpDetailText: {
       fontFamily: 'Poppins',

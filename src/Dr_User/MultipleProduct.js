@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
     productTitle: {
         fontSize: 16,
         fontWeight: 'bold',
-        borderRadius: 4
+        borderRadius: 4,
+        color: "#000"
     },
     productSubtitle: {
         color: '#666',
@@ -152,7 +153,8 @@ const styles = StyleSheet.create({
         fontSize: 8
     },
     searchBar: {
-        borderRadius: 20
+        borderRadius: 20,
+        backgroundColor: "#F3F6F6",
     }
 });
 
