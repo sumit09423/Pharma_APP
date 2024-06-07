@@ -13,7 +13,7 @@ const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
-const Login = props => {
+const Login = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -86,7 +86,7 @@ const Login = props => {
         </View>
 
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('Landing')}
+          onPress={() => navigation.replace('Main')}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
           <Text style={styles.loginText}>Log In</Text>
@@ -119,7 +119,7 @@ const Login = props => {
           Don't have an account{' '}
           <Text
             style={styles.signUpText}
-            onPress={() => props.navigation.navigate('SignUp')}>
+            onPress={() => navigation.navigate('SignUp')}>
             Sign Up
           </Text>
         </Text>

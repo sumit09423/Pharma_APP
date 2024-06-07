@@ -4,7 +4,7 @@ import {Button, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 const logoImg = require('../images/LogoWithName.png');
 
-const Welcome = props => {
+const Welcome = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   return (
@@ -18,13 +18,13 @@ const Welcome = props => {
         <Text>...</Text>
         <View style={styles.btnDiv}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('Login')}
+            onPress={() => navigation.navigate('Login')}
             style={[styles.loginBtn, styles.btn]}
             activeOpacity={0.8}>
             <Text style={{color: '#FFFFFF'}}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('SignUp')}
+            onPress={() => navigation.navigate('SignUp')}
             style={[styles.signupBtn, styles.btn]}
             activeOpacity={0.8}>
             <Text

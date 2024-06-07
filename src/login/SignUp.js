@@ -13,7 +13,7 @@ import AppBar from '../components/AppBar';
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
-const SignUp = props => {
+const SignUp = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -36,7 +36,11 @@ const SignUp = props => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <AppBar props={props} />
+      <AppBar
+        navigation={navigation}
+        backBordered={true}
+        actionButton={false}
+      />
       <ScrollView style={styles.container}>
         <Text style={styles.welcome}>Welcome to Doctor Hub</Text>
         <Text style={[styles.signUpDetailText, styles.subtitleText]}>
@@ -46,7 +50,7 @@ const SignUp = props => {
               styles.signUpText,
               {paddingLeft: 4, marginLeft: 5, marginTop: 20},
             ]}
-            onPress={() => props.navigation.navigate('Login')}>
+            onPress={() => navigation.navigate('Login')}>
             Log In
           </Text>
         </Text>
@@ -95,7 +99,7 @@ const SignUp = props => {
         />
 
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('Verification')}
+          onPress={() => navigation.navigate('Verification')}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
           <Text style={styles.loginText}>Sign Up</Text>

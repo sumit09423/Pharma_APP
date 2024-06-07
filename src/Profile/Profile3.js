@@ -39,7 +39,7 @@ const categoryData = [
   },
 ];
 
-const Profile3 = props => {
+const Profile3 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [checkedItems, setCheckedItems] = useState(
@@ -67,7 +67,11 @@ const Profile3 = props => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <ScrollView>
-        <AppBar props={props} />
+        <AppBar
+          navigation={navigation}
+          backBordered={true}
+          actionButton={false}
+        />
         <ScrollView style={styles.container}>
           <Text style={styles.step}>Step 3 to 3</Text>
           <Text style={styles.welcome}>Add Department of Doctor</Text>
@@ -120,8 +124,7 @@ const Profile3 = props => {
           })}
 
           <TouchableOpacity
-            mode="outlined"
-            onPress={() => props.navigation.navigate('Landing')}
+            onPress={() => navigation.replace('Main')}
             style={styles.LoginBtn}
             activeOpacity={0.8}>
             <Text style={{color: '#FFFFFF'}}>Done</Text>
@@ -136,11 +139,10 @@ const createStyles = theme =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
-      height: '100%',
     },
     container: {
+      paddingHorizontal: 20,
       flex: 1,
-      paddingHorizontal: 32,
       backgroundColor: '#fbfbfb',
     },
     step: {

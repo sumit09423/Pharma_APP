@@ -19,7 +19,7 @@ import AppBar from '../components/AppBar';
 
 const logoImg = require('../images/Profile.png');
 
-const Profile2 = props => {
+const Profile2 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [formValues, setFormValues] = useState({
@@ -43,7 +43,11 @@ const Profile2 = props => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <AppBar props={props} />
+      <AppBar
+        navigation={navigation}
+        backBordered={true}
+        actionButton={false}
+      />
       <ScrollView style={styles.container}>
         <Text style={styles.step}>Step 2 to 3</Text>
         <Text style={styles.welcome}>Other Information</Text>
@@ -129,7 +133,7 @@ const Profile2 = props => {
         />
 
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('Profile3')}
+          onPress={() => navigation.navigate('Profile3')}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
           <Text style={{color: '#FFFFFF'}}>Continue</Text>

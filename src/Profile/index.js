@@ -12,7 +12,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
 const logoImg = require('../images/Profile.png');
 
-const Profile = props => {
+const Profile = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [formValues, setFormValues] = useState({
@@ -31,7 +31,11 @@ const Profile = props => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <AppBar props={props} />
+      <AppBar
+        navigation={navigation}
+        backBordered={true}
+        actionButton={false}
+      />
       <ScrollView style={styles.container}>
         <Text style={styles.step}>Step 1 to 3</Text>
         <Text style={styles.welcome}>Your Profile</Text>
@@ -92,7 +96,7 @@ const Profile = props => {
         />
 
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('Profile2')}
+          onPress={() => navigation.navigate('Profile2')}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
           <Text style={{color: '#FFFFFF'}}>Continue</Text>

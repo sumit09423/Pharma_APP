@@ -10,7 +10,7 @@ import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
 
-const Verification = props => {
+const Verification = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [formValues, setFormValues] = useState({
@@ -30,7 +30,11 @@ const Verification = props => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <AppBar props={props} />
+      <AppBar
+        navigation={navigation}
+        backBordered={true}
+        actionButton={false}
+      />
 
       <ScrollView style={styles.container}>
         <Text style={styles.welcome}>Verification</Text>
@@ -115,7 +119,7 @@ const Verification = props => {
         </Text>
 
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('Profile1')}
+          onPress={() => navigation.navigate('Profile1')}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
           <Text style={{color: '#FFFFFF'}}>Verify</Text>
