@@ -4,6 +4,7 @@ import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTheme} from 'react-native-paper';
 import Setting from '../Setting';
 import {StyleSheet} from 'react-native';
+import Myorder from '../Dr_User/Myorder';
 const Landing = lazy(() => import('../Dr_User/Index'));
 const Profile3 = lazy(() => import('../Profile/Profile3'));
 const Profile2 = lazy(() => import('../Profile/Profile2'));
@@ -50,7 +51,7 @@ const BottomTab = () => {
       />
       <Tab.Screen
         name="Order"
-        component={Profile3}
+        component={Myorder}
         options={{
           headerShown: false,
           title: 'My Orders',

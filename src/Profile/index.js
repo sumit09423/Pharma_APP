@@ -115,8 +115,7 @@ const createStyles = theme =>
     container: {
       display: 'flex',
       position: 'relative',
-      flex: 1,
-      paddingHorizontal: 32,
+      paddingHorizontal: 20,
       backgroundColor: '#fbfbfb',
     },
     step: {

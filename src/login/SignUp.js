@@ -145,7 +145,7 @@ const createStyles = theme =>
     },
     container: {
       flex: 1,
-      paddingHorizontal: 32,
+      paddingHorizontal: 20,
       backgroundColor: '#fbfbfb',
     },
     welcome: {

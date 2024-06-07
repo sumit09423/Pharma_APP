@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {
   Appbar,
   Card,
@@ -40,71 +46,73 @@ const Landing = () => {
           style={styles.searchBar}
         />
       </View>
-      <TouchableOpacity
-        style={[styles.cardContainer, styles.cardCommonContainer]}
-        onPress={handlePress}>
-        <Card.Title
-          title="Star medica Hub"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-          titleStyle={[styles.cardText, styles.cardTitle]}
-          subtitleNumberOfLines={null}
-          subtitleVariant="bodyMedium"
-          subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-          left={props => (
-            <Image
-              source={SalesMan}
-              style={{width: 65, height: 65, borderRadius: 20}}
-            />
-          )}
-          leftStyle={styles.leftStyle}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.cardContainer2, styles.cardCommonContainer]}
-        onPress={handlePress}>
-        <Card.Title
-          title="Dr Hub"
-          subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
-          titleStyle={[styles.cardText, styles.cardTitle]}
-          subtitleNumberOfLines={null}
-          subtitleVariant="bodyMedium"
-          subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-          left={props => (
-            <Image
-              source={UserAvailable}
-              style={{width: 60, height: 60, borderRadius: 20}}
-            />
-          )}
-          leftStyle={styles.leftStyle}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.cardContainer2, styles.cardCommonContainer]}
-        onPress={handlePress}>
-        <Card.Title
-          title="Company"
-          subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
-          titleStyle={[styles.cardText, styles.cardTitle]}
-          subtitleNumberOfLines={null}
-          subtitleVariant="bodyMedium"
-          subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-          left={props => (
-            <Image
-              source={UserAvailable}
-              style={{width: 60, height: 60, borderRadius: 20}}
-            />
-          )}
-          leftStyle={styles.leftStyle}
-        />
-      </TouchableOpacity>
-      <View style={styles.btncontainer}>
-        <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-          <Text style={styles.buttonText}>Search Products</Text>
+      <ScrollView>
+        <TouchableOpacity
+          style={[styles.cardContainer, styles.cardCommonContainer]}
+          onPress={handlePress}>
+          <Card.Title
+            title="Star medica Hub"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            titleStyle={[styles.cardText, styles.cardTitle]}
+            subtitleNumberOfLines={null}
+            subtitleVariant="bodyMedium"
+            subtitleStyle={[styles.cardText, styles.cardSubTitle]}
+            left={props => (
+              <Image
+                source={SalesMan}
+                style={{width: 65, height: 65, borderRadius: 20}}
+              />
+            )}
+            leftStyle={styles.leftStyle}
+          />
         </TouchableOpacity>
-      </View>
-      {/* <NewTab /> */}
+
+        <TouchableOpacity
+          style={[styles.cardContainer2, styles.cardCommonContainer]}
+          onPress={handlePress}>
+          <Card.Title
+            title="Dr Hub"
+            subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
+            titleStyle={[styles.cardText, styles.cardTitle]}
+            subtitleNumberOfLines={null}
+            subtitleVariant="bodyMedium"
+            subtitleStyle={[styles.cardText, styles.cardSubTitle]}
+            left={props => (
+              <Image
+                source={UserAvailable}
+                style={{width: 60, height: 60, borderRadius: 20}}
+              />
+            )}
+            leftStyle={styles.leftStyle}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.cardContainer2, styles.cardCommonContainer]}
+          onPress={handlePress}>
+          <Card.Title
+            title="Company"
+            subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
+            titleStyle={[styles.cardText, styles.cardTitle]}
+            subtitleNumberOfLines={null}
+            subtitleVariant="bodyMedium"
+            subtitleStyle={[styles.cardText, styles.cardSubTitle]}
+            left={props => (
+              <Image
+                source={UserAvailable}
+                style={{width: 60, height: 60, borderRadius: 20}}
+              />
+            )}
+            leftStyle={styles.leftStyle}
+          />
+        </TouchableOpacity>
+
+        <View style={styles.btncontainer}>
+          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+            <Text style={styles.buttonText}>Search Products</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -127,7 +135,7 @@ const createStyles = theme =>
     container: {
       flex: 1,
       backgroundColor: '#FFFFFF',
-      padding: 20,
+      paddingHorizontal: 20,
     },
     titleContainer: {
       flex: 1,

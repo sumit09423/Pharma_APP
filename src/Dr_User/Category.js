@@ -125,7 +125,7 @@ const createStyles = theme =>
     container: {
       flex: 1,
       backgroundColor: '#FFFFFF',
-      padding: 20,
+      paddingHorizontal: 20,
     },
     titleContainer: {
       flex: 1,

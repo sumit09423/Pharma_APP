@@ -45,7 +45,7 @@ const createStyles = theme =>
   StyleSheet.create({
     container: {},
     header: {
-      paddingHorizontal: 20,
+      paddingHorizontal: 10,
     },
     backBtn: {
       borderWidth: 1,
