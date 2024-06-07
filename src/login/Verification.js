@@ -137,7 +137,7 @@ const createStyles = theme =>
     },
     container: {
       flex: 1,
-      paddingHorizontal: 32,
+      paddingHorizontal: 20,
       backgroundColor: '#fbfbfb',
     },
     welcome: {
@@ -194,6 +194,7 @@ const createStyles = theme =>
       width: 283,
       textAlign: 'center',
       lineHeight: 19.5,
+      width: '100%',
     },
     subtitleText: {
       marginTop: 10,

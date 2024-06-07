@@ -79,6 +79,7 @@ const Login = ({navigation}) => {
               }}
               uncheckedColor="#D7D7D7"
               color="#D7D7D7"
+              style={styles.checkbox}
             />
             <Text style={styles.rpText}>Remember password</Text>
           </View>
@@ -135,7 +136,7 @@ const createStyles = theme =>
       backgroundColor: '#fbfbfb',
     },
     scrollViewDiv: {
-      paddingHorizontal: 32,
+      paddingHorizontal: 20,
       alignItems: 'center',
     },
     logo: {
@@ -156,13 +157,12 @@ const createStyles = theme =>
       borderColor: '#B9B9B9',
     },
     emailTextBox: {
-      width: 316,
+      width: '100%',
       paddingHorizontal: 6,
       marginBottom: 15,
     },
     innerDiv: {
-      // width: '100%',
-      // flex: 1,
+      width: '100%',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
@@ -171,6 +171,10 @@ const createStyles = theme =>
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
+    },
+    checkbox: {
+      padding: 0,
+      margin: 0,
     },
     rpText: {
       color: '#736D6D',
