@@ -15,6 +15,7 @@ import {
   useTheme,
 } from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import AppBar from '../components/AppBar';
 const SalesMan = require('../images/SalesMan.png');
 const UserAvailable = require('../images/user2.png');
 
@@ -30,14 +31,8 @@ const Landing = () => {
 
   return (
     <View style={styles.container}>
-      <Appbar.Header style={styles.header}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.text1}>welcome back</Text>
-          <Text style={styles.text2}>Krunal Rethod</Text>
-        </View>
-        <IconButton icon="bell-outline" size={24} onPress={() => {}} />
-        <IconButton icon="cart-outline" size={24} onPress={() => {}} />
-      </Appbar.Header>
+      <AppBar userName="Krunal Rathod" />
+
       <View style={styles.titleContainer1}>
         <Searchbar
           placeholder="Search"
@@ -49,7 +44,8 @@ const Landing = () => {
       <ScrollView>
         <TouchableOpacity
           style={[styles.cardContainer, styles.cardCommonContainer]}
-          onPress={handlePress}>
+          onPress={handlePress}
+          activeOpacity={0.7}>
           <Card.Title
             title="Star medica Hub"
             subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
@@ -69,7 +65,8 @@ const Landing = () => {
 
         <TouchableOpacity
           style={[styles.cardContainer2, styles.cardCommonContainer]}
-          onPress={handlePress}>
+          onPress={handlePress}
+          activeOpacity={0.7}>
           <Card.Title
             title="Dr Hub"
             subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
@@ -89,7 +86,8 @@ const Landing = () => {
 
         <TouchableOpacity
           style={[styles.cardContainer2, styles.cardCommonContainer]}
-          onPress={handlePress}>
+          onPress={handlePress}
+          activeOpacity={0.7}>
           <Card.Title
             title="Company"
             subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"

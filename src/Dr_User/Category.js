@@ -9,6 +9,7 @@ import {
   useTheme,
 } from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import AppBar from '../components/AppBar';
 const SalesMan = require('../images/SalesMan.png');
 const UserAvailable = require('../images/user2.png');
 
@@ -24,14 +25,7 @@ const Category = () => {
 
   return (
     <View style={styles.container}>
-      <Appbar.Header style={styles.header}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.text1}>welcome back</Text>
-          <Text style={styles.text2}>Dr Hub</Text>
-        </View>
-        <IconButton icon="bell-outline" size={24} onPress={() => {}} />
-        <IconButton icon="cart-outline" size={24} onPress={() => {}} />
-      </Appbar.Header>
+      <AppBar userName="Dr Hub" />
       <View style={styles.titleContainer1}>
         <Searchbar
           placeholder="Search"
@@ -42,7 +36,8 @@ const Category = () => {
       </View>
       <TouchableOpacity
         style={[styles.cardContainer2, styles.cardCommonContainer]}
-        onPress={handlePress}>
+        onPress={handlePress}
+        activeOpacity={0.7}>
         <Card.Title
           title="Gynecologist"
           subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
@@ -61,7 +56,8 @@ const Category = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.cardContainer2, styles.cardCommonContainer]}>
+        style={[styles.cardContainer2, styles.cardCommonContainer]}
+        activeOpacity={0.7}>
         <Card.Title
           title="Pediatrician"
           subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
@@ -80,7 +76,8 @@ const Category = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.cardContainer2, styles.cardCommonContainer]}>
+        style={[styles.cardContainer2, styles.cardCommonContainer]}
+        activeOpacity={0.7}>
         <Card.Title
           title="GP Doctors"
           subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
