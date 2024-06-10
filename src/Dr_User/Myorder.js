@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Appbar, IconButton, Text} from 'react-native-paper';
 import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 
 const Seruff = require('../images/Seruff.png');
 const Myorder = ({navigation}) => {
@@ -72,9 +73,9 @@ const Myorder = ({navigation}) => {
       <AppBar navigation={navigation} title="Your Cart" notification={false} />
 
       <View style={styles.sectionContainer}>
-        <Text>3 items into cart</Text>
+        <Text style={styles.totalItems}>3 items into cart</Text>
         <TouchableOpacity>
-          <Text style={{color: '#0EC5C1'}}>+ Add More</Text>
+          <Text style={styles.addMoreButton}>+ Add More</Text>
         </TouchableOpacity>
       </View>
       <FlatList
@@ -82,12 +83,14 @@ const Myorder = ({navigation}) => {
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {}}
-        activeOpacity={0.8}>
-        <Text style={styles.buttonText}>Place order @ 900</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonDiv}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {}}
+          activeOpacity={0.8}>
+          <Text style={styles.buttonText}>Place order @ 900</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -138,25 +141,29 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   productName: {
-    fontSize: 13,
-    fontWeight: '700',
-    fontFamily: 'Comfortaa',
+    fontSize: 11,
+    fontWeight: '600',
+    fontFamily: FONTS.Comfortaa.SemiBold,
+    color: '#000000',
   },
   productDescription: {
-    fontSize: 12,
-    color: '#777',
+    fontFamily: FONTS.Roboto.Regular,
+    fontSize: 10,
+    color: '#7E7E7E',
   },
   productPrice: {
-    fontSize: 12,
-    color: '#333',
+    fontSize: 11,
+    fontFamily: FONTS.Roboto.Regular,
+    color: '#616161',
   },
   productMrp: {
     fontSize: 12,
     color: '#333',
   },
   productQty: {
-    fontSize: 12,
-    color: '#333',
+    fontFamily: FONTS.Roboto.Regular,
+    fontSize: 11,
+    color: '#616161',
   },
   addToCartButton: {
     backgroundColor: '#0ec5c1',
@@ -181,13 +188,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginVertical: 12,
   },
+  totalItems: {
+    fontFamily: FONTS.Roboto.Regular,
+    fontSize: 11,
+    color: '#7E7E7E',
+  },
+  addMoreButton: {
+    fontFamily: FONTS.Roboto.Medium,
+    fontSize: 11,
+    color: '#0EC5C1',
+  },
+  buttonDiv: {
+    alignItems: 'center',
+  },
   button: {
     backgroundColor: '#00BCD4',
     padding: 12,
-    marginHorizontal: 60,
-    borderRadius: 8,
-    alignItems: 'center',
+    width: '80%',
+    borderRadius: 30,
     marginTop: 16,
+    alignItems: 'center',
   },
   buttonText: {
     color: '#FFFFFF',
@@ -210,8 +230,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 15,
+    fontFamily: FONTS.Comfortaa.Bold,
+    lineHeight: 16.73,
   },
   countContainer: {
     marginHorizontal: 16,

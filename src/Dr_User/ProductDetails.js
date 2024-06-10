@@ -3,6 +3,7 @@ import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {Appbar, IconButton, useTheme} from 'react-native-paper';
 import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 const productImage = require('../images/ProductImage1.png');
 
 const ProductDetails = props => {
@@ -44,6 +45,7 @@ const ProductDetails = props => {
           <Text style={styles.brandTitle}>Troyofol Brand name</Text>
           <Text style={styles.brandName}>Troyaca</Text>
         </View>
+        <Text style={styles.priceText}>Price & Stock</Text>
         <View style={styles.priceContainer}>
           <Text style={styles.price}>Price: ₹75 + 12% GST</Text>
           <Text style={styles.mrp}>MRP: ₹65</Text>
@@ -53,7 +55,7 @@ const ProductDetails = props => {
           <Text style={styles.otherText}>Others Details</Text>
         </View>
         <View style={styles.otherDetails}>
-          <Text>
+          <Text style={styles.otherDetailsText}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
             bibendum arcu commodo lacus dictum, id venenatis nisi vestibulum.
             Donec elementum dignissim finibus.
@@ -97,24 +99,34 @@ const styles = StyleSheet.create({
     marginTop: 34,
   },
   title: {
-    fontSize: 23,
-    fontWeight: '500',
+    fontFamily: FONTS.Comfortaa.Bold,
+    fontSize: 18,
+    fontWeight: '600',
     color: '#000000',
   },
   subtitle: {
-    fontSize: 18,
-    color: '#888888',
+    fontFamily: FONTS.Roboto.Regular,
+    fontSize: 12,
+    color: '#999999',
   },
   brandContainer: {
     marginVertical: 20,
+    alignItems: 'flex-start',
   },
   brandTitle: {
-    fontSize: 16,
-    color: '#000000',
+    fontFamily: FONTS.Roboto.Regular,
+    fontSize: 14,
+    color: '#7E7E7E',
+    marginBottom: 5,
   },
   brandName: {
-    fontSize: 16,
-    color: '#009688',
+    fontFamily: FONTS.Roboto.Regular,
+    fontSize: 11,
+    color: '#1E1E1E',
+    paddingHorizontal: 15,
+    paddingVertical: 2,
+    backgroundColor: '#DAF0F0',
+    borderRadius: 5,
   },
   priceContainer: {
     display: 'flex',
@@ -123,17 +135,25 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingRight: 20,
   },
+  priceText: {
+    fontFamily: FONTS.Comfortaa.Bold,
+    fontSize: 15,
+    color: '#000000',
+  },
   price: {
-    fontSize: 16,
+    fontFamily: FONTS.Roboto.Regular,
+    fontSize: 12,
     color: '#000000',
   },
   mrp: {
-    fontSize: 16,
-    color: '#888888',
+    fontFamily: FONTS.Roboto.Regular,
+    fontSize: 12,
+    color: '#999999',
   },
   quantity: {
-    fontSize: 16,
-    color: '#000000',
+    fontFamily: FONTS.Roboto.Regular,
+    fontSize: 12,
+    color: '#999999',
   },
   otherDetails: {
     marginVertical: 8,
@@ -141,19 +161,30 @@ const styles = StyleSheet.create({
     padding: 6,
     borderRadius: 12,
   },
+  otherDetailsText: {
+    fontFamily: FONTS.Roboto.Regular,
+    fontSize: 12,
+    color: '#999999',
+    lineHeight: 18,
+  },
   button: {
-    backgroundColor: '#00BCD4',
-    padding: 16,
+    backgroundColor: '#0EC5C1',
+    paddingVertical: 11,
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 16,
   },
   buttonText: {
+    fontFamily: FONTS.Roboto.Medium,
     color: '#FFFFFF',
     fontSize: 18,
+    lineHeight: 21.09,
   },
   otherText: {
-    fontSize: 20,
+    fontSize: 13,
+    fontFamily: FONTS.Comfortaa.Medium,
+    color: '#000000',
+    marginTop: 4,
   },
   flexContainer: {
     display: 'flex',

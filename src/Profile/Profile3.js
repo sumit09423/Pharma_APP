@@ -10,6 +10,7 @@ import {Button, Checkbox, Chip, Searchbar, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 const logoImg = require('../images/Profile.png');
 
 const categoryData = [
@@ -117,7 +118,8 @@ const Profile3 = ({navigation}) => {
                 onPress={() => handleChange(item.label)}
                 uncheckedColor="#D7D7D7"
                 color="#D7D7D7"
-                labelStyle={{fontFamily: 'Comfortaa', letterSpacing: -0.24}}
+                labelStyle={styles.checkboxLabel}
+                style={{}}
                 key={index}
               />
             );
@@ -127,7 +129,7 @@ const Profile3 = ({navigation}) => {
             onPress={() => navigation.replace('Main')}
             style={styles.LoginBtn}
             activeOpacity={0.8}>
-            <Text style={{color: '#FFFFFF'}}>Done</Text>
+            <Text style={styles.doneText}>Done</Text>
           </TouchableOpacity>
         </ScrollView>
       </ScrollView>
@@ -151,13 +153,14 @@ const createStyles = theme =>
       fontSize: 12,
       fontWeight: '600',
       letterSpacing: -0.24,
+      fontFamily: FONTS.Comfortaa.SemiBold,
     },
     welcome: {
       color: '#000000',
       fontWeight: '600',
       fontSize: 16,
       marginTop: 10,
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.SemiBold,
       letterSpacing: -0.24,
     },
     searchbar: {
@@ -178,24 +181,37 @@ const createStyles = theme =>
     },
     chipText: {
       color: '#ffffff',
+      fontSize: 11,
+      fontFamily: FONTS.Comfortaa.SemiBold,
+      letterSpacing: -0.24,
+    },
+    checkboxLabel: {
+      fontFamily: FONTS.Comfortaa.Regular,
+      fontSize: 13,
+      letterSpacing: -0.24,
+      color: '#000000',
     },
     LoginBtn: {
       backgroundColor: '#0EC5C1',
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 16,
+      paddingVertical: 14,
       borderRadius: 10,
-      fontFamily: 'Comfortaa',
-      fontSize: 14,
-      fontWeight: 700,
       marginTop: 12,
       marginBottom: 24,
       flexDirection: 'row',
       justifyContent: 'center',
+      alignItems: 'center',
+    },
+    doneText: {
+      color: '#FFFFFF',
+      fontFamily: FONTS.Comfortaa.Bold,
+      fontSize: 14,
+      fontWeight: '600',
     },
     signUpDetailText: {
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
       fontSize: 13,
       lineHeight: 19.5,
       color: '#999999',

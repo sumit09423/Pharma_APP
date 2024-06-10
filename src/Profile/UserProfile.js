@@ -10,6 +10,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
 import {Appbar, Searchbar, useTheme} from 'react-native-paper';
+import {FONTS} from '../constant';
 const BottomTab = lazy(() => import('../components/BottomTab'));
 
 const logoImg = require('../images/Profile.png');
@@ -45,9 +46,13 @@ const UserProfile = ({navigation}) => {
         </View>
         <View style={styles.infoDiv}>
           <Text style={styles.infoText}>
-            <Text style={styles.info}>Info :</Text> {'\n'}Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit. Aliquam eu nisl vel nunc ultrices
-            elementum vitae sit amet justo. Nulla laoreet a nisi eu imperdiet.
+            Info : {'\n'}
+            <Text style={styles.info}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+              eu nisl vel nunc ultrices elementum vitae sit amet justo. Nulla
+              laoreet a nisi eu imperdiet.
+            </Text>{' '}
+            {'\n'}
           </Text>
         </View>
 
@@ -72,12 +77,6 @@ const createStyles = theme =>
       flex: 1,
       paddingHorizontal: 32,
     },
-    centerTitle: {
-      fontSize: 18,
-      fontWeight: '600',
-      fontFamily: 'Comfortaa',
-      textAlign: 'center',
-    },
     imgDiv: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -90,34 +89,34 @@ const createStyles = theme =>
       color: '#000000',
       fontSize: 20,
       fontWeight: '500',
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.Medium,
     },
     subTitle: {
       color: '#999999',
       fontSize: 13,
       lineHeight: 19.5,
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
     },
     licenceAddressDiv: {
       marginVertical: 38,
     },
     licenceText: {
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
       fontSize: 13,
       color: '#000000',
     },
     colonSpan: {
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
       fontSize: 13,
       color: '#999999',
     },
     licenceNo: {
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
       fontSize: 13,
       color: '#4e4e4e',
     },
     addressText: {
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
       fontSize: 13,
       color: '#000000',
       lineHeight: 19.5,
@@ -126,16 +125,17 @@ const createStyles = theme =>
       marginTop: 14,
     },
     infoText: {
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Medium,
       fontSize: 13,
-      color: '#999999',
+      color: '#000000',
+      fontWeight: '500',
       lineHeight: 22,
     },
     info: {
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
       fontSize: 13,
-      color: '#000000',
-      fontWeight: '600',
+      color: '#999999',
+      lineHeight: 22,
     },
     btncontainer: {
       marginTop: 95,
@@ -144,17 +144,18 @@ const createStyles = theme =>
     },
     button: {
       backgroundColor: '#0EC5C1',
-      paddingVertical: 13,
+      paddingVertical: 15,
       paddingHorizontal: 40,
       borderRadius: 30,
       width: '80%',
     },
     buttonText: {
       color: '#ffffff',
-      // fontSize: 14,
-      // fontWeight: '700',
-      fontFamily: 'Comfortaa',
+      fontSize: 15,
+      fontWeight: '600',
+      fontFamily: FONTS.Comfortaa.Bold,
       textAlign: 'center',
+      lineHeight: 16.73,
     },
   });
 

@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Appbar, IconButton, useTheme} from 'react-native-paper';
+import {FONTS} from '../constant';
 
 const AppBar = ({
   backBordered = false,
@@ -45,7 +46,7 @@ const AppBar = ({
           <Appbar.Content
             title={title}
             titleStyle={styles.centerTitle}
-            color={color ? color : 'black'}
+            color={color ? color : '#020202'}
           />
         )}
 
@@ -77,9 +78,9 @@ const createStyles = theme =>
       borderColor: '#D6D6D6',
     },
     centerTitle: {
-      fontSize: 18,
+      fontSize: 15,
       fontWeight: '600',
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.SemiBold,
       textAlign: 'center',
     },
     titleContainer: {
@@ -89,13 +90,14 @@ const createStyles = theme =>
     },
     text1: {
       color: '#9C9C9C',
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.Medium,
       fontWeight: '500',
+      fontSize: 13,
     },
     text2: {
       color: '#000000',
       fontWeight: '500',
       fontSize: 20,
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.Medium,
     },
   });

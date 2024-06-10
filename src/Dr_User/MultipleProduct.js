@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {Appbar, IconButton, Searchbar} from 'react-native-paper';
 import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 
 const MultipleProduct = props => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -113,31 +114,35 @@ const styles = StyleSheet.create({
   productContainer: {
     backgroundColor: '#F8F8F8',
     padding: 16,
-    borderRadius: 8,
+    borderRadius: 10,
     marginBottom: 16,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   productTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    borderRadius: 4,
-    color: '#000',
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#000000',
+    fontFamily: FONTS.Comfortaa.SemiBold,
   },
   productSubtitle: {
-    color: '#666',
+    color: '#7E7E7E',
+    fontSize: 13,
     marginBottom: 8,
+    lineHeight: 21,
+    fontFamily: FONTS.Roboto.Regular,
   },
   buttonContainer: {
     backgroundColor: '#7EDEDC',
     alignSelf: 'flex-start',
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 4,
+    borderRadius: 5,
   },
   buttonText: {
     color: '#000000',
+    fontFamily: FONTS.Roboto.Regular,
   },
   viewContainer: {
     justifyContent: 'center',

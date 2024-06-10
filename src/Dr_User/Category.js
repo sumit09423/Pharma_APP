@@ -10,6 +10,7 @@ import {
 } from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 const SalesMan = require('../images/SalesMan.png');
 const UserAvailable = require('../images/user2.png');
 
@@ -106,19 +107,6 @@ const Category = () => {
 
 const createStyles = theme =>
   StyleSheet.create({
-    header: {
-      backgroundColor: '#fff',
-    },
-    text1: {
-      color: '#9C9C9C',
-      fontFamily: 'Comfortaa',
-    },
-    text2: {
-      color: '#000000',
-      fontWeight: '800',
-      fontSize: 20,
-      fontFamily: 'Comfortaa',
-    },
     container: {
       flex: 1,
       backgroundColor: '#FFFFFF',
@@ -146,18 +134,17 @@ const createStyles = theme =>
       borderRadius: 20,
     },
     cardText: {
-      paddingHorizontal: 16,
+      paddingHorizontal: 20,
+      fontFamily: FONTS.Comfortaa.Medium,
+      fontWeight: '500',
     },
     cardTitle: {
       fontSize: 20,
-      fontWeight: '500',
-      fontFamily: 'Comfortaa',
+      color: '#000000',
     },
     cardSubTitle: {
-      fontSize: 13,
-      fontWeight: '500',
-      fontFamily: 'Comfortaa',
-      lineHeight: 18,
+      fontSize: 12,
+      lineHeight: 15,
       color: '#767575',
     },
     cardContainer: {
@@ -173,7 +160,7 @@ const createStyles = theme =>
     },
     button: {
       backgroundColor: '#00c4cc',
-      paddingVertical: 13,
+      paddingVertical: 15,
       paddingHorizontal: 40,
       borderRadius: 30,
       width: '80%',
@@ -181,9 +168,10 @@ const createStyles = theme =>
     buttonText: {
       color: '#ffffff',
       fontSize: 16,
-      fontWeight: '700',
-      fontFamily: 'Comfortaa',
+      fontWeight: '600',
+      fontFamily: FONTS.Comfortaa.Bold,
       textAlign: 'center',
+      lineHeight: 17.8,
     },
     leftStyle: {
       paddingRight: 50,

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {Appbar, Button, Searchbar} from 'react-native-paper';
 import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 const Seruff = require('../images/Seruff.png');
 const products = [
   {
@@ -69,9 +70,9 @@ const ProductCategory = props => {
         <Text style={styles.productDescription}>{item.description}</Text>
         <View style={styles.PriceView}>
           <Text style={styles.productPrice}>
-            Price: ₹{item.price} + {item.gst}% GST
+            Price : ₹{item.price} + {item.gst}% GST
           </Text>
-          <Text style={styles.productMrp}>MRP: ₹{item.mrp}</Text>
+          <Text style={styles.productMrp}>MRP : ₹{item.mrp}</Text>
         </View>
         <Text style={styles.productQty}>Qty: {item.qty}</Text>
 
@@ -148,35 +149,43 @@ const styles = StyleSheet.create({
   },
   productName: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    fontFamily: FONTS.Comfortaa.SemiBold,
+    color: '#000000',
   },
   productDescription: {
-    fontSize: 12,
-    color: '#777',
+    fontSize: 13,
+    color: '#7E7E7E',
+    fontFamily: FONTS.Roboto.Regular,
   },
   productPrice: {
     fontSize: 12,
     color: '#333',
+    fontFamily: FONTS.Roboto.Regular,
   },
   productMrp: {
     fontSize: 12,
-    color: '#333',
+    fontFamily: FONTS.Roboto.Regular,
+    color: '#999999',
   },
   productQty: {
     fontSize: 12,
-    color: '#333',
+    fontFamily: FONTS.Roboto.Regular,
+    color: '#616161',
   },
   addToCartButton: {
     backgroundColor: '#0ec5c1',
     borderRadius: 5,
     marginTop: 3,
-    width: 110,
-    paddingHorizontal: 18,
-    paddingVertical: 7,
+    width: 89,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
   },
   addToCartText: {
     color: '#FFFFFF',
-    fontWeight: 'bold',
+    fontSize: 14,
+    fontWeight: '400',
+    fontFamily: FONTS.Roboto.Regular,
   },
   PriceView: {
     display: 'flex',

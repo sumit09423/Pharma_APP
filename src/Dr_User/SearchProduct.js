@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 
 const SalesMan = require('../images/Medisine.png');
 
@@ -152,13 +153,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   title: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    fontFamily: 'Comfortaa',
+    fontSize: 14,
+    fontWeight: '600',
+    fontFamily: FONTS.Comfortaa.SemiBold,
+    color: '#000000',
   },
   description: {
-    fontSize: 12,
+    fontSize: 13,
     marginTop: 4,
+    color: '#7E7E7E',
+    lineHeight: 14,
+    fontFamily: FONTS.Roboto.Regular,
   },
   iconContainer: {
     justifyContent: 'center',

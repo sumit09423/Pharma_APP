@@ -10,6 +10,7 @@ import {
 import {Button, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
@@ -154,7 +155,7 @@ const createStyles = theme =>
       fontSize: 16,
       marginTop: 10,
       //   marginBottom: 12,
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.SemiBold,
       letterSpacing: -0.24,
     },
     outlineTextBox: {
@@ -166,42 +167,20 @@ const createStyles = theme =>
       paddingHorizontal: 6,
       marginBottom: 15,
     },
-    innerDiv: {
-      // width: '100%',
-      // flex: 1,
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    rpDiv: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    rpText: {
-      color: '#736D6D',
-      fontSize: 12,
-      fontFamily: 'Poppins',
-    },
-    fpText: {
-      color: '#999999',
-      fontFamily: 'Poppins',
-      fontSize: 13,
-    },
     LoginBtn: {
       backgroundColor: '#0EC5C1',
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 16,
+      paddingVertical: 14,
       borderRadius: 10,
       marginTop: 12,
     },
     loginText: {
       textAlign: 'center',
-      fontFamily: 'Comfortaa',
-      fontSize: 14,
       fontWeight: '600',
+      fontFamily: FONTS.Comfortaa.Bold,
+      fontSize: 14,
       color: '#FFFFFF',
     },
     orDiv: {
@@ -219,6 +198,7 @@ const createStyles = theme =>
       marginHorizontal: 10,
       fontSize: 13,
       color: '#888',
+      fontFamily: FONTS.IBMPlexSans.Regular,
     },
     googleFbDiv: {
       width: '100%',
@@ -237,9 +217,9 @@ const createStyles = theme =>
       paddingVertical: 7,
     },
     googleFbLabel: {
-      fontFamily: 'IBM Plex Sans',
-      fontSize: 14,
       fontWeight: '300',
+      fontFamily: FONTS.IBMPlexSans.Light,
+      fontSize: 14,
       paddingLeft: 10,
       color: '#000000',
     },
@@ -248,12 +228,14 @@ const createStyles = theme =>
       height: 24,
     },
     signUpDetailText: {
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
       fontSize: 13,
       color: '#999999',
     },
     signUpText: {
       color: theme.colors.themeColor,
+      fontSize: 13,
+      fontFamily: FONTS.Poppins.Regular,
     },
     termInfo: {
       marginTop: 29,
@@ -261,6 +243,7 @@ const createStyles = theme =>
       textAlign: 'center',
       lineHeight: 19.5,
       marginBottom: 24,
+      width: '100%',
     },
     subtitleText: {
       marginTop: 10,

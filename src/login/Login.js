@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Button, Checkbox, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {FONTS} from '../constant';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
@@ -79,7 +80,6 @@ const Login = ({navigation}) => {
               }}
               uncheckedColor="#D7D7D7"
               color="#D7D7D7"
-              style={styles.checkbox}
             />
             <Text style={styles.rpText}>Remember password</Text>
           </View>
@@ -147,7 +147,7 @@ const createStyles = theme =>
       color: '#000000',
       fontSize: 16,
       fontWeight: '600',
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.SemiBold,
       letterSpacing: -0.24,
       marginBottom: 38,
     },
@@ -172,18 +172,14 @@ const createStyles = theme =>
       flexDirection: 'row',
       alignItems: 'center',
     },
-    checkbox: {
-      padding: 0,
-      margin: 0,
-    },
     rpText: {
       color: '#736D6D',
       fontSize: 12,
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
     },
     fpText: {
       color: '#999999',
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
       fontSize: 13,
     },
     LoginBtn: {
@@ -191,13 +187,13 @@ const createStyles = theme =>
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 16,
+      paddingVertical: 14,
       borderRadius: 10,
       marginTop: 12,
     },
     loginText: {
       textAlign: 'center',
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.Bold,
       fontSize: 14,
       fontWeight: '600',
       color: '#FFFFFF',
@@ -217,6 +213,7 @@ const createStyles = theme =>
       marginHorizontal: 10,
       fontSize: 13,
       color: '#888',
+      fontFamily: FONTS.IBMPlexSans.Regular,
     },
     googleFbDiv: {
       width: '100%',
@@ -234,7 +231,7 @@ const createStyles = theme =>
       paddingVertical: 7,
     },
     googleFbLabel: {
-      fontFamily: 'IBM Plex Sans',
+      fontFamily: FONTS.IBMPlexSans.Light,
       fontSize: 14,
       fontWeight: '300',
       paddingLeft: 10,
@@ -250,9 +247,12 @@ const createStyles = theme =>
       fontSize: 13,
       color: '#999999',
       marginBottom: 24,
+      fontFamily: FONTS.Poppins.Regular,
     },
     signUpText: {
       color: theme.colors.themeColor,
+      fontFamily: FONTS.Poppins.Regular,
+      fontSize: 13,
     },
   });
 

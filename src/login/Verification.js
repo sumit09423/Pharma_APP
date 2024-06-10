@@ -9,6 +9,7 @@ import {
 import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 
 const Verification = ({navigation}) => {
   const theme = useTheme();
@@ -122,8 +123,8 @@ const Verification = ({navigation}) => {
           onPress={() => navigation.navigate('Profile1')}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
-          <Text style={{color: '#FFFFFF'}}>Verify</Text>
-          <Icon source="arrow-right" color="white" size={18} />
+          <Text style={styles.verifyText}>Verify</Text>
+          <Icon source="arrow-right" color="white" size={20} />
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
@@ -146,7 +147,7 @@ const createStyles = theme =>
       fontSize: 16,
       marginTop: 10,
       //   marginBottom: 12,
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.SemiBold,
       letterSpacing: -0.24,
     },
     textBoxDiv: {
@@ -170,24 +171,30 @@ const createStyles = theme =>
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 16,
+      paddingVertical: 14,
       borderRadius: 10,
-      fontFamily: 'Comfortaa',
-      fontSize: 14,
-      fontWeight: 700,
       marginTop: 12,
       marginBottom: 24,
       flexDirection: 'row',
       justifyContent: 'center',
+      alignItems: 'center',
+    },
+    verifyText: {
+      color: '#FFFFFF',
+      fontSize: 14,
+      fontWeight: '600',
+      fontFamily: FONTS.Comfortaa.Bold,
     },
     signUpDetailText: {
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
       fontSize: 13,
       lineHeight: 19.5,
       color: '#999999',
     },
     signUpText: {
       color: theme.colors.themeColor,
+      fontSize: 13,
+      fontFamily: FONTS.Poppins.Regular,
     },
     termInfo: {
       marginVertical: 25,
