@@ -2,6 +2,7 @@ import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {FONTS} from '../constant';
 const logoImg = require('../images/LogoWithName.png');
 
 const Welcome = ({navigation}) => {
@@ -21,16 +22,21 @@ const Welcome = ({navigation}) => {
             onPress={() => navigation.navigate('Login')}
             style={[styles.loginBtn, styles.btn]}
             activeOpacity={0.8}>
-            <Text style={{color: '#FFFFFF'}}>Login</Text>
+            <Text style={[{color: '#FFFFFF'}, styles.loginSignUpText]}>
+              Login
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate('SignUp')}
             style={[styles.signupBtn, styles.btn]}
             activeOpacity={0.8}>
             <Text
-              style={{
-                color: theme.colors.themeColor,
-              }}>
+              style={[
+                {
+                  color: theme.colors.themeColor,
+                },
+                styles.loginSignUpText,
+              ]}>
               Sign Up
             </Text>
           </TouchableOpacity>
@@ -57,8 +63,7 @@ const createStyles = theme =>
     title: {
       color: '#000000',
       fontSize: 20,
-      fontWeight: '600',
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.SemiBold,
       letterSpacing: -0.24,
     },
     subtitle: {
@@ -68,7 +73,7 @@ const createStyles = theme =>
       width: 199,
       textAlign: 'center',
       marginTop: 10,
-      fontFamily: 'Roboto',
+      fontFamily: FONTS.Roboto.Regular,
       letterSpacing: -0.24,
     },
     innerDiv: {
@@ -104,6 +109,10 @@ const createStyles = theme =>
     },
     loginText: {
       color: '#FFFFFF',
+      fontFamily: FONTS.Roboto.Regular,
+    },
+    loginSignUpText: {
+      fontFamily: FONTS.Comfortaa.SemiBold,
     },
   });
 

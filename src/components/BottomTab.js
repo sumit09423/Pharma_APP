@@ -3,7 +3,7 @@ import React, {lazy} from 'react';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTheme} from 'react-native-paper';
 import Setting from '../Setting';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Myorder from '../Dr_User/Myorder';
 const Landing = lazy(() => import('../Dr_User/Index'));
 const Profile3 = lazy(() => import('../Profile/Profile3'));
@@ -15,14 +15,31 @@ const BottomTab = () => {
   const theme = useTheme();
 
   return (
+    // <View>
     <Tab.Navigator
       initialRouteName="Welcome"
       screenOptions={({route}) => ({
+        tabBarStyle: {
+          position: 'absolute',
+          bottom: 25,
+          left: 20,
+          right: 20,
+          // boxShadow: '0px 3px 7px 0px #00000033',
+          elevation: 3,
+          shadowColor: '#000000',
+          shadowOffset: {width: 0, height: 3},
+          shadowOpacity: 7,
+          shadowRadius: 0,
+          borderRadius: 30,
+          height: 70,
+          paddingBottom: 10,
+          borderColor: 'transparent',
+        },
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
 
           if (route.name === 'Home') {
-            iconName = 'home';
+            iconName = 'home-outline';
           } else if (route.name === 'Order') {
             iconName = 'receipt';
           } else if (route.name === 'Profile') {
@@ -74,6 +91,7 @@ const BottomTab = () => {
         }}
       />
     </Tab.Navigator>
+    // </View>
   );
 };
 

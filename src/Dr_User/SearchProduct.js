@@ -8,6 +8,8 @@ import {
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 
 const SalesMan = require('../images/Medisine.png');
 
@@ -65,7 +67,8 @@ const SearchProduct = props => {
 
   const renderItem = ({item}) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('MultipleProduct', {item})}>
+      onPress={() => navigation.navigate('MultipleProduct', {item})}
+      activeOpacity={0.7}>
       <View style={styles.cardContainer}>
         <View style={styles.ImageView}>
           <Image
@@ -79,22 +82,18 @@ const SearchProduct = props => {
             {item.description}
           </Text>
         </View>
-        <IconButton icon="chevron-right" size={24} onPress={() => {}} />
+        <IconButton
+          icon="chevron-right"
+          size={24}
+          onPress={() => navigation.navigate('MultipleProduct', {item})}
+        />
       </View>
     </TouchableOpacity>
   );
 
   return (
     <>
-      <Appbar.Header style={styles.header}>
-        <Appbar.BackAction onPress={() => props.navigation.goBack()} />
-        <Appbar.Content
-          title="Gynecologist Medicine"
-          style={styles.centerTitle}
-        />
-        <Appbar.Action icon="magnify" />
-        <Appbar.Action icon="dots-vertical" />
-      </Appbar.Header>
+      <AppBar navigation={navigation} title="Gynecologist Medicine" />
       <View style={styles.container}>
         <View style={styles.titleContainer1}>
           <Searchbar
@@ -154,13 +153,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   title: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    fontFamily: 'Comfortaa',
+    fontSize: 14,
+    fontWeight: '600',
+    fontFamily: FONTS.Comfortaa.SemiBold,
+    color: '#000000',
   },
   description: {
-    fontSize: 12,
+    fontSize: 13,
     marginTop: 4,
+    color: '#7E7E7E',
+    lineHeight: 14,
+    fontFamily: FONTS.Roboto.Regular,
   },
   iconContainer: {
     justifyContent: 'center',

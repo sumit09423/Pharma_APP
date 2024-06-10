@@ -10,6 +10,7 @@ import {
 import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
+import {FONTS} from '../constant';
 const logoImg = require('../images/Profile.png');
 
 const Profile = ({navigation}) => {
@@ -99,7 +100,7 @@ const Profile = ({navigation}) => {
           onPress={() => navigation.navigate('Profile2')}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
-          <Text style={{color: '#FFFFFF'}}>Continue</Text>
+          <Text style={styles.continueText}>Continue</Text>
           <Icon source="arrow-right" color="white" size={18} />
         </TouchableOpacity>
       </ScrollView>
@@ -124,6 +125,7 @@ const createStyles = theme =>
       fontSize: 12,
       fontWeight: '600',
       letterSpacing: -0.24,
+      fontFamily: FONTS.Comfortaa.SemiBold,
     },
     welcome: {
       color: '#000000',
@@ -131,7 +133,7 @@ const createStyles = theme =>
       fontSize: 16,
       marginTop: 10,
       //   marginBottom: 12,
-      fontFamily: 'Comfortaa',
+      fontFamily: FONTS.Comfortaa.SemiBold,
       letterSpacing: -0.24,
     },
     outlineTextBox: {
@@ -154,18 +156,22 @@ const createStyles = theme =>
       // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 16,
+      paddingVertical: 14,
       borderRadius: 10,
-      fontFamily: 'Comfortaa',
-      fontSize: 14,
-      fontWeight: 700,
       marginTop: 12,
       marginBottom: 24,
       flexDirection: 'row',
       justifyContent: 'center',
+      alignItems: 'center',
+    },
+    continueText: {
+      color: '#FFFFFF',
+      fontFamily: FONTS.Comfortaa.Bold,
+      fontSize: 14,
+      fontWeight: '600',
     },
     signUpDetailText: {
-      fontFamily: 'Poppins',
+      fontFamily: FONTS.Poppins.Regular,
       fontSize: 13,
       lineHeight: 19.5,
       color: '#999999',
