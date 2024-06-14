@@ -1,18 +1,20 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-  Button,
   FlatList,
   Image,
   StyleSheet,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
-import {Appbar, IconButton, Text} from 'react-native-paper';
+import { Appbar, IconButton, Text } from 'react-native-paper';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
+import { FONTS } from '../constant';
 
 const Seruff = require('../images/Seruff.png');
-const Myorder = ({navigation}) => {
+const { width, height } = Dimensions.get('window');
+
+const Myorder = ({ navigation }) => {
   const [cart, setCart] = useState([
     {
       id: '1',
@@ -22,18 +24,56 @@ const Myorder = ({navigation}) => {
       srcCode: Seruff,
       description: 'Propofol Emulsion, Diprivan',
     },
-    // { id: '2', name: 'Propofol Injection Bp 1 W V 20', price: 335, quantity: 1 },
-    // { id: '3', name: 'Propofol Injection Bp 1 W V 20', price: 335, quantity: 1 },
+    {
+      id: '2',
+      name: 'Propofol Injection Bp 1 W V 20',
+      price: 335,
+      quantity: 1,
+      srcCode: Seruff,
+      description: 'Propofol Emulsion, Diprivan',
+    },
+    {
+      id: '3',
+      name: 'Propofol Injection Bp 1 W V 20',
+      price: 335,
+      quantity: 1,
+      srcCode: Seruff,
+      description: 'Propofol Emulsion, Diprivan',
+    },
   ]);
 
+  const handleIncrement = (item) => {
+    setCart((prevCart) =>
+      prevCart.map((cartItem) =>
+        cartItem.id === item.id
+          ? { ...cartItem, quantity: cartItem.quantity + 1, price: (cartItem.price / cartItem.quantity) * (cartItem.quantity + 1) }
+          : cartItem
+      )
+    );
+  };
+
+  const handleDecrement = (item) => {
+    setCart((prevCart) =>
+      prevCart.map((cartItem) =>
+        cartItem.id === item.id && cartItem.quantity > 1
+          ? { ...cartItem, quantity: cartItem.quantity - 1, price: (cartItem.price / cartItem.quantity) * (cartItem.quantity - 1) }
+          : cartItem
+      )
+    );
+  };
+
+  const handleDelete = (itemId) => {
+    setCart((prevCart) => prevCart.filter((cartItem) => cartItem.id !== itemId));
+  };
+
   const orderTotal = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => total + item.price,
     0,
   );
   const itemDiscount = 25;
   const total = orderTotal - itemDiscount;
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <View style={styles.productContainer}>
       <View style={styles.imgcontainer}>
         <Image source={item.srcCode} style={styles.productImage} />
@@ -45,50 +85,54 @@ const Myorder = ({navigation}) => {
             <Text style={styles.productDescription}>{item.description}</Text>
           </View>
           <View>
-            <IconButton icon="delete-outline" size={18} />
+            <IconButton icon="delete-outline" size={18} onPress={() => handleDelete(item.id)} />
           </View>
         </View>
         <View style={styles.cartContainer}>
           <View>
-            <Text style={styles.productPrice}>Price: ₹{item.price}</Text>
-            <Text style={styles.productQty}>Qty: {item.qty}</Text>
+            <Text style={styles.productPrice}>Price: ₹{item.price.toFixed(2)}</Text>
+            <Text style={styles.productQty}>Qty: {item.quantity}</Text>
           </View>
           <View style={styles.inccontainer}>
-            <TouchableOpacity style={styles.button1}>
-              <Text style={styles.buttonText}>−</Text>
+            <TouchableOpacity style={styles.button1} onPress={() => handleDecrement(item)}>
+              <Text style={styles.buttonText1}>−</Text>
             </TouchableOpacity>
             <View style={styles.countContainer}>
-              <Text style={styles.countText}>1</Text>
+              <Text style={styles.countText}>{item.quantity}</Text>
             </View>
-            <TouchableOpacity style={styles.button1}>
-              <Text style={styles.buttonText}>+</Text>
+            <TouchableOpacity style={styles.button1} onPress={() => handleIncrement(item)}>
+              <Text style={styles.buttonText1}>+</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
     </View>
   );
+
   return (
     <View style={styles.container}>
       <AppBar navigation={navigation} title="Your Cart" notification={false} />
-
       <View style={styles.sectionContainer}>
-        <Text style={styles.totalItems}>3 items into cart</Text>
+        <Text style={styles.totalItems}>{cart.length} item(s) in cart</Text>
         <TouchableOpacity>
           <Text style={styles.addMoreButton}>+ Add More</Text>
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={cart}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+
+      <View style={styles.flatlistdiv}>
+        <FlatList
+          data={cart}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      </View>
+
       <View style={styles.buttonDiv}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => {}}
+          onPress={() => { }}
           activeOpacity={0.8}>
-          <Text style={styles.buttonText}>Place order @ 900</Text>
+          <Text style={styles.buttonText}>Place order @ ₹{total.toFixed(2)}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -102,24 +146,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  appbar: {
-    backgroundColor: '#fff',
-  },
-
-  container: {
-    flex: 1,
     backgroundColor: '#ffffff',
   },
   productContainer: {
     flexDirection: 'row',
-    marginHorizontal: 8,
+    marginHorizontal: '2%',
     marginVertical: 8,
     borderRadius: 8,
     borderBottomColor: '#ccc',
     backgroundColor: '#F9F9F9',
-    paddingHorizontal: 14,
+    paddingHorizontal: '3%',
     paddingVertical: 8,
   },
   searchContainer: {
@@ -127,42 +163,38 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     borderRadius: 20,
-    marginHorizontal: 16,
+    marginHorizontal: '4%',
     backgroundColor: '#F3F6F6',
   },
   productImage: {
-    width: 95,
-    height: 85,
+    width: width * 0.25,
+    height: height * 0.12,
     borderRadius: 12,
   },
   productDetails: {
-    paddingHorizontal: 14,
+    paddingHorizontal: '3%',
     flex: 1,
     flexDirection: 'column',
   },
   productName: {
-    fontSize: 11,
+    fontSize: width * 0.03,
     fontWeight: '600',
     fontFamily: FONTS.Comfortaa.SemiBold,
     color: '#000000',
   },
   productDescription: {
     fontFamily: FONTS.Roboto.Regular,
-    fontSize: 10,
+    fontSize: width * 0.025,
     color: '#7E7E7E',
   },
   productPrice: {
-    fontSize: 11,
+    fontSize: width * 0.03,
     fontFamily: FONTS.Roboto.Regular,
     color: '#616161',
   },
-  productMrp: {
-    fontSize: 12,
-    color: '#333',
-  },
   productQty: {
     fontFamily: FONTS.Roboto.Regular,
-    fontSize: 11,
+    fontSize: width * 0.03,
     color: '#616161',
   },
   addToCartButton: {
@@ -185,17 +217,17 @@ const styles = StyleSheet.create({
   sectionContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    paddingHorizontal: '5%',
     marginVertical: 12,
   },
   totalItems: {
     fontFamily: FONTS.Roboto.Regular,
-    fontSize: 11,
+    fontSize: width * 0.03,
     color: '#7E7E7E',
   },
   addMoreButton: {
     fontFamily: FONTS.Roboto.Medium,
-    fontSize: 11,
+    fontSize: width * 0.03,
     color: '#0EC5C1',
   },
   buttonDiv: {
@@ -209,9 +241,9 @@ const styles = StyleSheet.create({
     marginTop: 16,
     alignItems: 'center',
   },
-  buttonText: {
+  buttonText1: {
     color: '#FFFFFF',
-    fontSize: 158,
+    fontSize: width * 0.04,
   },
   inccontainer: {
     flexDirection: 'row',
@@ -223,8 +255,8 @@ const styles = StyleSheet.create({
   button1: {
     backgroundColor: '#00bcd4',
     borderRadius: 20,
-    width: 30,
-    height: 30,
+    width: width * 0.08,
+    height: width * 0.08,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -243,11 +275,15 @@ const styles = StyleSheet.create({
   },
   childcontainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   cartContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  flatlistdiv: {
+    height: 470,
+  }
 });
 
 export default Myorder;
