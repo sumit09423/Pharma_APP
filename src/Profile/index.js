@@ -11,23 +11,45 @@ import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
 import {FONTS} from '../constant';
+import {Controller, useForm} from 'react-hook-form';
+import {useFormContext} from '../context/FormContext';
 const logoImg = require('../images/Profile.png');
 
 const Profile = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const [formValues, setFormValues] = useState({
-    fname: '',
-    lname: '',
-    degree: '',
-    licenceNumber: '',
+  // const [formValues, setFormValues] = useState({
+  //   fname: '',
+  //   lname: '',
+  //   degree: '',
+  //   licenceNumber: '',
+  // });
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      fname: '',
+      lname: '',
+      degree: '',
+      licenceNumber: '',
+    },
   });
+  const formValues = watch();
+  const {formData, setFormData} = useFormContext();
 
   const handleChange = (name, value) => {
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    // setFormValues({
+    //   ...formValues,
+    //   [name]: value,
+    // });
+  };
+
+  const handleContinue = () => {
+    navigation.navigate('Profile2');
+    setFormData({...formData, ...formValues});
   };
 
   return (
@@ -48,56 +70,92 @@ const Profile = ({navigation}) => {
           <Image source={logoImg} style={styles.profileImg} />
         </View>
 
-        <TextInput
-          mode="outlined"
-          value={formValues.fname}
-          onChangeText={value => handleChange('fname', value)}
-          placeholder="First Name"
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
+        <Controller
+          control={control}
+          name="fname"
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              mode="outlined"
+              value={value}
+              onChangeText={onChange}
+              placeholder="First Name"
+              style={styles.emailTextBox}
+              outlineColor="transparent"
+              outlineStyle={styles.outlineTextBox}
+              textColor="#818181"
+              placeholderTextColor="#818181"
+            />
+          )}
         />
 
-        <TextInput
-          mode="outlined"
-          value={formValues.lname}
-          onChangeText={value => handleChange('lname', value)}
-          placeholder="Last Name"
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
+        <Controller
+          control={control}
+          name="lname"
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              mode="outlined"
+              value={value}
+              onChangeText={onChange}
+              placeholder="Last Name"
+              style={styles.emailTextBox}
+              outlineColor="transparent"
+              outlineStyle={styles.outlineTextBox}
+              textColor="#818181"
+              placeholderTextColor="#818181"
+            />
+          )}
         />
 
-        <TextInput
-          mode="outlined"
-          value={formValues.degree}
-          onChangeText={value => handleChange('degree', value)}
-          placeholder="Dr's Degree"
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
+        <Controller
+          control={control}
+          name="degree"
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              mode="outlined"
+              value={value}
+              onChangeText={onChange}
+              placeholder="Dr's Degree"
+              style={styles.emailTextBox}
+              outlineColor="transparent"
+              outlineStyle={styles.outlineTextBox}
+              textColor="#818181"
+              placeholderTextColor="#818181"
+            />
+          )}
         />
 
-        <TextInput
-          mode="outlined"
-          value={formValues.licenceNumber}
-          onChangeText={value => handleChange('licenceNumber', value)}
-          placeholder="Licence Number"
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
+        <Controller
+          control={control}
+          name="licenceNumber"
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              mode="outlined"
+              value={value}
+              onChangeText={onChange}
+              placeholder="Licence Number"
+              style={styles.emailTextBox}
+              outlineColor="transparent"
+              outlineStyle={styles.outlineTextBox}
+              textColor="#818181"
+              placeholderTextColor="#818181"
+            />
+          )}
         />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Profile2')}
+          onPress={handleContinue}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
           <Text style={styles.continueText}>Continue</Text>

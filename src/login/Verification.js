@@ -23,10 +23,10 @@ const Verification = ({navigation}) => {
   });
 
   const handleChange = (name, value) => {
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    // setFormValues({
+    //   ...formValues,
+    //   [name]: value,
+    // });
   };
 
   return (
