@@ -1,16 +1,10 @@
-import React, {useState} from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {
-  Appbar,
-  Card,
-  IconButton,
-  Searchbar,
-  Text,
-  useTheme,
-} from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Appbar, Card, Searchbar, Text, useTheme } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
+import { FONTS } from '../constant';
+
 const SalesMan = require('../images/SalesMan.png');
 const UserAvailable = require('../images/user2.png');
 
@@ -43,13 +37,12 @@ const Category = () => {
           title="Gynecologist"
           subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
           titleStyle={[styles.cardText, styles.cardTitle]}
-          subtitleNumberOfLines={null}
-          subtitleVariant="bodyMedium"
+          subtitleNumberOfLines={2}
           subtitleStyle={[styles.cardText, styles.cardSubTitle]}
           left={props => (
             <Image
               source={UserAvailable}
-              style={{width: 65, height: 65, borderRadius: 20}}
+              style={styles.userImage}
             />
           )}
           leftStyle={styles.leftStyle}
@@ -63,13 +56,12 @@ const Category = () => {
           title="Pediatrician"
           subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
           titleStyle={[styles.cardText, styles.cardTitle]}
-          subtitleNumberOfLines={null}
-          subtitleVariant="bodyMedium"
+          subtitleNumberOfLines={2}
           subtitleStyle={[styles.cardText, styles.cardSubTitle]}
           left={props => (
             <Image
               source={UserAvailable}
-              style={{width: 65, height: 65, borderRadius: 20}}
+              style={styles.userImage}
             />
           )}
           leftStyle={styles.leftStyle}
@@ -83,20 +75,19 @@ const Category = () => {
           title="GP Doctors"
           subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
           titleStyle={[styles.cardText, styles.cardTitle]}
-          subtitleNumberOfLines={null}
-          subtitleVariant="bodyMedium"
+          subtitleNumberOfLines={2}
           subtitleStyle={[styles.cardText, styles.cardSubTitle]}
           left={props => (
             <Image
               source={UserAvailable}
-              style={{width: 65, height: 65, borderRadius: 20}}
+              style={styles.userImage}
             />
           )}
           leftStyle={styles.leftStyle}
         />
       </TouchableOpacity>
       <View style={styles.btncontainer}>
-        <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+        <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={handlePress}>
           <Text style={styles.buttonText}>Search Products</Text>
         </TouchableOpacity>
       </View>
@@ -105,77 +96,76 @@ const Category = () => {
   );
 };
 
-const createStyles = theme =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#FFFFFF',
-      paddingHorizontal: 20,
-    },
-    titleContainer: {
-      flex: 1,
-      flexDirection: 'column',
-      lineHeight: 8,
-    },
-    titleContainer1: {
-      marginTop: 6,
-      marginBottom: 6,
-    },
-    cardCommonContainer: {
-      height: 95,
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingHorizontal: 10,
-      borderRadius: 15,
-      marginVertical: 6,
-    },
-    searchBar: {
-      backgroundColor: '#F3F6F6',
-      borderRadius: 20,
-    },
-    cardText: {
-      paddingHorizontal: 20,
-      fontFamily: FONTS.Comfortaa.Medium,
-      fontWeight: '500',
-    },
-    cardTitle: {
-      fontSize: 20,
-      color: '#000000',
-    },
-    cardSubTitle: {
-      fontSize: 12,
-      lineHeight: 15,
-      color: '#767575',
-    },
-    cardContainer: {
-      backgroundColor: '#E9F4F4',
-    },
-    cardContainer2: {
-      backgroundColor: '#F8F8F8',
-    },
-    btncontainer: {
-      marginTop: 36,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    button: {
-      backgroundColor: '#00c4cc',
-      paddingVertical: 15,
-      paddingHorizontal: 40,
-      borderRadius: 30,
-      width: '80%',
-    },
-    buttonText: {
-      color: '#ffffff',
-      fontSize: 16,
-      fontWeight: '600',
-      fontFamily: FONTS.Comfortaa.Bold,
-      textAlign: 'center',
-      lineHeight: 17.8,
-    },
-    leftStyle: {
-      paddingRight: 50,
-    },
-  });
+const { width } = Dimensions.get('window');
+
+const createStyles = theme => StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 20,
+  },
+  titleContainer1: {
+    marginTop: 6,
+    marginBottom: 6,
+  },
+  cardCommonContainer: {
+    height: 95,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    borderRadius: 15,
+    marginVertical: 6,
+    width: '100%',
+  },
+  searchBar: {
+    backgroundColor: '#F3F6F6',
+    borderRadius: 20,
+  },
+  cardText: {
+    paddingHorizontal: 20,
+    fontFamily: FONTS.Comfortaa.Medium,
+    fontWeight: '500',
+  },
+  cardTitle: {
+    fontSize: width * 0.05,
+    color: '#000000',
+  },
+  cardSubTitle: {
+    fontSize: width * 0.03,
+    lineHeight: 15,
+    color: '#767575',
+  },
+  cardContainer2: {
+    backgroundColor: '#F8F8F8',
+  },
+  btncontainer: {
+    marginTop: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: '#00c4cc',
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    borderRadius: 30,
+    width: '80%',
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: width * 0.04,
+    fontWeight: '600',
+    fontFamily: FONTS.Comfortaa.Bold,
+    textAlign: 'center',
+    lineHeight: 17.8,
+  },
+  leftStyle: {
+    paddingRight: 50,
+  },
+  userImage: {
+    width: 65,
+    height: 65,
+    borderRadius: 20,
+  },
+});
 
 export default Category;
