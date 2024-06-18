@@ -1,91 +1,95 @@
-import React, {useState} from 'react';
-import {Appbar, IconButton, Searchbar, Text} from 'react-native-paper';
+import React, { useState } from 'react';
+import { Appbar, IconButton, Searchbar, Text } from 'react-native-paper';
 import {
   FlatList,
   Image,
   StyleSheet,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
+import { FONTS } from '../constant';
 
 const SalesMan = require('../images/Medisine.png');
 
-const SearchProduct = props => {
+const { width, height } = Dimensions.get('window');
+
+const SearchProduct = (props) => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState('');
   const data = [
     {
-      id: 1,
+      id: '1',
       title: 'Injectables',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'injectablesIcon',
     },
     {
-      id: 2,
+      id: '2',
       title: 'Sinusitis',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'sinusitisIcon',
     },
     {
-      id: 3,
+      id: '3',
       title: 'Tonsillitis',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'tonsillitisIcon',
     },
     {
-      id: 4,
+      id: '4',
       title: 'Mauris posuere ullamcorper',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'maurisIcon',
     },
     {
-      id: 5,
+      id: '5',
       title: 'Nullo blandit lectus',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'nulloIcon',
     },
     {
-      id: 6,
+      id: '6',
       title: 'Donec dopibus dignissim',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'donecIcon',
     },
     {
-      id: 7,
+      id: '7',
       title: 'Nunc non odio id',
       description: 'Duis vitae turpis elementum, ullamcorper tortor vel',
       icon: 'nuncIcon',
     },
   ];
 
-  const filteredData = data.filter(item =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  const filteredData = data.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('MultipleProduct', {item})}
-      activeOpacity={0.7}>
+      onPress={() => navigation.navigate('MultipleProduct', { item })}
+      activeOpacity={0.7}
+    >
       <View style={styles.cardContainer}>
         <View style={styles.ImageView}>
           <Image
             source={SalesMan}
-            style={{width: 40, height: 40, borderRadius: 20}}
+            style={styles.image}
           />
         </View>
-        <View style={styles.textcontainer}>
+        <View style={styles.textContainer}>
           <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.description} numberOfLines={null}>
+          <Text style={styles.description} numberOfLines={1}>
             {item.description}
           </Text>
         </View>
         <IconButton
           icon="chevron-right"
           size={24}
-          onPress={() => navigation.navigate('MultipleProduct', {item})}
+          onPress={() => navigation.navigate('MultipleProduct', { item })}
         />
       </View>
     </TouchableOpacity>
@@ -95,7 +99,7 @@ const SearchProduct = props => {
     <>
       <AppBar navigation={navigation} title="Gynecologist Medicine" />
       <View style={styles.container}>
-        <View style={styles.titleContainer1}>
+        <View style={styles.titleContainer}>
           <Searchbar
             placeholder="Search"
             onChangeText={setSearchQuery}
@@ -107,7 +111,7 @@ const SearchProduct = props => {
         <FlatList
           data={filteredData}
           renderItem={renderItem}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
         />
       </View>
     </>
@@ -115,20 +119,12 @@ const SearchProduct = props => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: '#fff',
-  },
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 20,
   },
-  containerMain: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#F5F5F9',
-  },
-  titleContainer1: {
+  titleContainer: {
     marginVertical: 12,
   },
   searchBar: {
@@ -147,8 +143,14 @@ const styles = StyleSheet.create({
   ImageView: {
     backgroundColor: '#FCFCFF',
     padding: 8,
+    borderRadius: 20,
   },
-  textcontainer: {
+  image: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  textContainer: {
     flex: 1,
     paddingHorizontal: 12,
   },
