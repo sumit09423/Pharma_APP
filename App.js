@@ -5,6 +5,7 @@ import AuthScreen from './src/AuthScreen';
 import MainScreen from './src/MainScreen';
 import { FormProvider } from './src/context/FormContext';
 import AdminScreen from './src/Adminscreen';
+import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast />
     </FormProvider>
   );
 };

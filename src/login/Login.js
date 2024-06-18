@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   ScrollView,
@@ -10,18 +10,19 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import {Button, Checkbox, TextInput, useTheme} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {FONTS} from '../constant';
-import {Controller, useForm} from 'react-hook-form';
+import { Button, Checkbox, TextInput, useTheme } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { FONTS } from '../constant';
+import { Controller, useForm } from 'react-hook-form';
 import axios from 'axios';
+import Toast from 'react-native-toast-message';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -35,7 +36,7 @@ const Login = ({navigation}) => {
     control,
     handleSubmit,
     watch,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     defaultValues: {
       email: '',
@@ -63,11 +64,19 @@ const Login = ({navigation}) => {
       })
       .then(response => {
         console.log('response:', response.data);
+        Toast.show({
+          type: 'success',
+          text1: "Login success "
+        });
+        navigation.replace('Main');
       })
       .catch(error => {
-        console.log(error.response.data.message);
-        console.log('Error:', error);
+        Toast.show({
+          type: 'error',
+          text1: error.response.data.message || 'An error occurred. Please try again.',
+        });
       });
+
   };
 
   const onSubmitError = error => {
@@ -75,7 +84,6 @@ const Login = ({navigation}) => {
   };
 
   const handleLogin = () => {
-    navigation.replace('Main');
     handleSubmit(onSubmitData, onSubmitError)();
   };
 
@@ -91,7 +99,7 @@ const Login = ({navigation}) => {
           rules={{
             required: true,
           }}
-          render={({field: {onChange, onBlur, value}}) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -112,7 +120,7 @@ const Login = ({navigation}) => {
           rules={{
             required: true,
           }}
-          render={({field: {onChange, onBlur, value}}) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -183,7 +191,9 @@ const Login = ({navigation}) => {
           Don't have an account{' '}
           <Text
             style={styles.signUpText}
-            onPress={() => navigation.navigate('SignUp')}>
+            onPress={() => {
+              navigation.navigate('SignUp')
+            }}>
             Sign Up
           </Text>
         </Text>
