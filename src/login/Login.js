@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -7,36 +7,76 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  Platform
+  Platform,
+  Alert,
 } from 'react-native';
-import { Button, Checkbox, TextInput, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { FONTS } from '../constant';
+import {Button, Checkbox, TextInput, useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {FONTS} from '../constant';
+import {Controller, useForm} from 'react-hook-form';
+import axios from 'axios';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [checked, setChecked] = useState(false);
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
+  // const [formValues, setFormValues] = useState({
+  //   email: '',
+  //   password: '',
+  // });
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
+  const formValues = watch();
 
   const handleChange = (name, value) => {
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    // setFormValues({
+    //   ...formValues,
+    //   [name]: value,
+    // });
   };
 
   const toggleSecureTextEntry = () => {
     setSecureTextEntry(!secureTextEntry);
+  };
+
+  const onSubmitData = values => {
+    console.log('Login', values);
+    axios
+      .post('https://guyana-joins-organize-alarm.trycloudflare.com/login', {
+        ...values,
+      })
+      .then(response => {
+        console.log('response:', response.data);
+      })
+      .catch(error => {
+        console.log(error.response.data.message);
+        console.log('Error:', error);
+      });
+  };
+
+  const onSubmitError = error => {
+    console.log('Error', error);
+  };
+
+  const handleLogin = () => {
+    navigation.replace('Main');
+    handleSubmit(onSubmitData, onSubmitError)();
   };
 
   return (
@@ -44,35 +84,54 @@ const Login = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollViewDiv}>
         <Image source={logoImg} style={styles.logo} />
         <Text style={styles.welcome}>Welcome back!</Text>
-        <TextInput
-          mode="outlined"
-          value={formValues.email}
-          onChangeText={value => handleChange('email', value)}
-          placeholder="Email"
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
+
+        <Controller
+          control={control}
+          name="email"
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              mode="outlined"
+              value={value}
+              onChangeText={onChange}
+              placeholder="Email"
+              style={styles.emailTextBox}
+              outlineColor="transparent"
+              outlineStyle={styles.outlineTextBox}
+              textColor="#818181"
+              placeholderTextColor="#818181"
+            />
+          )}
         />
 
-        <TextInput
-          mode="outlined"
-          value={formValues.password}
-          onChangeText={value => handleChange('password', value)}
-          placeholder="Password"
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
-          secureTextEntry={secureTextEntry}
-          right={
-            <TextInput.Icon
-              icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
-              onPress={toggleSecureTextEntry}
+        <Controller
+          control={control}
+          name="password"
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              mode="outlined"
+              value={value}
+              onChangeText={onChange}
+              placeholder="Password"
+              style={styles.emailTextBox}
+              outlineColor="transparent"
+              outlineStyle={styles.outlineTextBox}
+              textColor="#818181"
+              placeholderTextColor="#818181"
+              secureTextEntry={secureTextEntry}
+              right={
+                <TextInput.Icon
+                  icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
+                  onPress={toggleSecureTextEntry}
+                />
+              }
             />
-          }
+          )}
         />
 
         <View style={styles.innerDiv}>
@@ -91,7 +150,7 @@ const Login = ({ navigation }) => {
         </View>
 
         <TouchableOpacity
-          onPress={() => navigation.replace('Main')}
+          onPress={handleLogin}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
           <Text style={styles.loginText}>Log In</Text>
