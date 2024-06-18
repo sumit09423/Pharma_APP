@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   ScrollView,
@@ -6,15 +6,19 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions,
+  Platform
 } from 'react-native';
-import {Button, Checkbox, TextInput, useTheme} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {FONTS} from '../constant';
+import { Button, Checkbox, TextInput, useTheme } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { FONTS } from '../constant';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
-const Login = ({navigation}) => {
+const { width, height } = Dimensions.get('window');
+
+const Login = ({ navigation }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -136,20 +140,23 @@ const createStyles = theme =>
       backgroundColor: '#fbfbfb',
     },
     scrollViewDiv: {
-      paddingHorizontal: 20,
+      paddingHorizontal: width * 0.05,
       alignItems: 'center',
     },
     logo: {
-      marginTop: 88,
-      marginBottom: 8,
+      marginTop: height * 0.1,
+      marginBottom: height * 0.01,
+      width: width * 0.4,
+      height: height * 0.1,
+      resizeMode: 'contain',
     },
     welcome: {
       color: '#000000',
-      fontSize: 16,
+      fontSize: width * 0.04,
       fontWeight: '600',
       fontFamily: FONTS.Comfortaa.SemiBold,
       letterSpacing: -0.24,
-      marginBottom: 38,
+      marginBottom: height * 0.04,
     },
     outlineTextBox: {
       borderRadius: 10,
@@ -159,7 +166,7 @@ const createStyles = theme =>
     emailTextBox: {
       width: '100%',
       paddingHorizontal: 6,
-      marginBottom: 15,
+      marginBottom: height * 0.02,
     },
     innerDiv: {
       width: '100%',
@@ -174,27 +181,26 @@ const createStyles = theme =>
     },
     rpText: {
       color: '#736D6D',
-      fontSize: 12,
+      fontSize: width * 0.03,
       fontFamily: FONTS.Poppins.Regular,
     },
     fpText: {
       color: '#999999',
       fontFamily: FONTS.Poppins.Regular,
-      fontSize: 13,
+      fontSize: width * 0.035,
     },
     LoginBtn: {
       backgroundColor: '#0EC5C1',
-      // backgroundColor: 'linear-gradient(90deg, #0EC5C1 18%, #24E2DE 100%)',
       width: '100%',
       borderColor: 'transparent',
-      paddingVertical: 14,
+      paddingVertical: height * 0.02,
       borderRadius: 10,
-      marginTop: 12,
+      marginTop: height * 0.015,
     },
     loginText: {
       textAlign: 'center',
       fontFamily: FONTS.Comfortaa.Bold,
-      fontSize: 14,
+      fontSize: width * 0.04,
       fontWeight: '600',
       color: '#FFFFFF',
     },
@@ -202,7 +208,7 @@ const createStyles = theme =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      marginVertical: 20,
+      marginVertical: height * 0.03,
     },
     line: {
       flex: 1,
@@ -210,8 +216,8 @@ const createStyles = theme =>
       backgroundColor: '#ccc',
     },
     orText: {
-      marginHorizontal: 10,
-      fontSize: 13,
+      marginHorizontal: width * 0.03,
+      fontSize: width * 0.035,
       color: '#888',
       fontFamily: FONTS.IBMPlexSans.Regular,
     },
@@ -227,32 +233,31 @@ const createStyles = theme =>
       backgroundColor: '#e9ebeb',
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: 9,
-      paddingVertical: 7,
+      paddingHorizontal: width * 0.03,
+      paddingVertical: height * 0.01,
     },
     googleFbLabel: {
       fontFamily: FONTS.IBMPlexSans.Light,
-      fontSize: 14,
+      fontSize: width * 0.035,
       fontWeight: '300',
-      paddingLeft: 10,
+      paddingLeft: width * 0.02,
       color: '#000000',
     },
     googleFbImg: {
-      width: 24,
-      height: 24,
+      width: width * 0.06,
+      height: width * 0.06,
     },
     signUpDetailText: {
-      marginTop: 29,
-      fontFamily: 'Poppins',
-      fontSize: 13,
+      marginTop: height * 0.03,
+      fontSize: width * 0.035,
       color: '#999999',
-      marginBottom: 24,
+      marginBottom: height * 0.03,
       fontFamily: FONTS.Poppins.Regular,
     },
     signUpText: {
       color: theme.colors.themeColor,
       fontFamily: FONTS.Poppins.Regular,
-      fontSize: 13,
+      fontSize: width * 0.035,
     },
   });
 

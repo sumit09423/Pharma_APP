@@ -1,13 +1,14 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Button, useTheme} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {FONTS} from '../constant';
+import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import { useTheme } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { FONTS } from '../constant';
 const logoImg = require('../images/LogoWithName.png');
 
-const Welcome = ({navigation}) => {
+const Welcome = ({ navigation }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
+
   return (
     <SafeAreaView style={styles.container}>
       <Image source={logoImg} style={styles.logo} />
@@ -22,7 +23,7 @@ const Welcome = ({navigation}) => {
             onPress={() => navigation.navigate('Login')}
             style={[styles.loginBtn, styles.btn]}
             activeOpacity={0.8}>
-            <Text style={[{color: '#FFFFFF'}, styles.loginSignUpText]}>
+            <Text style={[{ color: '#FFFFFF' }, styles.loginSignUpText]}>
               Login
             </Text>
           </TouchableOpacity>
@@ -47,18 +48,20 @@ const Welcome = ({navigation}) => {
   );
 };
 
+const { width, height } = Dimensions.get('window');
+
 const createStyles = theme =>
   StyleSheet.create({
     container: {
-      display: 'flex',
-      alignItems: 'center',
-      position: 'relative',
       flex: 1,
+      alignItems: 'center',
       backgroundColor: '#fbfbfb',
     },
     logo: {
-      marginTop: 158,
-      marginBottom: 28,
+      marginTop: height * 0.2, // Adjusted for different screen sizes
+      marginBottom: height * 0.05,
+      width: width * 0.6, // Adjusted for different screen sizes
+      resizeMode: 'contain', // Ensures the image scales correctly
     },
     title: {
       color: '#000000',
@@ -70,7 +73,7 @@ const createStyles = theme =>
       color: '#999999',
       fontSize: 14,
       lineHeight: 20,
-      width: 199,
+      width: '80%', // Adjusted for different screen sizes
       textAlign: 'center',
       marginTop: 10,
       fontFamily: FONTS.Roboto.Regular,
@@ -78,29 +81,26 @@ const createStyles = theme =>
     },
     innerDiv: {
       backgroundColor: theme.colors.themeColor,
-      height: 280,
+      height: height * 0.35, // Adjusted for different screen sizes
       position: 'absolute',
       bottom: 0,
       width: '100%',
       borderTopLeftRadius: 29,
       borderTopRightRadius: 29,
-      display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-evenly',
     },
     btnDiv: {
-      display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-evenly',
       width: '100%',
     },
     btn: {
-      width: 140,
+      width: width * 0.35, // Adjusted for different screen sizes
       height: 46,
       borderRadius: 8,
       borderWidth: 1,
       borderColor: '#F0FEFE',
-      flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
     },

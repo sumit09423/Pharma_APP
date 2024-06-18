@@ -1,22 +1,22 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
 import {
-  Appbar,
   Card,
-  IconButton,
   Searchbar,
   Text,
   useTheme,
 } from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
+import { FONTS } from '../constant';
+
 const SalesMan = require('../images/SalesMan.png');
 const UserAvailable = require('../images/user2.png');
 
@@ -42,7 +42,7 @@ const Landing = () => {
           style={styles.searchBar}
         />
       </View>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <TouchableOpacity
           style={[styles.cardContainer, styles.cardCommonContainer]}
           onPress={handlePress}
@@ -52,12 +52,11 @@ const Landing = () => {
             subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
             titleStyle={[styles.cardText, styles.cardTitle]}
             subtitleNumberOfLines={null}
-            subtitleVariant="bodyMedium"
             subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-            left={props => (
+            left={() => (
               <Image
                 source={SalesMan}
-                style={{width: 65, height: 65, borderRadius: 20}}
+                style={styles.cardImage}
               />
             )}
             leftStyle={styles.leftStyle}
@@ -73,12 +72,11 @@ const Landing = () => {
             subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
             titleStyle={[styles.cardText, styles.cardTitle]}
             subtitleNumberOfLines={null}
-            subtitleVariant="bodyMedium"
             subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-            left={props => (
+            left={() => (
               <Image
                 source={UserAvailable}
-                style={{width: 60, height: 60, borderRadius: 20}}
+                style={styles.cardImageSmall}
               />
             )}
             leftStyle={styles.leftStyle}
@@ -94,12 +92,11 @@ const Landing = () => {
             subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
             titleStyle={[styles.cardText, styles.cardTitle]}
             subtitleNumberOfLines={null}
-            subtitleVariant="bodyMedium"
             subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-            left={props => (
+            left={() => (
               <Image
                 source={UserAvailable}
-                style={{width: 60, height: 60, borderRadius: 20}}
+                style={styles.cardImageSmall}
               />
             )}
             leftStyle={styles.leftStyle}
@@ -116,17 +113,13 @@ const Landing = () => {
   );
 };
 
-const createStyles = theme =>
-  StyleSheet.create({
+const createStyles = theme => {
+  const { width } = Dimensions.get('window');
+  return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#FFFFFF',
       paddingHorizontal: 20,
-    },
-    titleContainer: {
-      flex: 1,
-      flexDirection: 'column',
-      lineHeight: 8,
     },
     titleContainer1: {
       marginTop: 6,
@@ -139,6 +132,7 @@ const createStyles = theme =>
       paddingHorizontal: 8,
       borderRadius: 15,
       marginVertical: 6,
+      width: '100%',
     },
     searchBar: {
       backgroundColor: '#F3F6F6',
@@ -185,8 +179,22 @@ const createStyles = theme =>
       lineHeight: 17.8,
     },
     leftStyle: {
-      paddingRight: 50,
+      paddingRight: 20,
     },
+    cardImage: {
+      width: 65,
+      height: 65,
+      borderRadius: 20,
+    },
+    cardImageSmall: {
+      width: 60,
+      height: 60,
+      borderRadius: 20,
+    },
+    scrollViewContent: {
+      flexGrow: 1,
+    }
   });
+};
 
 export default Landing;

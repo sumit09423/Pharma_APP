@@ -1,18 +1,12 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  FlatList,
-} from 'react-native';
-import {Appbar, IconButton, Searchbar} from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, FlatList, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Appbar, IconButton, Searchbar } from 'react-native-paper';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
+import { FONTS } from '../constant';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const MultipleProduct = props => {
+const MultipleProduct = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigation = useNavigation(); // Hook for navigation
 
@@ -53,7 +47,7 @@ const MultipleProduct = props => {
     },
   ];
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.productContainer}
       onPress={handlePress}
@@ -97,47 +91,46 @@ const MultipleProduct = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: wp('4%'),
     backgroundColor: '#FFFFFF',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 4,
-    padding: 4,
-    marginBottom: 16,
+    padding: wp('1%'),
+    marginBottom: hp('2%'),
   },
   searchInput: {
     flex: 1,
-    marginLeft: 8,
+    marginLeft: wp('2%'),
   },
   productContainer: {
     backgroundColor: '#F8F8F8',
-    padding: 16,
+    padding: wp('4%'),
     borderRadius: 10,
-    marginBottom: 16,
-    display: 'flex',
+    marginBottom: hp('2%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   productTitle: {
-    fontSize: 14,
+    fontSize: wp('4%'),
     fontWeight: '600',
     color: '#000000',
     fontFamily: FONTS.Comfortaa.SemiBold,
   },
   productSubtitle: {
     color: '#7E7E7E',
-    fontSize: 13,
-    marginBottom: 8,
-    lineHeight: 21,
+    fontSize: wp('3.5%'),
+    marginBottom: hp('1%'),
+    lineHeight: hp('3%'),
     fontFamily: FONTS.Roboto.Regular,
   },
   buttonContainer: {
     backgroundColor: '#7EDEDC',
     alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: wp('3%'),
+    paddingVertical: hp('1%'),
     borderRadius: 5,
   },
   buttonText: {
@@ -148,13 +141,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    paddingHorizontal: 8,
+    paddingHorizontal: wp('2%'),
   },
   flatListContainer: {
-    paddingBottom: 16,
+    paddingBottom: hp('2%'),
   },
   centerTitle: {
-    fontSize: 8,
+    fontSize: wp('2%'),
   },
   searchBar: {
     borderRadius: 20,

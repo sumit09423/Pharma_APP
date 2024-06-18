@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -11,6 +11,8 @@ import {Button, TextInput, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
 import {FONTS} from '../constant';
+import {Controller, useForm} from 'react-hook-form';
+import {useFormContext} from '../context/FormContext';
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
@@ -18,21 +20,30 @@ const SignUp = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
-  const [formValues, setFormValues] = useState({
-    email: '',
-    contact: '',
-    password: '',
+  const {formData, setFormData} = useFormContext();
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      email: '',
+      contact: '',
+      password: '',
+      gender: 'male',
+    },
   });
-
-  const handleChange = (name, value) => {
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
+  const formValues = watch();
 
   const toggleSecureTextEntry = () => {
     setSecureTextEntry(!secureTextEntry);
+  };
+
+  const handleSignup = () => {
+    setFormData({...formData, ...formValues});
+    console.log(formValues);
+    navigation.navigate('Profile1');
   };
 
   return (
@@ -56,51 +67,80 @@ const SignUp = ({navigation}) => {
           </Text>
         </Text>
 
-        <TextInput
-          mode="outlined"
-          value={formValues.email}
-          onChangeText={value => handleChange('email', value)}
-          placeholder="Email"
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
-        />
-
-        <TextInput
-          mode="outlined"
-          value={formValues.contact}
-          onChangeText={value => handleChange('contact', value)}
-          placeholder="Contact Number"
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
-        />
-
-        <TextInput
-          mode="outlined"
-          value={formValues.password}
-          onChangeText={value => handleChange('password', value)}
-          placeholder="Password"
-          style={styles.emailTextBox}
-          outlineColor="transparent"
-          outlineStyle={styles.outlineTextBox}
-          textColor="#818181"
-          placeholderTextColor="#818181"
-          secureTextEntry={secureTextEntry}
-          right={
-            <TextInput.Icon
-              icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
-              onPress={toggleSecureTextEntry}
+        <Controller
+          control={control}
+          name="email"
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              mode="outlined"
+              value={value}
+              onChangeText={onChange}
+              placeholder="Email"
+              style={styles.emailTextBox}
+              outlineColor="transparent"
+              outlineStyle={styles.outlineTextBox}
+              textColor="#818181"
+              placeholderTextColor="#818181"
+              returnKeyType="next"
             />
-          }
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="mobile_no"
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              mode="outlined"
+              value={value}
+              onChangeText={onChange}
+              placeholder="Contact Number"
+              style={styles.emailTextBox}
+              outlineColor="transparent"
+              outlineStyle={styles.outlineTextBox}
+              textColor="#818181"
+              placeholderTextColor="#818181"
+              returnKeyType="next"
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="password"
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              mode="outlined"
+              value={value}
+              onChangeText={onChange}
+              placeholder="Password"
+              style={styles.emailTextBox}
+              outlineColor="transparent"
+              outlineStyle={styles.outlineTextBox}
+              textColor="#818181"
+              placeholderTextColor="#818181"
+              secureTextEntry={secureTextEntry}
+              right={
+                <TextInput.Icon
+                  icon={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
+                  onPress={toggleSecureTextEntry}
+                />
+              }
+            />
+          )}
         />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Verification')}
+          onPress={handleSignup}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
           <Text style={styles.loginText}>Sign Up</Text>
