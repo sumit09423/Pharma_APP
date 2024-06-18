@@ -30,6 +30,10 @@ const Landing = () => {
     navigation.navigate('Category'); // Navigate to the Details screen
   };
 
+  const handlePressAdmin = () => {
+    navigation.navigate('Admin');
+  }
+
   return (
     <View style={styles.container}>
       <AppBar userName="Krunal Rathod" />
@@ -45,7 +49,7 @@ const Landing = () => {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <TouchableOpacity
           style={[styles.cardContainer, styles.cardCommonContainer]}
-          onPress={handlePress}
+          onPress={handlePressAdmin}
           activeOpacity={0.7}>
           <Card.Title
             title="Star medica Hub"
@@ -68,7 +72,7 @@ const Landing = () => {
           onPress={handlePress}
           activeOpacity={0.7}>
           <Card.Title
-            title="Dr Hub"
+            title="Seller Name"
             subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
             titleStyle={[styles.cardText, styles.cardTitle]}
             subtitleNumberOfLines={null}
