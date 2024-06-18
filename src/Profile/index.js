@@ -135,7 +135,7 @@ const Profile = ({navigation}) => {
 
         <Controller
           control={control}
-          name="licenceNumber"
+          name="doctor_licence_no"
           rules={{
             required: true,
           }}

@@ -120,7 +120,7 @@ const Verification = ({navigation}) => {
         </Text>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Profile1')}
+          onPress={() => navigation.replace('Main')}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
           <Text style={styles.verifyText}>Verify</Text>

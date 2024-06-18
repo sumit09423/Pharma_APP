@@ -11,6 +11,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppBar from '../components/AppBar';
 import {FONTS} from '../constant';
+import axios from 'axios';
+// import {useDispatch} from 'react-redux';
+// import {register_doctor} from '../actions/authActions';
+import {useFormContext} from '../context/FormContext';
 const logoImg = require('../images/Profile.png');
 
 const categoryData = [
@@ -50,6 +54,8 @@ const Profile3 = ({navigation}) => {
     }, {}),
   );
   const [searchQuery, setSearchQuery] = React.useState('');
+  // const dispatch = useDispatch();
+  const {formData, setFormData} = useFormContext();
 
   const handleChange = item => {
     setCheckedItems(prevState => ({
@@ -63,6 +69,43 @@ const Profile3 = ({navigation}) => {
       ...prevState,
       [key]: false,
     }));
+  };
+
+  const onComplete = response => {
+    console.log('success', response);
+  };
+
+  const onError = response => {
+    console.log('error', response);
+  };
+
+  const handleDone = () => {
+    axios
+      .post('https://guyana-joins-organize-alarm.trycloudflare.com/addUser', {
+        ...formData,
+      })
+      .then(response => {
+        console.log('response:', response.data);
+      })
+      .catch(error => {
+        console.log('Error:', error);
+      });
+    // fetch('https://guyana-joins-organize-alarm.trycloudflare.com/addUser', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     ...formData,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(json => {
+    //     console.log(json);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error:', error);
+    //   });
   };
 
   return (
@@ -126,7 +169,10 @@ const Profile3 = ({navigation}) => {
           })}
 
           <TouchableOpacity
-            onPress={() => navigation.replace('Main')}
+            onPress={() => {
+              navigation.navigate('Verification');
+              handleDone();
+            }}
             style={styles.LoginBtn}
             activeOpacity={0.8}>
             <Text style={styles.doneText}>Done</Text>

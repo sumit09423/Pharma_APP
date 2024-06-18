@@ -32,7 +32,9 @@ const Profile2 = ({navigation}) => {
     watch,
     formState: {errors},
   } = useForm({
-    defaultValues: {},
+    defaultValues: {
+      gender: 'male',
+    },
   });
   const [toggle, setToggle] = useState('male');
   const {formData, setFormData} = useFormContext();

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -43,7 +43,7 @@ const SignUp = ({navigation}) => {
   const handleSignup = () => {
     setFormData({...formData, ...formValues});
     console.log(formValues);
-    navigation.navigate('Verification');
+    navigation.navigate('Profile1');
   };
 
   return (
@@ -84,13 +84,14 @@ const SignUp = ({navigation}) => {
               outlineStyle={styles.outlineTextBox}
               textColor="#818181"
               placeholderTextColor="#818181"
+              returnKeyType="next"
             />
           )}
         />
 
         <Controller
           control={control}
-          name="contact"
+          name="mobile_no"
           rules={{
             required: true,
           }}
@@ -105,6 +106,7 @@ const SignUp = ({navigation}) => {
               outlineStyle={styles.outlineTextBox}
               textColor="#818181"
               placeholderTextColor="#818181"
+              returnKeyType="next"
             />
           )}
         />
