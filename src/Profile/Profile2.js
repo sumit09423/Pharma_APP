@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -19,6 +20,7 @@ import AppBar from '../components/AppBar';
 import {FONTS} from '../constant';
 import {Controller, useForm} from 'react-hook-form';
 import {useFormContext} from '../context/FormContext';
+import DatePicker from 'react-native-date-picker';
 
 const logoImg = require('../images/Profile.png');
 
@@ -31,14 +33,18 @@ const Profile2 = ({navigation}) => {
     handleSubmit,
     watch,
     formState: {errors},
+    setValue,
   } = useForm({
     defaultValues: {
       gender: 'male',
+      dob: new Date(),
     },
   });
   const [toggle, setToggle] = useState('male');
   const {formData, setFormData} = useFormContext();
   const formValues = watch();
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
 
   const handleChange = (name, value) => {
     // setFormValues({
@@ -55,7 +61,22 @@ const Profile2 = ({navigation}) => {
     navigation.navigate('Profile3');
     setFormData({...formData, ...formValues});
   };
-  // console.log(formData);
+
+  const onDatePickerConfirm = selectedDate => {
+    setOpen(false);
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+
+    const tempDate = new Date(currentDate);
+    const formattedDate = `${tempDate.getDate()}/${
+      tempDate.getMonth() + 1
+    }/${tempDate.getFullYear()}`;
+    setValue('dob', formattedDate);
+  };
+
+  useEffect(() => {
+    onDatePickerConfirm();
+  }, []);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -120,31 +141,44 @@ const Profile2 = ({navigation}) => {
           />
         </View>
 
-        <Controller
-          control={control}
-          name="dob"
-          rules={{
-            required: true,
+        <Pressable onPress={() => setOpen(true)}>
+          <Controller
+            control={control}
+            name="dob"
+            rules={{
+              required: true,
+            }}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                mode="outlined"
+                value={value}
+                onChangeText={onChange}
+                placeholder="Birth Date"
+                style={styles.emailTextBox}
+                outlineColor="transparent"
+                outlineStyle={styles.outlineTextBox}
+                textColor="#818181"
+                placeholderTextColor="#818181"
+                editable={false}
+                left={
+                  <TextInput.Icon
+                    icon="calendar-month-outline"
+                    color={theme.colors.themeColor}
+                  />
+                }
+              />
+            )}
+          />
+        </Pressable>
+        <DatePicker
+          modal
+          mode="date"
+          open={open}
+          date={date}
+          onConfirm={onDatePickerConfirm}
+          onCancel={() => {
+            setOpen(false);
           }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              mode="outlined"
-              value={value}
-              onChangeText={onChange}
-              placeholder="Birth Date"
-              style={styles.emailTextBox}
-              outlineColor="transparent"
-              outlineStyle={styles.outlineTextBox}
-              textColor="#818181"
-              placeholderTextColor="#818181"
-              left={
-                <TextInput.Icon
-                  icon="calendar-month-outline"
-                  color={theme.colors.themeColor}
-                />
-              }
-            />
-          )}
         />
 
         <Controller
