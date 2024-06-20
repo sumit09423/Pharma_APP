@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   ScrollView,
@@ -7,15 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { Button, Icon, TextInput, useTheme } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
-import {Controller, useForm} from 'react-hook-form';
-import {useFormContext} from '../context/FormContext';
+import { FONTS } from '../constant';
+import { Controller, useForm } from 'react-hook-form';
+import { useFormContext } from '../context/FormContext';
+import { onSubmitError } from '../Lib/CommonFunction';
 const logoImg = require('../images/Profile.png');
 
-const Profile = ({navigation}) => {
+const Profile = ({ navigation }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   // const [formValues, setFormValues] = useState({
@@ -28,7 +29,7 @@ const Profile = ({navigation}) => {
     control,
     handleSubmit,
     watch,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     defaultValues: {
       fname: '',
@@ -38,7 +39,7 @@ const Profile = ({navigation}) => {
     },
   });
   const formValues = watch();
-  const {formData, setFormData} = useFormContext();
+  const { formData, setFormData } = useFormContext();
 
   const handleChange = (name, value) => {
     // setFormValues({
@@ -47,9 +48,19 @@ const Profile = ({navigation}) => {
     // });
   };
 
-  const handleContinue = () => {
+  const onSubmitData = (values) => {
+    setFormData({ ...formData, ...formValues });
+    setFormData((prevFormdata) => ({
+      ...prevFormdata,
+      ...values
+    }));
     navigation.navigate('Profile2');
-    setFormData({...formData, ...formValues});
+  }
+
+  const handleContinue = () => {
+    handleSubmit(onSubmitData, onSubmitError)()
+
+
   };
 
   return (
@@ -74,9 +85,9 @@ const Profile = ({navigation}) => {
           control={control}
           name="fname"
           rules={{
-            required: true,
+            required: "First Name is Required",
           }}
-          render={({field: {onChange, onBlur, value}}) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -95,9 +106,9 @@ const Profile = ({navigation}) => {
           control={control}
           name="lname"
           rules={{
-            required: true,
+            required: "Last Name is Required",
           }}
-          render={({field: {onChange, onBlur, value}}) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -116,9 +127,9 @@ const Profile = ({navigation}) => {
           control={control}
           name="degree"
           rules={{
-            required: true,
+            required: "Degree is required",
           }}
-          render={({field: {onChange, onBlur, value}}) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -137,9 +148,9 @@ const Profile = ({navigation}) => {
           control={control}
           name="doctor_licence_no"
           rules={{
-            required: true,
+            required: "Doctor Licence No is required",
           }}
-          render={({field: {onChange, onBlur, value}}) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               mode="outlined"
               value={value}

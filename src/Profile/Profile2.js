@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -13,16 +13,17 @@ import {
   ToggleButton,
   useTheme,
 } from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
-import {Controller, useForm} from 'react-hook-form';
-import {useFormContext} from '../context/FormContext';
+import { FONTS } from '../constant';
+import { Controller, useForm } from 'react-hook-form';
+import { useFormContext } from '../context/FormContext';
+import { onSubmitError } from '../Lib/CommonFunction';
 
 const logoImg = require('../images/Profile.png');
 
-const Profile2 = ({navigation}) => {
+const Profile2 = ({ navigation }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   // const [formValues, setFormValues] = useState({});
@@ -30,14 +31,14 @@ const Profile2 = ({navigation}) => {
     control,
     handleSubmit,
     watch,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     defaultValues: {
       gender: 'male',
     },
   });
   const [toggle, setToggle] = useState('male');
-  const {formData, setFormData} = useFormContext();
+  const { formData, setFormData } = useFormContext();
   const formValues = watch();
 
   const handleChange = (name, value) => {
@@ -51,11 +52,20 @@ const Profile2 = ({navigation}) => {
     setToggle(value);
   };
 
-  const handleContinue = () => {
+  const onSubmitData = () => {
+    setFormData({ ...formData, ...formValues });
+    setFormData((prevFormdata) => ({
+      ...prevFormdata,
+      ...values
+    }));
     navigation.navigate('Profile3');
-    setFormData({...formData, ...formValues});
+
+  }
+
+  const handleContinue = () => {
+    handleSubmit(onSubmitData, onSubmitError)()
+    setFormData({ ...formData, ...formValues });
   };
-  // console.log(formData);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -75,7 +85,7 @@ const Profile2 = ({navigation}) => {
           <Controller
             control={control}
             name="gender"
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <>
                 <ToggleButton
                   icon={() => (
@@ -126,7 +136,7 @@ const Profile2 = ({navigation}) => {
           rules={{
             required: true,
           }}
-          render={({field: {onChange, onBlur, value}}) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -153,7 +163,7 @@ const Profile2 = ({navigation}) => {
           rules={{
             required: true,
           }}
-          render={({field: {onChange, onBlur, value}}) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               mode="outlined"
               value={value}
