@@ -15,6 +15,8 @@ import axios from 'axios';
 // import {useDispatch} from 'react-redux';
 // import {register_doctor} from '../actions/authActions';
 import {useFormContext} from '../context/FormContext';
+import {onSubmitError} from '../Lib/CommonFunction';
+import {useForm} from 'react-hook-form';
 const logoImg = require('../images/Profile.png');
 
 const categoryData = [
@@ -47,42 +49,51 @@ const categoryData = [
 const Profile3 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const [checkedItems, setCheckedItems] = useState(
-    categoryData.reduce((acc, item) => {
-      acc[item.label] = false;
-      return acc;
-    }, {}),
-  );
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: {errors},
+    setValue,
+  } = useForm({
+    defaultValues: {
+      doctor_department: [],
+    },
+  });
+  // const [checkedItems, setCheckedItems] = useState(
+  //   categoryData.reduce((acc, item) => {
+  //     acc[item.label] = false;
+  //     return acc;
+  //   }, {}),
+  // );
   const [searchQuery, setSearchQuery] = React.useState('');
-  // const dispatch = useDispatch();
   const {formData, setFormData} = useFormContext();
+  const doctorDepartment = watch('doctor_department');
 
   const handleChange = item => {
-    setCheckedItems(prevState => ({
-      ...prevState,
-      [item]: !prevState[item],
+    const updatedDepartment = doctorDepartment.includes(item)
+      ? doctorDepartment.filter(dept => dept !== item)
+      : [...doctorDepartment, item];
+    setValue('doctor_department', updatedDepartment);
+  };
+
+  const handleClose = item => {
+    setValue(
+      'doctor_department',
+      doctorDepartment.filter(dept => dept !== item),
+    );
+  };
+
+  const onSubmitData = values => {
+    setFormData(prevFormdata => ({
+      ...prevFormdata,
+      ...values,
     }));
-  };
 
-  const handleClose = (key, value) => {
-    setCheckedItems(prevState => ({
-      ...prevState,
-      [key]: false,
-    }));
-  };
-
-  const onComplete = response => {
-    console.log('success', response);
-  };
-
-  const onError = response => {
-    console.log('error', response);
-  };
-
-  const handleDone = () => {
     axios
       .post('https://guyana-joins-organize-alarm.trycloudflare.com/addUser', {
         ...formData,
+        ...values,
       })
       .then(response => {
         console.log('response:', response.data);
@@ -90,6 +101,11 @@ const Profile3 = ({navigation}) => {
       .catch(error => {
         console.log('Error:', error);
       });
+  };
+
+  const handleDone = () => {
+    handleSubmit(onSubmitData, onSubmitError)();
+
     // fetch('https://guyana-joins-organize-alarm.trycloudflare.com/addUser', {
     //   method: 'POST',
     //   headers: {
@@ -131,25 +147,20 @@ const Profile3 = ({navigation}) => {
           />
 
           <View style={styles.chipDiv}>
-            {Object.entries(checkedItems).map(([key, value], index) => {
-              if (value)
-                return (
-                  <Chip
-                    onClose={() => handleClose(key, value)}
-                    closeIcon={() => (
-                      <MaterialCommIcon
-                        name="close"
-                        size={20}
-                        color="#ffffff"
-                      />
-                    )}
-                    compact={true}
-                    key={index}
-                    style={styles.chip}
-                    textStyle={styles.chipText}>
-                    {key}
-                  </Chip>
-                );
+            {doctorDepartment.map((item, index) => {
+              return (
+                <Chip
+                  onClose={() => handleClose(item)}
+                  closeIcon={() => (
+                    <MaterialCommIcon name="close" size={20} color="#ffffff" />
+                  )}
+                  compact={true}
+                  key={index}
+                  style={styles.chip}
+                  textStyle={styles.chipText}>
+                  {item}
+                </Chip>
+              );
             })}
           </View>
 
@@ -157,12 +168,15 @@ const Profile3 = ({navigation}) => {
             return (
               <Checkbox.Item
                 label={item.label}
-                status={checkedItems[item.label] ? 'checked' : 'unchecked'}
+                status={
+                  doctorDepartment.includes(item.label)
+                    ? 'checked'
+                    : 'unchecked'
+                }
                 onPress={() => handleChange(item.label)}
                 uncheckedColor="#D7D7D7"
                 color="#D7D7D7"
                 labelStyle={styles.checkboxLabel}
-                style={{}}
                 key={index}
               />
             );

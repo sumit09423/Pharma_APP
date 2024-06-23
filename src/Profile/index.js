@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -7,29 +7,23 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Button, Icon, TextInput, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
-import { FONTS } from '../constant';
-import { Controller, useForm } from 'react-hook-form';
-import { useFormContext } from '../context/FormContext';
-import { onSubmitError } from '../Lib/CommonFunction';
+import {FONTS} from '../constant';
+import {Controller, useForm} from 'react-hook-form';
+import {useFormContext} from '../context/FormContext';
+import {onSubmitError} from '../Lib/CommonFunction';
 const logoImg = require('../images/Profile.png');
 
-const Profile = ({ navigation }) => {
+const Profile = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  // const [formValues, setFormValues] = useState({
-  //   fname: '',
-  //   lname: '',
-  //   degree: '',
-  //   licenceNumber: '',
-  // });
   const {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: {errors},
   } = useForm({
     defaultValues: {
       fname: '',
@@ -39,28 +33,18 @@ const Profile = ({ navigation }) => {
     },
   });
   const formValues = watch();
-  const { formData, setFormData } = useFormContext();
+  const {formData, setFormData} = useFormContext();
 
-  const handleChange = (name, value) => {
-    // setFormValues({
-    //   ...formValues,
-    //   [name]: value,
-    // });
-  };
-
-  const onSubmitData = (values) => {
-    setFormData({ ...formData, ...formValues });
-    setFormData((prevFormdata) => ({
+  const onSubmitData = values => {
+    setFormData(prevFormdata => ({
       ...prevFormdata,
-      ...values
+      ...values,
     }));
     navigation.navigate('Profile2');
-  }
+  };
 
   const handleContinue = () => {
-    handleSubmit(onSubmitData, onSubmitError)()
-
-
+    handleSubmit(onSubmitData, onSubmitError)();
   };
 
   return (
@@ -85,9 +69,9 @@ const Profile = ({ navigation }) => {
           control={control}
           name="fname"
           rules={{
-            required: "First Name is Required",
+            required: 'First Name is Required',
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -106,9 +90,9 @@ const Profile = ({ navigation }) => {
           control={control}
           name="lname"
           rules={{
-            required: "Last Name is Required",
+            required: 'Last Name is Required',
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -127,9 +111,9 @@ const Profile = ({ navigation }) => {
           control={control}
           name="degree"
           rules={{
-            required: "Degree is required",
+            required: 'Degree is required',
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -148,9 +132,9 @@ const Profile = ({ navigation }) => {
           control={control}
           name="doctor_licence_no"
           rules={{
-            required: "Doctor Licence No is required",
+            required: 'Doctor Licence No is required',
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}
