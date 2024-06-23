@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -13,6 +13,7 @@ import AppBar from '../components/AppBar';
 import {FONTS} from '../constant';
 import {Controller, useForm} from 'react-hook-form';
 import {useFormContext} from '../context/FormContext';
+import {onSubmitError} from '../Lib/CommonFunction';
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
@@ -29,7 +30,7 @@ const SignUp = ({navigation}) => {
   } = useForm({
     defaultValues: {
       email: '',
-      contact: '',
+      mobile_no: '',
       password: '',
       gender: 'male',
     },
@@ -40,10 +41,16 @@ const SignUp = ({navigation}) => {
     setSecureTextEntry(!secureTextEntry);
   };
 
-  const handleSignup = () => {
-    setFormData({...formData, ...formValues});
-    console.log(formValues);
+  const onSubmitData = values => {
+    setFormData(prevFormdata => ({
+      ...prevFormdata,
+      ...values,
+    }));
     navigation.navigate('Profile1');
+  };
+
+  const handleSignup = () => {
+    handleSubmit(onSubmitData, onSubmitError)();
   };
 
   return (
@@ -71,7 +78,7 @@ const SignUp = ({navigation}) => {
           control={control}
           name="email"
           rules={{
-            required: true,
+            required: 'Email is required',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -93,7 +100,7 @@ const SignUp = ({navigation}) => {
           control={control}
           name="mobile_no"
           rules={{
-            required: true,
+            required: 'Mobile No is required',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -115,7 +122,7 @@ const SignUp = ({navigation}) => {
           control={control}
           name="password"
           rules={{
-            required: true,
+            required: 'Password Is Rrequired',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput

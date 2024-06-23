@@ -17,6 +17,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppBar from '../components/AppBar';
+import {onSubmitError} from '../Lib/CommonFunction';
 import {FONTS} from '../constant';
 import {Controller, useForm} from 'react-hook-form';
 import {useFormContext} from '../context/FormContext';
@@ -37,29 +38,25 @@ const Profile2 = ({navigation}) => {
   } = useForm({
     defaultValues: {
       gender: 'male',
-      dob: new Date(),
+      // dob: new Date(),
+      address: '',
     },
   });
-  const [toggle, setToggle] = useState('male');
   const {formData, setFormData} = useFormContext();
   const formValues = watch();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
 
-  const handleChange = (name, value) => {
-    // setFormValues({
-    //   ...formValues,
-    //   [name]: value,
-    // });
-  };
-
-  const handleToggle = value => {
-    setToggle(value);
+  const onSubmitData = values => {
+    setFormData(prevFormdata => ({
+      ...prevFormdata,
+      ...values,
+    }));
+    navigation.navigate('Profile3');
   };
 
   const handleContinue = () => {
-    navigation.navigate('Profile3');
-    setFormData({...formData, ...formValues});
+    handleSubmit(onSubmitData, onSubmitError)();
   };
 
   const onDatePickerConfirm = selectedDate => {
@@ -96,6 +93,7 @@ const Profile2 = ({navigation}) => {
           <Controller
             control={control}
             name="gender"
+            rules={{required: 'Gender is required'}}
             render={({field: {onChange, value}}) => (
               <>
                 <ToggleButton
@@ -146,7 +144,7 @@ const Profile2 = ({navigation}) => {
             control={control}
             name="dob"
             rules={{
-              required: true,
+              required: 'Birth date is required',
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
@@ -184,9 +182,7 @@ const Profile2 = ({navigation}) => {
         <Controller
           control={control}
           name="address"
-          rules={{
-            required: true,
-          }}
+          rules={{required: 'Address is required'}}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"

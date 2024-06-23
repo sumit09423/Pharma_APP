@@ -13,17 +13,12 @@ import AppBar from '../components/AppBar';
 import {FONTS} from '../constant';
 import {Controller, useForm} from 'react-hook-form';
 import {useFormContext} from '../context/FormContext';
+import {onSubmitError} from '../Lib/CommonFunction';
 const logoImg = require('../images/Profile.png');
 
 const Profile = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  // const [formValues, setFormValues] = useState({
-  //   fname: '',
-  //   lname: '',
-  //   degree: '',
-  //   licenceNumber: '',
-  // });
   const {
     control,
     handleSubmit,
@@ -40,16 +35,16 @@ const Profile = ({navigation}) => {
   const formValues = watch();
   const {formData, setFormData} = useFormContext();
 
-  const handleChange = (name, value) => {
-    // setFormValues({
-    //   ...formValues,
-    //   [name]: value,
-    // });
+  const onSubmitData = values => {
+    setFormData(prevFormdata => ({
+      ...prevFormdata,
+      ...values,
+    }));
+    navigation.navigate('Profile2');
   };
 
   const handleContinue = () => {
-    navigation.navigate('Profile2');
-    setFormData({...formData, ...formValues});
+    handleSubmit(onSubmitData, onSubmitError)();
   };
 
   return (
@@ -74,7 +69,7 @@ const Profile = ({navigation}) => {
           control={control}
           name="fname"
           rules={{
-            required: true,
+            required: 'First Name is Required',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -95,7 +90,7 @@ const Profile = ({navigation}) => {
           control={control}
           name="lname"
           rules={{
-            required: true,
+            required: 'Last Name is Required',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -116,7 +111,7 @@ const Profile = ({navigation}) => {
           control={control}
           name="degree"
           rules={{
-            required: true,
+            required: 'Degree is required',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -137,7 +132,7 @@ const Profile = ({navigation}) => {
           control={control}
           name="doctor_licence_no"
           rules={{
-            required: true,
+            required: 'Doctor Licence No is required',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
