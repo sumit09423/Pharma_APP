@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -7,27 +7,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Button, TextInput, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {Button, TextInput, useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
-import { FONTS } from '../constant';
-import { Controller, useForm } from 'react-hook-form';
-import { useFormContext } from '../context/FormContext';
-import Toast from 'react-native-toast-message';
-import { onSubmitError } from '../Lib/CommonFunction';
+import {FONTS} from '../constant';
+import {Controller, useForm} from 'react-hook-form';
+import {useFormContext} from '../context/FormContext';
+import {onSubmitError} from '../Lib/CommonFunction';
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
-const SignUp = ({ navigation }) => {
+const SignUp = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
-  const { formData, setFormData } = useFormContext();
+  const {formData, setFormData} = useFormContext();
   const {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: {errors},
   } = useForm({
     defaultValues: {
       email: '',
@@ -42,16 +41,16 @@ const SignUp = ({ navigation }) => {
     setSecureTextEntry(!secureTextEntry);
   };
 
-
-  const onSubmitData = (response) => {
+  const onSubmitData = values => {
+    setFormData(prevFormdata => ({
+      ...prevFormdata,
+      ...values,
+    }));
     navigation.navigate('Profile1');
-  }
+  };
 
   const handleSignup = () => {
-    handleSubmit(onSubmitData, onSubmitError)()
-    setFormData({ ...formData, ...formValues });
-    console.log(formValues);
-
+    handleSubmit(onSubmitData, onSubmitError)();
   };
 
   return (
@@ -68,7 +67,7 @@ const SignUp = ({ navigation }) => {
           <Text
             style={[
               styles.signUpText,
-              { paddingLeft: 4, marginLeft: 5, marginTop: 20 },
+              {paddingLeft: 4, marginLeft: 5, marginTop: 20},
             ]}
             onPress={() => navigation.navigate('Login')}>
             Log In
@@ -79,9 +78,9 @@ const SignUp = ({ navigation }) => {
           control={control}
           name="email"
           rules={{
-            required: "Email is required",
+            required: 'Email is required',
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -101,9 +100,9 @@ const SignUp = ({ navigation }) => {
           control={control}
           name="mobile_no"
           rules={{
-            required: "Mobile No is required",
+            required: 'Mobile No is required',
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -123,9 +122,9 @@ const SignUp = ({ navigation }) => {
           control={control}
           name="password"
           rules={{
-            required: "Password Is Rrequired",
+            required: 'Password Is Rrequired',
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}

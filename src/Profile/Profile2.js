@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Pressable,
   ScrollView,
@@ -14,18 +14,18 @@ import {
   ToggleButton,
   useTheme,
 } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppBar from '../components/AppBar';
-import { onSubmitError } from '../Lib/CommonFunction';
-import { FONTS } from '../constant';
-import { Controller, useForm } from 'react-hook-form';
-import { useFormContext } from '../context/FormContext';
+import {onSubmitError} from '../Lib/CommonFunction';
+import {FONTS} from '../constant';
+import {Controller, useForm} from 'react-hook-form';
+import {useFormContext} from '../context/FormContext';
 import DatePicker from 'react-native-date-picker';
 
 const logoImg = require('../images/Profile.png');
 
-const Profile2 = ({ navigation }) => {
+const Profile2 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   // const [formValues, setFormValues] = useState({});
@@ -33,44 +33,30 @@ const Profile2 = ({ navigation }) => {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: {errors},
     setValue,
   } = useForm({
     defaultValues: {
       gender: 'male',
-      dob: new Date(),
+      // dob: new Date(),
+      address: '',
     },
   });
-  const [toggle, setToggle] = useState('male');
-  const { formData, setFormData } = useFormContext();
+  const {formData, setFormData} = useFormContext();
   const formValues = watch();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
 
-  const handleChange = (name, value) => {
-    // setFormValues({
-    //   ...formValues,
-    //   [name]: value,
-    // });
-  };
-
-  const handleToggle = value => {
-    setToggle(value);
-  };
-
-  const onSubmitData = () => {
-    setFormData({ ...formData, ...formValues });
-    setFormData((prevFormdata) => ({
+  const onSubmitData = values => {
+    setFormData(prevFormdata => ({
       ...prevFormdata,
-      ...values
+      ...values,
     }));
     navigation.navigate('Profile3');
-
-  }
+  };
 
   const handleContinue = () => {
-    handleSubmit(onSubmitData, onSubmitError)()
-    setFormData({ ...formData, ...formValues });
+    handleSubmit(onSubmitData, onSubmitError)();
   };
 
   const onDatePickerConfirm = selectedDate => {
@@ -79,8 +65,9 @@ const Profile2 = ({ navigation }) => {
     setDate(currentDate);
 
     const tempDate = new Date(currentDate);
-    const formattedDate = `${tempDate.getDate()}/${tempDate.getMonth() + 1
-      }/${tempDate.getFullYear()}`;
+    const formattedDate = `${tempDate.getDate()}/${
+      tempDate.getMonth() + 1
+    }/${tempDate.getFullYear()}`;
     setValue('dob', formattedDate);
   };
 
@@ -106,7 +93,8 @@ const Profile2 = ({ navigation }) => {
           <Controller
             control={control}
             name="gender"
-            render={({ field: { onChange, value } }) => (
+            rules={{required: 'Gender is required'}}
+            render={({field: {onChange, value}}) => (
               <>
                 <ToggleButton
                   icon={() => (
@@ -156,9 +144,9 @@ const Profile2 = ({ navigation }) => {
             control={control}
             name="dob"
             rules={{
-              required: true,
+              required: 'Birth date is required',
             }}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({field: {onChange, onBlur, value}}) => (
               <TextInput
                 mode="outlined"
                 value={value}
@@ -194,10 +182,8 @@ const Profile2 = ({ navigation }) => {
         <Controller
           control={control}
           name="address"
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          rules={{required: 'Address is required'}}
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}

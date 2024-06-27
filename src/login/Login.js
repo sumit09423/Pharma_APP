@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -10,19 +10,22 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import { Button, Checkbox, TextInput, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { FONTS } from '../constant';
-import { Controller, useForm } from 'react-hook-form';
+import {Button, Checkbox, TextInput, useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {FONTS} from '../constant';
+import {Controller, useForm} from 'react-hook-form';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
+import {onSubmitError} from '../Lib/CommonFunction';
+import {useDispatch, useSelector} from 'react-redux';
+import {setUserType} from '../Reducer/CommonReducer';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -36,7 +39,7 @@ const Login = ({ navigation }) => {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: {errors},
   } = useForm({
     defaultValues: {
       email: '',
@@ -44,6 +47,10 @@ const Login = ({ navigation }) => {
     },
   });
   const formValues = watch();
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.CommonReducer);
+
+  console.log('User Type', data);
 
   const handleChange = (name, value) => {
     // setFormValues({
@@ -66,25 +73,25 @@ const Login = ({ navigation }) => {
         console.log('response:', response.data);
         Toast.show({
           type: 'success',
-          text1: "Login success "
+          text1: 'Login success ',
         });
         navigation.replace('Main');
       })
       .catch(error => {
+        console.log('Error', error);
         Toast.show({
           type: 'error',
-          text1: error.response.data.message || 'An error occurred. Please try again.',
+          text1:
+            error.response.data.message ||
+            'An error occurred. Please try again.',
         });
       });
-
-  };
-
-  const onSubmitError = error => {
-    console.log('Error', error);
   };
 
   const handleLogin = () => {
     handleSubmit(onSubmitData, onSubmitError)();
+    // navigation.replace('Main');
+    dispatch(setUserType('Admin'));
   };
 
   return (
@@ -97,9 +104,9 @@ const Login = ({ navigation }) => {
           control={control}
           name="email"
           rules={{
-            required: true,
+            required: 'Email is required',
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -118,9 +125,9 @@ const Login = ({ navigation }) => {
           control={control}
           name="password"
           rules={{
-            required: true,
+            required: 'Password is required',
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -192,7 +199,7 @@ const Login = ({ navigation }) => {
           <Text
             style={styles.signUpText}
             onPress={() => {
-              navigation.navigate('SignUp')
+              navigation.navigate('SignUp');
             }}>
             Sign Up
           </Text>
