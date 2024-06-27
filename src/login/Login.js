@@ -74,6 +74,8 @@ const Login = ({navigation}) => {
         Toast.show({
           type: 'success',
           text1: 'Login success ',
+          visibilityTime: 2500,
+          autoHide: true,
         });
         navigation.replace('Main');
       })
@@ -84,6 +86,8 @@ const Login = ({navigation}) => {
           text1:
             error.response.data.message ||
             'An error occurred. Please try again.',
+          visibilityTime: 2500,
+          autoHide: true,
         });
       });
   };
