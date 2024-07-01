@@ -30,9 +30,8 @@ const SignUp = ({navigation}) => {
   } = useForm({
     defaultValues: {
       email: '',
-      mobile_no: '',
+      contact: '',
       password: '',
-      gender: 'male',
     },
   });
   const formValues = watch();
@@ -98,9 +97,9 @@ const SignUp = ({navigation}) => {
 
         <Controller
           control={control}
-          name="mobile_no"
+          name="contact"
           rules={{
-            required: 'Mobile No is required',
+            required: 'Contact number is required',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput

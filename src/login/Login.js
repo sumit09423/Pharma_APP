@@ -66,9 +66,12 @@ const Login = ({navigation}) => {
   const onSubmitData = values => {
     console.log('Login', values);
     axios
-      .post('https://guyana-joins-organize-alarm.trycloudflare.com/login', {
-        ...values,
-      })
+      .post(
+        'https://conflict-dining-bobby-label.trycloudflare.com/doctorlogin',
+        {
+          ...values,
+        },
+      )
       .then(response => {
         console.log('response:', response.data);
         Toast.show({

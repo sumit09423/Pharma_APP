@@ -84,6 +84,8 @@ const Profile3 = ({navigation}) => {
     );
   };
 
+  console.log(formData);
+
   const onSubmitData = values => {
     setFormData(prevFormdata => ({
       ...prevFormdata,
@@ -91,7 +93,7 @@ const Profile3 = ({navigation}) => {
     }));
 
     axios
-      .post('https://guyana-joins-organize-alarm.trycloudflare.com/addUser', {
+      .post('https://conflict-dining-bobby-label.trycloudflare.com/adddoctor', {
         ...formData,
         ...values,
       })
