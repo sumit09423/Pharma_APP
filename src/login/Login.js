@@ -19,6 +19,7 @@ import Toast from 'react-native-toast-message';
 import {onSubmitError} from '../Lib/CommonFunction';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUserType} from '../Reducer/CommonReducer';
+import {API_URL} from '@env';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
@@ -64,26 +65,20 @@ const Login = ({navigation}) => {
   };
 
   const onSubmitData = values => {
-    console.log('Login', values);
     axios
-      .post(
-        'https://conflict-dining-bobby-label.trycloudflare.com/doctorlogin',
-        {
-          ...values,
-        },
-      )
+      .post(`${API_URL}/doctorlogin`, {
+        ...values,
+      })
       .then(response => {
-        console.log('response:', response.data);
         Toast.show({
           type: 'success',
-          text1: 'Login success ',
+          text1: response.data.conditions.message,
           visibilityTime: 2500,
           autoHide: true,
         });
         navigation.replace('Main');
       })
       .catch(error => {
-        console.log('Error', error);
         Toast.show({
           type: 'error',
           text1:

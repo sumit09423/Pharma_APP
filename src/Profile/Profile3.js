@@ -18,6 +18,8 @@ import {useFormContext} from '../context/FormContext';
 import {onSubmitError} from '../Lib/CommonFunction';
 import {useForm} from 'react-hook-form';
 const logoImg = require('../images/Profile.png');
+import {API_URL} from '@env';
+import Toast from 'react-native-toast-message';
 
 const categoryData = [
   {
@@ -58,6 +60,7 @@ const Profile3 = ({navigation}) => {
   } = useForm({
     defaultValues: {
       doctor_department: [],
+      // doctor_department: '',
     },
   });
   // const [checkedItems, setCheckedItems] = useState(
@@ -75,6 +78,7 @@ const Profile3 = ({navigation}) => {
       ? doctorDepartment.filter(dept => dept !== item)
       : [...doctorDepartment, item];
     setValue('doctor_department', updatedDepartment);
+    // setValue('doctor_department', 'aa');
   };
 
   const handleClose = item => {
@@ -93,15 +97,27 @@ const Profile3 = ({navigation}) => {
     }));
 
     axios
-      .post('https://conflict-dining-bobby-label.trycloudflare.com/adddoctor', {
+      .post(`${API_URL}/adddoctor`, {
         ...formData,
         ...values,
       })
       .then(response => {
-        console.log('response:', response.data);
+        Toast.show({
+          type: 'success',
+          text1: response.data.conditions.message,
+          visibilityTime: 2500,
+          autoHide: true,
+        });
       })
       .catch(error => {
-        console.log('Error:', error);
+        Toast.show({
+          type: 'error',
+          text1:
+            error.response.data.message ||
+            'An error occurred. Please try again.',
+          visibilityTime: 2500,
+          autoHide: true,
+        });
       });
   };
 
