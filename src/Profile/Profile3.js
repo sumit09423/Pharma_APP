@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,17 +6,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Button, Checkbox, Chip, Searchbar, useTheme} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { Button, Checkbox, Chip, Searchbar, useTheme } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
+import { FONTS } from '../constant';
 import axios from 'axios';
 // import {useDispatch} from 'react-redux';
 // import {register_doctor} from '../actions/authActions';
-import {useFormContext} from '../context/FormContext';
-import {onSubmitError} from '../Lib/CommonFunction';
-import {useForm} from 'react-hook-form';
+import { useFormContext } from '../context/FormContext';
+import { onSubmitError } from '../Lib/CommonFunction';
+import { useForm } from 'react-hook-form';
 const logoImg = require('../images/Profile.png');
 
 const categoryData = [
@@ -46,14 +46,14 @@ const categoryData = [
   },
 ];
 
-const Profile3 = ({navigation}) => {
+const Profile3 = ({ navigation }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const {
     control,
     handleSubmit,
     watch,
-    formState: {errors},
+    formState: { errors },
     setValue,
   } = useForm({
     defaultValues: {
@@ -67,7 +67,7 @@ const Profile3 = ({navigation}) => {
   //   }, {}),
   // );
   const [searchQuery, setSearchQuery] = React.useState('');
-  const {formData, setFormData} = useFormContext();
+  const { formData, setFormData } = useFormContext();
   const doctorDepartment = watch('doctor_department');
 
   const handleChange = item => {
@@ -84,7 +84,6 @@ const Profile3 = ({navigation}) => {
     );
   };
 
-  console.log(formData);
 
   const onSubmitData = values => {
     setFormData(prevFormdata => ({
@@ -98,10 +97,8 @@ const Profile3 = ({navigation}) => {
         ...values,
       })
       .then(response => {
-        console.log('response:', response.data);
       })
       .catch(error => {
-        console.log('Error:', error);
       });
   };
 
