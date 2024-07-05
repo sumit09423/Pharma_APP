@@ -20,6 +20,7 @@
     "react-hook-form": "^7.51.5",
     "react-native": "0.73.7",
     "react-native-date-picker": "^5.0.4",
+    "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "^2.16.2",
     "react-native-otp-textinput": "^1.1.6",
     "react-native-paper": "^5.12.3",
