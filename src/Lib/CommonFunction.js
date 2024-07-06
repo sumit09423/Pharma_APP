@@ -2,6 +2,7 @@ import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const onSubmitError = error => {
+
   const ErrorMessage = Object.values(error).map((e, index) => {
     if (index === 0) {
       return e.message;

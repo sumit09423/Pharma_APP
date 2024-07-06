@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,14 +6,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { Button, Icon, TextInput, useTheme } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
+import { FONTS } from '../constant';
+import OTPTextInput from 'react-native-otp-textinput';
 
-const Verification = ({navigation}) => {
+const Verification = ({ navigation }) => {
   const theme = useTheme();
   const styles = createStyles(theme);
+  let otpInput = null;
+
   const [formValues, setFormValues] = useState({
     textBox1: '',
     textBox2: '',
@@ -28,6 +31,7 @@ const Verification = ({navigation}) => {
     //   [name]: value,
     // });
   };
+
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -44,75 +48,14 @@ const Verification = ({navigation}) => {
           below.
         </Text>
 
-        <View style={styles.textBoxDiv}>
-          <TextInput
-            mode="outlined"
-            value={formValues.textBox1}
-            onChangeText={value => handleChange('textBox1', value)}
-            placeholder=""
-            style={styles.emailTextBox}
-            outlineColor="transparent"
-            outlineStyle={styles.outlineTextBox}
-            textColor="#818181"
-            placeholderTextColor="#818181"
-            maxLength={1}
-            underlineColor="transparent"
-            activeUnderlineColor="transparent"
-          />
 
-          <TextInput
-            mode="outlined"
-            value={formValues.textBox2}
-            onChangeText={value => handleChange('textBox2', value)}
-            placeholder=""
-            style={styles.emailTextBox}
-            outlineColor="transparent"
-            outlineStyle={styles.outlineTextBox}
-            textColor="#818181"
-            placeholderTextColor="#818181"
-            maxLength={1}
-          />
-
-          <TextInput
-            mode="outlined"
-            value={formValues.textBox3}
-            onChangeText={value => handleChange('textBox3', value)}
-            placeholder=""
-            style={styles.emailTextBox}
-            outlineColor="transparent"
-            outlineStyle={styles.outlineTextBox}
-            textColor="#818181"
-            placeholderTextColor="#818181"
-            maxLength={1}
-            secureTextEntry={false}
-          />
-          <TextInput
-            mode="outlined"
-            value={formValues.textBox4}
-            onChangeText={value => handleChange('textBox4', value)}
-            placeholder=""
-            style={styles.emailTextBox}
-            outlineColor="transparent"
-            outlineStyle={styles.outlineTextBox}
-            textColor="#818181"
-            placeholderTextColor="#818181"
-            maxLength={1}
-            secureTextEntry={false}
-          />
-          <TextInput
-            mode="outlined"
-            value={formValues.textBox5}
-            onChangeText={value => handleChange('textBox5', value)}
-            placeholder=""
-            style={styles.emailTextBox}
-            outlineColor="transparent"
-            outlineStyle={styles.outlineTextBox}
-            textColor="#818181"
-            placeholderTextColor="#818181"
-            maxLength={1}
-            secureTextEntry={false}
-          />
-        </View>
+        <OTPTextInput
+          ref={(e) => (otpInput = e)}
+          inputCount={4} // Number of OTP digits
+          handleTextChange={handleChange}
+          textInputStyle={styles.otpBox}
+          containerStyle={styles.otpContainer}
+        />
 
         <Text style={[styles.signUpDetailText, styles.termInfo]}>
           Didn't get a code? {''}
@@ -207,6 +150,22 @@ const createStyles = theme =>
       marginTop: 10,
       marginBottom: 28,
     },
+    otpBox: {
+      borderWidth: 1,
+      borderColor: '#B9B9B9',
+      borderRadius: 5,
+      width: 50,
+      height: 60,
+      textAlign: 'center',
+      fontSize: 18,
+      color: '#000000',
+      backgroundColor: "#fff"
+    },
+    otpContainer: {
+      marginBottom: 20,
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+    }
   });
 
 export default Verification;
