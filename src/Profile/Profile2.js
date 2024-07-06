@@ -22,13 +22,15 @@ import {FONTS} from '../constant';
 import {Controller, useForm} from 'react-hook-form';
 import {useFormContext} from '../context/FormContext';
 import DatePicker from 'react-native-date-picker';
+import {useSelector} from 'react-redux';
 
 const logoImg = require('../images/Profile.png');
 
 const Profile2 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  // const [formValues, setFormValues] = useState({});
+  const {userType} = useSelector(state => state.CommonReducer);
+
   const {
     control,
     handleSubmit,
@@ -37,8 +39,8 @@ const Profile2 = ({navigation}) => {
     setValue,
   } = useForm({
     defaultValues: {
-      gender: 'male',
       // dob: new Date(),
+      gender: 'male',
       address: '',
     },
   });

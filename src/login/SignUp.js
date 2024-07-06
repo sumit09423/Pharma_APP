@@ -14,6 +14,7 @@ import {FONTS} from '../constant';
 import {Controller, useForm} from 'react-hook-form';
 import {useFormContext} from '../context/FormContext';
 import {onSubmitError} from '../Lib/CommonFunction';
+import {useSelector} from 'react-redux';
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
@@ -22,6 +23,8 @@ const SignUp = ({navigation}) => {
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const {formData, setFormData} = useFormContext();
+  const {userType} = useSelector(state => state.CommonReducer);
+  const contactNoName = userType === 'Admin' ? 'mobile' : 'contact';
   const {
     control,
     handleSubmit,
@@ -30,7 +33,7 @@ const SignUp = ({navigation}) => {
   } = useForm({
     defaultValues: {
       email: '',
-      contact: '',
+      [contactNoName]: '',
       password: '',
     },
   });
@@ -97,7 +100,7 @@ const SignUp = ({navigation}) => {
 
         <Controller
           control={control}
-          name="contact"
+          name={contactNoName}
           rules={{
             required: 'Contact number is required',
           }}

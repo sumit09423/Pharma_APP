@@ -20,6 +20,7 @@ import {useForm} from 'react-hook-form';
 const logoImg = require('../images/Profile.png');
 import {API_URL} from '@env';
 import Toast from 'react-native-toast-message';
+import {useSelector} from 'react-redux';
 
 const categoryData = [
   {
@@ -51,6 +52,7 @@ const categoryData = [
 const Profile3 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const {userType} = useSelector(state => state.CommonReducer);
   const {
     control,
     handleSubmit,
@@ -59,7 +61,7 @@ const Profile3 = ({navigation}) => {
     setValue,
   } = useForm({
     defaultValues: {
-      doctor_department: [],
+      ...(userType === 'Doctor' && {doctor_department: []}),
       // doctor_department: '',
     },
   });
@@ -73,19 +75,24 @@ const Profile3 = ({navigation}) => {
   const {formData, setFormData} = useFormContext();
   const doctorDepartment = watch('doctor_department');
 
+  const url = userType === 'Admin' ? 'adduser' : 'adddoctor';
+
   const handleChange = item => {
-    const updatedDepartment = doctorDepartment.includes(item)
-      ? doctorDepartment.filter(dept => dept !== item)
+    const updatedDepartment = doctorDepartment?.includes(item)
+      ? doctorDepartment?.filter(dept => dept !== item)
       : [...doctorDepartment, item];
-    setValue('doctor_department', updatedDepartment);
-    // setValue('doctor_department', 'aa');
+    if (userType === 'Doctor') {
+      setValue('doctor_department', updatedDepartment);
+    }
   };
 
   const handleClose = item => {
-    setValue(
-      'doctor_department',
-      doctorDepartment.filter(dept => dept !== item),
-    );
+    if (userType === 'Doctor') {
+      setValue(
+        'doctor_department',
+        doctorDepartment.filter(dept => dept !== item),
+      );
+    }
   };
 
   console.log(formData);
@@ -96,12 +103,15 @@ const Profile3 = ({navigation}) => {
       ...values,
     }));
 
+    console.log(`${API_URL}/${url}`);
+
     axios
-      .post(`${API_URL}/adddoctor`, {
+      .post(`${API_URL}/${url}`, {
         ...formData,
         ...values,
       })
       .then(response => {
+        console.log(response);
         Toast.show({
           type: 'success',
           text1: response.data.conditions.message,
@@ -113,8 +123,8 @@ const Profile3 = ({navigation}) => {
         Toast.show({
           type: 'error',
           text1:
-            error.response.data.message ||
-            'An error occurred. Please try again.',
+            error?.response?.data?.message ||
+            'An error occurred. Please try again later.',
           visibilityTime: 2500,
           autoHide: true,
         });
@@ -165,7 +175,7 @@ const Profile3 = ({navigation}) => {
           />
 
           <View style={styles.chipDiv}>
-            {doctorDepartment.map((item, index) => {
+            {doctorDepartment?.map((item, index) => {
               return (
                 <Chip
                   onClose={() => handleClose(item)}
@@ -187,7 +197,7 @@ const Profile3 = ({navigation}) => {
               <Checkbox.Item
                 label={item.label}
                 status={
-                  doctorDepartment.includes(item.label)
+                  doctorDepartment?.includes(item.label)
                     ? 'checked'
                     : 'unchecked'
                 }

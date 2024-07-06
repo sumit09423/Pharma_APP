@@ -18,7 +18,6 @@ import axios from 'axios';
 import Toast from 'react-native-toast-message';
 import {onSubmitError} from '../Lib/CommonFunction';
 import {useDispatch, useSelector} from 'react-redux';
-import {setUserType} from '../Reducer/CommonReducer';
 import {API_URL} from '@env';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
@@ -31,10 +30,6 @@ const Login = ({navigation}) => {
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [checked, setChecked] = useState(false);
-  // const [formValues, setFormValues] = useState({
-  //   email: '',
-  //   password: '',
-  // });
 
   const {
     control,
@@ -49,9 +44,8 @@ const Login = ({navigation}) => {
   });
   const formValues = watch();
   const dispatch = useDispatch();
-  const data = useSelector(state => state.CommonReducer);
-
-  console.log('User Type', data);
+  const {userType} = useSelector(state => state.CommonReducer);
+  const url = userType === 'Admin' ? 'login' : 'doctorlogin';
 
   const handleChange = (name, value) => {
     // setFormValues({
@@ -65,8 +59,9 @@ const Login = ({navigation}) => {
   };
 
   const onSubmitData = values => {
+    console.log(`${API_URL}/${url}`);
     axios
-      .post(`${API_URL}/doctorlogin`, {
+      .post(`${API_URL}/${url}`, {
         ...values,
       })
       .then(response => {
@@ -82,8 +77,8 @@ const Login = ({navigation}) => {
         Toast.show({
           type: 'error',
           text1:
-            error.response.data.message ||
-            'An error occurred. Please try again.',
+            error?.response?.data?.message ||
+            'An error occurred. Please try again later.',
           visibilityTime: 2500,
           autoHide: true,
         });
@@ -93,7 +88,6 @@ const Login = ({navigation}) => {
   const handleLogin = () => {
     handleSubmit(onSubmitData, onSubmitError)();
     // navigation.replace('Main');
-    dispatch(setUserType('Admin'));
   };
 
   return (

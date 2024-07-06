@@ -14,11 +14,15 @@ import {FONTS} from '../constant';
 import {Controller, useForm} from 'react-hook-form';
 import {useFormContext} from '../context/FormContext';
 import {onSubmitError} from '../Lib/CommonFunction';
+import {useSelector} from 'react-redux';
 const logoImg = require('../images/Profile.png');
 
 const Profile = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const {userType} = useSelector(state => state.CommonReducer);
+  const licenceNoName =
+    userType === 'Admin' ? 'licenceno' : 'doctor_licence_no';
   const {
     control,
     handleSubmit,
@@ -28,8 +32,8 @@ const Profile = ({navigation}) => {
     defaultValues: {
       fname: '',
       lname: '',
-      degree: '',
-      licenceNumber: '',
+      [licenceNoName]: '',
+      ...(userType === 'Doctor' && {degree: ''}),
     },
   });
   const formValues = watch();
@@ -107,32 +111,34 @@ const Profile = ({navigation}) => {
           )}
         />
 
-        <Controller
-          control={control}
-          name="degree"
-          rules={{
-            required: 'Degree is required',
-          }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              mode="outlined"
-              value={value}
-              onChangeText={onChange}
-              placeholder="Dr's Degree"
-              style={styles.emailTextBox}
-              outlineColor="transparent"
-              outlineStyle={styles.outlineTextBox}
-              textColor="#818181"
-              placeholderTextColor="#818181"
-            />
-          )}
-        />
+        {userType === 'Doctor' && (
+          <Controller
+            control={control}
+            name="degree"
+            rules={{
+              required: 'Degree is required',
+            }}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                mode="outlined"
+                value={value}
+                onChangeText={onChange}
+                placeholder="Dr's Degree"
+                style={styles.emailTextBox}
+                outlineColor="transparent"
+                outlineStyle={styles.outlineTextBox}
+                textColor="#818181"
+                placeholderTextColor="#818181"
+              />
+            )}
+          />
+        )}
 
         <Controller
           control={control}
-          name="doctor_licence_no"
+          name={licenceNoName}
           rules={{
-            required: 'Doctor Licence No is required',
+            required: 'Licence No is required',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
