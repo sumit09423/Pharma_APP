@@ -10,7 +10,13 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import {Button, Checkbox, TextInput, useTheme} from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Button,
+  Checkbox,
+  TextInput,
+  useTheme,
+} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FONTS} from '../constant';
 import {Controller, useForm} from 'react-hook-form';
@@ -30,6 +36,7 @@ const Login = ({navigation}) => {
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [checked, setChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
     control,
@@ -47,33 +54,29 @@ const Login = ({navigation}) => {
   const {userType} = useSelector(state => state.CommonReducer);
   const url = userType === 'Admin' ? 'login' : 'doctorlogin';
 
-  const handleChange = (name, value) => {
-    // setFormValues({
-    //   ...formValues,
-    //   [name]: value,
-    // });
-  };
-
   const toggleSecureTextEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
 
   const onSubmitData = values => {
     console.log(`${API_URL}/${url}`);
+    setLoading(true);
     axios
       .post(`${API_URL}/${url}`, {
         ...values,
       })
       .then(response => {
+        setLoading(false);
         Toast.show({
           type: 'success',
-          text1: response.data.conditions.message,
+          text1: response.data.status === 'ok' && 'Login Successfully.',
           visibilityTime: 2500,
           autoHide: true,
         });
         navigation.replace('Main');
       })
       .catch(error => {
+        setLoading(false);
         Toast.show({
           type: 'error',
           text1:
@@ -92,6 +95,23 @@ const Login = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {loading && (
+        <ActivityIndicator
+          animating={true}
+          color={theme.colors.themeColor}
+          size="large"
+          style={{
+            zIndex: 100,
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      )}
       <ScrollView contentContainerStyle={styles.scrollViewDiv}>
         <Image source={logoImg} style={styles.logo} />
         <Text style={styles.welcome}>Welcome back!</Text>
@@ -101,6 +121,10 @@ const Login = ({navigation}) => {
           name="email"
           rules={{
             required: 'Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Invalid email address',
+            },
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -163,7 +187,8 @@ const Login = ({navigation}) => {
         <TouchableOpacity
           onPress={handleLogin}
           style={styles.LoginBtn}
-          activeOpacity={0.8}>
+          activeOpacity={0.8}
+          disabled={loading}>
           <Text style={styles.loginText}>Log In</Text>
         </TouchableOpacity>
 

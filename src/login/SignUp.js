@@ -81,6 +81,10 @@ const SignUp = ({navigation}) => {
           name="email"
           rules={{
             required: 'Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Invalid email address',
+            },
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -103,6 +107,10 @@ const SignUp = ({navigation}) => {
           name={contactNoName}
           rules={{
             required: 'Contact number is required',
+            pattern: {
+              value: /^[0-9]{10}$/,
+              message: 'Invalid mobile number. It should be 10 digits long.',
+            },
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput

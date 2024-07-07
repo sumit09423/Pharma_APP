@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,19 +6,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Button, Checkbox, Chip, Searchbar, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  ActivityIndicator,
+  Button,
+  Checkbox,
+  Chip,
+  Searchbar,
+  useTheme,
+} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppBar from '../components/AppBar';
-import { FONTS } from '../constant';
+import {FONTS} from '../constant';
 import axios from 'axios';
 // import {useDispatch} from 'react-redux';
 // import {register_doctor} from '../actions/authActions';
-import { useFormContext } from '../context/FormContext';
-import { onSubmitError } from '../Lib/CommonFunction';
-import { useForm } from 'react-hook-form';
+import {useFormContext} from '../context/FormContext';
+import {onSubmitError} from '../Lib/CommonFunction';
+import {useForm} from 'react-hook-form';
 const logoImg = require('../images/Profile.png');
-import { API_URL } from '@env';
+import {API_URL} from '@env';
 import Toast from 'react-native-toast-message';
 import {useSelector} from 'react-redux';
 
@@ -49,7 +56,7 @@ const categoryData = [
   },
 ];
 
-const Profile3 = ({ navigation }) => {
+const Profile3 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const {userType} = useSelector(state => state.CommonReducer);
@@ -57,7 +64,7 @@ const Profile3 = ({ navigation }) => {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: {errors},
     setValue,
   } = useForm({
     defaultValues: {
@@ -72,17 +79,20 @@ const Profile3 = ({ navigation }) => {
   //   }, {}),
   // );
   const [searchQuery, setSearchQuery] = React.useState('');
-  const { formData, setFormData } = useFormContext();
+  const [loading, setLoading] = useState(false);
+  const {formData, setFormData} = useFormContext();
   const doctorDepartment = watch('doctor_department');
 
   const url = userType === 'Admin' ? 'adduser' : 'adddoctor';
 
   const handleChange = item => {
-    const updatedDepartment = doctorDepartment?.includes(item)
-      ? doctorDepartment?.filter(dept => dept !== item)
-      : [...doctorDepartment, item];
     if (userType === 'Doctor') {
+      const updatedDepartment = doctorDepartment?.includes(item)
+        ? doctorDepartment?.filter(dept => dept !== item)
+        : [...doctorDepartment, item];
       setValue('doctor_department', updatedDepartment);
+    } else {
+      return null;
     }
   };
 
@@ -95,12 +105,12 @@ const Profile3 = ({ navigation }) => {
     }
   };
 
-
   const onSubmitData = values => {
     setFormData(prevFormdata => ({
       ...prevFormdata,
       ...values,
     }));
+    setLoading(true);
 
     console.log(`${API_URL}/${url}`);
 
@@ -110,6 +120,7 @@ const Profile3 = ({ navigation }) => {
         ...values,
       })
       .then(response => {
+        setLoading(false);
         console.log(response);
         Toast.show({
           type: 'success',
@@ -119,6 +130,7 @@ const Profile3 = ({ navigation }) => {
         });
       })
       .catch(error => {
+        setLoading(false);
         Toast.show({
           type: 'error',
           text1:
@@ -153,6 +165,23 @@ const Profile3 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      {loading && (
+        <ActivityIndicator
+          animating={true}
+          color={theme.colors.themeColor}
+          size="large"
+          style={{
+            zIndex: 100,
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      )}
       <ScrollView>
         <AppBar
           navigation={navigation}
@@ -215,7 +244,8 @@ const Profile3 = ({ navigation }) => {
               handleDone();
             }}
             style={styles.LoginBtn}
-            activeOpacity={0.8}>
+            activeOpacity={0.8}
+            disabled={loading}>
             <Text style={styles.doneText}>Done</Text>
           </TouchableOpacity>
         </ScrollView>
