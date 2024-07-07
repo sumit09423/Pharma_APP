@@ -25,6 +25,7 @@ import Toast from 'react-native-toast-message';
 import {onSubmitError} from '../Lib/CommonFunction';
 import {API_URL} from '@env';
 import {useDispatch, useSelector} from 'react-redux';
+import LoadingComponent from '../components/LoadingComponent';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
@@ -90,28 +91,11 @@ const Login = ({navigation}) => {
 
   const handleLogin = () => {
     handleSubmit(onSubmitData, onSubmitError)();
-    // navigation.replace('Main');
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {loading && (
-        <ActivityIndicator
-          animating={true}
-          color={theme.colors.themeColor}
-          size="large"
-          style={{
-            zIndex: 100,
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        />
-      )}
+      <LoadingComponent loading={loading} />
       <ScrollView contentContainerStyle={styles.scrollViewDiv}>
         <Image source={logoImg} style={styles.logo} />
         <Text style={styles.welcome}>Welcome back!</Text>

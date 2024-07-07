@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,32 +6,38 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Button, Icon, TextInput, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {Button, Icon, TextInput, useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../components/AppBar';
-import { FONTS } from '../constant';
+import {FONTS} from '../constant';
 import OTPTextInput from 'react-native-otp-textinput';
+import {Controller, useForm} from 'react-hook-form';
+import {onSubmitError} from '../Lib/CommonFunction';
 
-const Verification = ({ navigation }) => {
+const Verification = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  let otpInput = null;
 
-  const [formValues, setFormValues] = useState({
-    textBox1: '',
-    textBox2: '',
-    textBox3: '',
-    textBox4: '',
-    textBox5: '',
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: {errors},
+    setValue,
+  } = useForm({
+    defaultValues: {
+      otp: '',
+    },
   });
 
-  const handleChange = (name, value) => {
-    // setFormValues({
-    //   ...formValues,
-    //   [name]: value,
-    // });
+  const onSubmitData = values => {
+    console.log(values);
   };
 
+  const handleVerification = () => {
+    navigation.replace('Main');
+    handleSubmit(onSubmitData, onSubmitError)();
+  };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -48,13 +54,25 @@ const Verification = ({ navigation }) => {
           below.
         </Text>
 
-
-        <OTPTextInput
-          ref={(e) => (otpInput = e)}
-          inputCount={4} // Number of OTP digits
-          handleTextChange={handleChange}
-          textInputStyle={styles.otpBox}
-          containerStyle={styles.otpContainer}
+        <Controller
+          control={control}
+          name="otp"
+          rules={{
+            required: 'OTP is required',
+            pattern: {
+              value: /^\d{4}$/,
+              message: 'OTP must be 4 digits',
+            },
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <OTPTextInput
+              inputCount={4} // Number of OTP digits
+              handleTextChange={onChange}
+              textInputStyle={styles.otpBox}
+              containerStyle={styles.otpContainer}
+              defaultValue={value}
+            />
+          )}
         />
 
         <Text style={[styles.signUpDetailText, styles.termInfo]}>
@@ -63,7 +81,7 @@ const Verification = ({ navigation }) => {
         </Text>
 
         <TouchableOpacity
-          onPress={() => navigation.replace('Main')}
+          onPress={handleVerification}
           style={styles.LoginBtn}
           activeOpacity={0.8}>
           <Text style={styles.verifyText}>Verify</Text>
@@ -159,13 +177,13 @@ const createStyles = theme =>
       textAlign: 'center',
       fontSize: 18,
       color: '#000000',
-      backgroundColor: "#fff"
+      backgroundColor: '#fff',
     },
     otpContainer: {
       marginBottom: 20,
       flexDirection: 'row',
       justifyContent: 'space-evenly',
-    }
+    },
   });
 
 export default Verification;

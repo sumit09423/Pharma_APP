@@ -28,6 +28,7 @@ const logoImg = require('../images/Profile.png');
 import {API_URL} from '@env';
 import Toast from 'react-native-toast-message';
 import {useSelector} from 'react-redux';
+import LoadingComponent from '../components/LoadingComponent';
 
 const categoryData = [
   {
@@ -122,9 +123,12 @@ const Profile3 = ({navigation}) => {
       .then(response => {
         setLoading(false);
         console.log(response);
+        navigation.navigate('Verification');
         Toast.show({
           type: 'success',
-          text1: response.data.conditions.message,
+          text1: response?.data?.conditions?.message
+            ? response?.data?.conditions?.message
+            : 'Registration successfully.',
           visibilityTime: 2500,
           autoHide: true,
         });
@@ -165,23 +169,7 @@ const Profile3 = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      {loading && (
-        <ActivityIndicator
-          animating={true}
-          color={theme.colors.themeColor}
-          size="large"
-          style={{
-            zIndex: 100,
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        />
-      )}
+      <LoadingComponent loading={loading} />
       <ScrollView>
         <AppBar
           navigation={navigation}
@@ -239,10 +227,7 @@ const Profile3 = ({navigation}) => {
           })}
 
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Verification');
-              handleDone();
-            }}
+            onPress={handleDone}
             style={styles.LoginBtn}
             activeOpacity={0.8}
             disabled={loading}>
