@@ -13,9 +13,12 @@ const CommonReducer = createSlice({
       state.userType = action.payload;
       storeData('userType', action.payload);
     },
+    setLoading(state, action) {
+      state.loading = action.payload;
+    },
   },
 });
 
-export const {setUserType} = CommonReducer.actions;
+export const {setUserType, setLoading} = CommonReducer.actions;
 // export const {setData, addItem, removeItem} = CommonReducer.actions;
 export default CommonReducer.reducer;

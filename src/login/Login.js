@@ -26,6 +26,7 @@ import {onSubmitError} from '../Lib/CommonFunction';
 import {API_URL} from '@env';
 import {useDispatch, useSelector} from 'react-redux';
 import LoadingComponent from '../components/LoadingComponent';
+import {setLoading} from '../Reducer/CommonReducer';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
@@ -37,7 +38,6 @@ const Login = ({navigation}) => {
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [checked, setChecked] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const {
     control,
@@ -52,7 +52,7 @@ const Login = ({navigation}) => {
   });
   const formValues = watch();
   const dispatch = useDispatch();
-  const {userType} = useSelector(state => state.CommonReducer);
+  const {userType, loading} = useSelector(state => state.CommonReducer);
   const url = userType === 'Admin' ? 'login' : 'doctorlogin';
 
   const toggleSecureTextEntry = () => {
@@ -61,13 +61,13 @@ const Login = ({navigation}) => {
 
   const onSubmitData = values => {
     console.log(`${API_URL}/${url}`);
-    setLoading(true);
+    dispatch(setLoading(true));
     axios
       .post(`${API_URL}/${url}`, {
         ...values,
       })
       .then(response => {
-        setLoading(false);
+        dispatch(setLoading(false));
         Toast.show({
           type: 'success',
           text1: response.data.status === 'ok' && 'Login Successfully.',
@@ -77,7 +77,7 @@ const Login = ({navigation}) => {
         navigation.replace('Main');
       })
       .catch(error => {
-        setLoading(false);
+        dispatch(setLoading(false));
         Toast.show({
           type: 'error',
           text1:
@@ -95,7 +95,7 @@ const Login = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LoadingComponent loading={loading} />
+      <LoadingComponent />
       <ScrollView contentContainerStyle={styles.scrollViewDiv}>
         <Image source={logoImg} style={styles.logo} />
         <Text style={styles.welcome}>Welcome back!</Text>

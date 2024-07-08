@@ -42,7 +42,7 @@ const Welcome = ({navigation}) => {
         Login to enjoy the features we've provided, and save time!
       </Text>
       <View style={styles.innerDiv}>
-        <Text>...</Text>
+        <Text style={{color: '#ffffff', fontWeight: '700'}}>. . .</Text>
         <View style={styles.btnDiv}>
           <TouchableOpacity
             onPress={handleLogin}

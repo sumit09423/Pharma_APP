@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, FlatList, Dimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Appbar, IconButton, Searchbar } from 'react-native-paper';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  Dimensions,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {Appbar, IconButton, Searchbar} from 'react-native-paper';
 import AppBar from '../components/AppBar';
-import { FONTS } from '../constant';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {FONTS} from '../constant';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const MultipleProduct = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -47,7 +58,7 @@ const MultipleProduct = () => {
     },
   ];
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({item}) => (
     <TouchableOpacity
       style={styles.productContainer}
       onPress={handlePress}

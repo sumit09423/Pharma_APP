@@ -13,6 +13,11 @@ import {FONTS} from '../constant';
 import OTPTextInput from 'react-native-otp-textinput';
 import {Controller, useForm} from 'react-hook-form';
 import {onSubmitError} from '../Lib/CommonFunction';
+import LoadingComponent from '../components/LoadingComponent';
+import {API_URL} from '@env';
+import axios from 'axios';
+import Toast from 'react-native-toast-message';
+import {setLoading} from '../Reducer/CommonReducer';
 
 const Verification = ({navigation}) => {
   const theme = useTheme();
@@ -29,9 +34,39 @@ const Verification = ({navigation}) => {
       otp: '',
     },
   });
+  const {loading} = useSelector(state => state.CommonReducer);
 
   const onSubmitData = values => {
     console.log(values);
+    dispatch(setLoading(true));
+    axios
+      .post(`${API_URL}/verifyOtp`, {
+        ...values,
+      })
+      .then(response => {
+        dispatch(setLoading(false));
+        console.log(response);
+        navigation.replace('Main');
+        Toast.show({
+          type: 'success',
+          text1: response?.data?.conditions?.message
+            ? response?.data?.conditions?.message
+            : 'Registration successfully.',
+          visibilityTime: 2500,
+          autoHide: true,
+        });
+      })
+      .catch(error => {
+        dispatch(setLoading(false));
+        Toast.show({
+          type: 'error',
+          text1:
+            error?.response?.data?.message ||
+            'An error occurred. Please try again later.',
+          visibilityTime: 2500,
+          autoHide: true,
+        });
+      });
   };
 
   const handleVerification = () => {
@@ -41,6 +76,8 @@ const Verification = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <LoadingComponent />
+
       <AppBar
         navigation={navigation}
         backBordered={true}

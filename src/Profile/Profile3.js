@@ -19,7 +19,6 @@ import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppBar from '../components/AppBar';
 import {FONTS} from '../constant';
 import axios from 'axios';
-// import {useDispatch} from 'react-redux';
 // import {register_doctor} from '../actions/authActions';
 import {useFormContext} from '../context/FormContext';
 import {onSubmitError} from '../Lib/CommonFunction';
@@ -27,8 +26,9 @@ import {useForm} from 'react-hook-form';
 const logoImg = require('../images/Profile.png');
 import {API_URL} from '@env';
 import Toast from 'react-native-toast-message';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import LoadingComponent from '../components/LoadingComponent';
+import {setLoading} from '../Reducer/CommonReducer';
 
 const categoryData = [
   {
@@ -60,7 +60,7 @@ const categoryData = [
 const Profile3 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const {userType} = useSelector(state => state.CommonReducer);
+  const {userType, loading} = useSelector(state => state.CommonReducer);
   const {
     control,
     handleSubmit,
@@ -80,9 +80,9 @@ const Profile3 = ({navigation}) => {
   //   }, {}),
   // );
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [loading, setLoading] = useState(false);
   const {formData, setFormData} = useFormContext();
   const doctorDepartment = watch('doctor_department');
+  const dispatch = useDispatch();
 
   const url = userType === 'Admin' ? 'adduser' : 'adddoctor';
 
@@ -111,7 +111,7 @@ const Profile3 = ({navigation}) => {
       ...prevFormdata,
       ...values,
     }));
-    setLoading(true);
+    dispatch(setLoading(true));
 
     console.log(`${API_URL}/${url}`);
 
@@ -121,7 +121,7 @@ const Profile3 = ({navigation}) => {
         ...values,
       })
       .then(response => {
-        setLoading(false);
+        dispatch(setLoading(false));
         console.log(response);
         navigation.navigate('Verification');
         Toast.show({
@@ -134,7 +134,7 @@ const Profile3 = ({navigation}) => {
         });
       })
       .catch(error => {
-        setLoading(false);
+        dispatch(setLoading(false));
         Toast.show({
           type: 'error',
           text1:
@@ -169,7 +169,7 @@ const Profile3 = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <LoadingComponent loading={loading} />
+      <LoadingComponent />
       <ScrollView>
         <AppBar
           navigation={navigation}

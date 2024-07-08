@@ -1,8 +1,11 @@
 import React from 'react';
 import {ActivityIndicator, useTheme} from 'react-native-paper';
+import {useSelector} from 'react-redux';
 
-const LoadingComponent = ({loading}) => {
+const LoadingComponent = () => {
   const theme = useTheme();
+  const {loading} = useSelector(state => state.CommonReducer);
+
   if (loading) {
     return (
       <ActivityIndicator
