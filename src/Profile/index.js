@@ -48,7 +48,8 @@ const Profile = ({navigation}) => {
   };
 
   const handleContinue = () => {
-    handleSubmit(onSubmitData, onSubmitError)();
+    // handleSubmit(onSubmitData, onSubmitError)();
+    handleSubmit(onSubmitData)();
   };
 
   return (
@@ -72,9 +73,11 @@ const Profile = ({navigation}) => {
         <Controller
           control={control}
           name="fname"
-          rules={{
-            required: 'First Name is Required',
-          }}
+          rules={
+            {
+              // required: 'First Name is Required',
+            }
+          }
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
@@ -93,9 +96,11 @@ const Profile = ({navigation}) => {
         <Controller
           control={control}
           name="lname"
-          rules={{
-            required: 'Last Name is Required',
-          }}
+          rules={
+            {
+              // required: 'Last Name is Required',
+            }
+          }
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
@@ -115,9 +120,11 @@ const Profile = ({navigation}) => {
           <Controller
             control={control}
             name="degree"
-            rules={{
-              required: 'Degree is required',
-            }}
+            rules={
+              {
+                // required: 'Degree is required',
+              }
+            }
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
                 mode="outlined"
@@ -137,9 +144,11 @@ const Profile = ({navigation}) => {
         <Controller
           control={control}
           name={licenceNoName}
-          rules={{
-            required: 'Licence No is required',
-          }}
+          rules={
+            {
+              // required: 'Licence No is required',
+            }
+          }
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"

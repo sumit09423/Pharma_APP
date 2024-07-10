@@ -18,6 +18,7 @@ import {API_URL} from '@env';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
 import {setLoading} from '../Reducer/CommonReducer';
+import {useSelector} from 'react-redux';
 
 const Verification = ({navigation}) => {
   const theme = useTheme();
@@ -71,7 +72,7 @@ const Verification = ({navigation}) => {
 
   const handleVerification = () => {
     navigation.replace('Main');
-    handleSubmit(onSubmitData, onSubmitError)();
+    // handleSubmit(onSubmitData, onSubmitError)();
   };
 
   return (

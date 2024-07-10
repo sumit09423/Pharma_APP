@@ -52,7 +52,8 @@ const SignUp = ({navigation}) => {
   };
 
   const handleSignup = () => {
-    handleSubmit(onSubmitData, onSubmitError)();
+    // handleSubmit(onSubmitData, onSubmitError)();
+    handleSubmit(onSubmitData)();
   };
 
   return (
@@ -79,13 +80,15 @@ const SignUp = ({navigation}) => {
         <Controller
           control={control}
           name="email"
-          rules={{
-            required: 'Email is required',
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'Invalid email address',
-            },
-          }}
+          rules={
+            {
+              // required: 'Email is required',
+              // pattern: {
+              //   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              //   message: 'Invalid email address',
+              // },
+            }
+          }
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
@@ -105,13 +108,15 @@ const SignUp = ({navigation}) => {
         <Controller
           control={control}
           name={contactNoName}
-          rules={{
-            required: 'Contact number is required',
-            pattern: {
-              value: /^[0-9]{10}$/,
-              message: 'Invalid mobile number. It should be 10 digits long.',
-            },
-          }}
+          rules={
+            {
+              // required: 'Contact number is required',
+              // pattern: {
+              //   value: /^[0-9]{10}$/,
+              //   message: 'Invalid mobile number. It should be 10 digits long.',
+              // },
+            }
+          }
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
@@ -131,9 +136,11 @@ const SignUp = ({navigation}) => {
         <Controller
           control={control}
           name="password"
-          rules={{
-            required: 'Password Is Rrequired',
-          }}
+          rules={
+            {
+              // required: 'Password Is Rrequired',
+            }
+          }
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"

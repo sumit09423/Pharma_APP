@@ -147,7 +147,8 @@ const Profile3 = ({navigation}) => {
   };
 
   const handleDone = () => {
-    handleSubmit(onSubmitData, onSubmitError)();
+    // handleSubmit(onSubmitData, onSubmitError)();
+    navigation.navigate('Verification');
 
     // fetch('https://guyana-joins-organize-alarm.trycloudflare.com/addUser', {
     //   method: 'POST',

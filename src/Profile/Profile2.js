@@ -58,7 +58,8 @@ const Profile2 = ({navigation}) => {
   };
 
   const handleContinue = () => {
-    handleSubmit(onSubmitData, onSubmitError)();
+    // handleSubmit(onSubmitData, onSubmitError)();
+    handleSubmit(onSubmitData)();
   };
 
   const onDatePickerConfirm = selectedDate => {
@@ -95,7 +96,7 @@ const Profile2 = ({navigation}) => {
           <Controller
             control={control}
             name="gender"
-            rules={{required: 'Gender is required'}}
+            // rules={{required: 'Gender is required'}}
             render={({field: {onChange, value}}) => (
               <>
                 <ToggleButton
@@ -145,9 +146,11 @@ const Profile2 = ({navigation}) => {
           <Controller
             control={control}
             name="dob"
-            rules={{
-              required: 'Birth date is required',
-            }}
+            rules={
+              {
+                // required: 'Birth date is required',
+              }
+            }
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
                 mode="outlined"
@@ -184,7 +187,7 @@ const Profile2 = ({navigation}) => {
         <Controller
           control={control}
           name="address"
-          rules={{required: 'Address is required'}}
+          // rules={{required: 'Address is required'}}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"

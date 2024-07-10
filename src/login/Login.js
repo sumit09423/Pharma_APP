@@ -90,7 +90,8 @@ const Login = ({navigation}) => {
   };
 
   const handleLogin = () => {
-    handleSubmit(onSubmitData, onSubmitError)();
+    // handleSubmit(onSubmitData, onSubmitError)();
+    navigation.replace('Main');
   };
 
   return (
