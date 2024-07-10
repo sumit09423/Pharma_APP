@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -10,37 +10,40 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import { Button, Checkbox, TextInput, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { FONTS } from '../constant';
-import { Controller, useForm } from 'react-hook-form';
+import {
+  ActivityIndicator,
+  Button,
+  Checkbox,
+  TextInput,
+  useTheme,
+} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {FONTS} from '../constant';
+import {Controller, useForm} from 'react-hook-form';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
-import { onSubmitError } from '../Lib/CommonFunction';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUserType } from '../Reducer/CommonReducer';
-import { API_URL } from '@env';
+import {onSubmitError} from '../Lib/CommonFunction';
+import {API_URL} from '@env';
+import {useDispatch, useSelector} from 'react-redux';
+import LoadingComponent from '../components/LoadingComponent';
+import {setLoading} from '../Reducer/CommonReducer';
 const logoImg = require('../images/Logo.png');
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [checked, setChecked] = useState(false);
-  // const [formValues, setFormValues] = useState({
-  //   email: '',
-  //   password: '',
-  // });
 
   const {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: {errors},
   } = useForm({
     defaultValues: {
       email: '',
@@ -49,40 +52,37 @@ const Login = ({ navigation }) => {
   });
   const formValues = watch();
   const dispatch = useDispatch();
-  const data = useSelector(state => state.CommonReducer);
-
-
-  const handleChange = (name, value) => {
-    // setFormValues({
-    //   ...formValues,
-    //   [name]: value,
-    // });
-  };
+  const {userType, loading} = useSelector(state => state.CommonReducer);
+  const url = userType === 'Admin' ? 'login' : 'doctorlogin';
 
   const toggleSecureTextEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
 
   const onSubmitData = values => {
+    console.log(`${API_URL}/${url}`);
+    dispatch(setLoading(true));
     axios
-      .post(`${API_URL}/doctorlogin`, {
+      .post(`${API_URL}/${url}`, {
         ...values,
       })
       .then(response => {
+        dispatch(setLoading(false));
         Toast.show({
           type: 'success',
-          text1: response.data.conditions.message,
+          text1: response.data.status === 'ok' && 'Login Successfully.',
           visibilityTime: 2500,
           autoHide: true,
         });
         navigation.replace('Main');
       })
       .catch(error => {
+        dispatch(setLoading(false));
         Toast.show({
           type: 'error',
           text1:
-            error.response.data.message ||
-            'An error occurred. Please try again.',
+            error?.response?.data?.message ||
+            'An error occurred. Please try again later.',
           visibilityTime: 2500,
           autoHide: true,
         });
@@ -90,13 +90,13 @@ const Login = ({ navigation }) => {
   };
 
   const handleLogin = () => {
-    handleSubmit(onSubmitData, onSubmitError)();
-    // navigation.replace('Main');
-    dispatch(setUserType('Admin'));
+    // handleSubmit(onSubmitData, onSubmitError)();
+    navigation.replace('Main');
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <LoadingComponent />
       <ScrollView contentContainerStyle={styles.scrollViewDiv}>
         <Image source={logoImg} style={styles.logo} />
         <Text style={styles.welcome}>Welcome back!</Text>
@@ -106,8 +106,12 @@ const Login = ({ navigation }) => {
           name="email"
           rules={{
             required: 'Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Invalid email address',
+            },
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -128,7 +132,7 @@ const Login = ({ navigation }) => {
           rules={{
             required: 'Password is required',
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
               value={value}
@@ -168,7 +172,8 @@ const Login = ({ navigation }) => {
         <TouchableOpacity
           onPress={handleLogin}
           style={styles.LoginBtn}
-          activeOpacity={0.8}>
+          activeOpacity={0.8}
+          disabled={loading}>
           <Text style={styles.loginText}>Log In</Text>
         </TouchableOpacity>
 

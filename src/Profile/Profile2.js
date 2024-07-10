@@ -22,13 +22,15 @@ import {FONTS} from '../constant';
 import {Controller, useForm} from 'react-hook-form';
 import {useFormContext} from '../context/FormContext';
 import DatePicker from 'react-native-date-picker';
+import {useSelector} from 'react-redux';
 
 const logoImg = require('../images/Profile.png');
 
 const Profile2 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
-  // const [formValues, setFormValues] = useState({});
+  const {userType} = useSelector(state => state.CommonReducer);
+
   const {
     control,
     handleSubmit,
@@ -37,8 +39,8 @@ const Profile2 = ({navigation}) => {
     setValue,
   } = useForm({
     defaultValues: {
-      gender: 'male',
       // dob: new Date(),
+      gender: 'male',
       address: '',
     },
   });
@@ -56,7 +58,8 @@ const Profile2 = ({navigation}) => {
   };
 
   const handleContinue = () => {
-    handleSubmit(onSubmitData, onSubmitError)();
+    // handleSubmit(onSubmitData, onSubmitError)();
+    handleSubmit(onSubmitData)();
   };
 
   const onDatePickerConfirm = selectedDate => {
@@ -93,7 +96,7 @@ const Profile2 = ({navigation}) => {
           <Controller
             control={control}
             name="gender"
-            rules={{required: 'Gender is required'}}
+            // rules={{required: 'Gender is required'}}
             render={({field: {onChange, value}}) => (
               <>
                 <ToggleButton
@@ -143,9 +146,11 @@ const Profile2 = ({navigation}) => {
           <Controller
             control={control}
             name="dob"
-            rules={{
-              required: 'Birth date is required',
-            }}
+            rules={
+              {
+                // required: 'Birth date is required',
+              }
+            }
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
                 mode="outlined"
@@ -182,7 +187,7 @@ const Profile2 = ({navigation}) => {
         <Controller
           control={control}
           name="address"
-          rules={{required: 'Address is required'}}
+          // rules={{required: 'Address is required'}}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"

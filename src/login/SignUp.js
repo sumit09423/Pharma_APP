@@ -14,6 +14,7 @@ import {FONTS} from '../constant';
 import {Controller, useForm} from 'react-hook-form';
 import {useFormContext} from '../context/FormContext';
 import {onSubmitError} from '../Lib/CommonFunction';
+import {useSelector} from 'react-redux';
 const googleImg = require('../images/Google.png');
 const fbImg = require('../images/Facebook.png');
 
@@ -22,6 +23,8 @@ const SignUp = ({navigation}) => {
   const styles = createStyles(theme);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const {formData, setFormData} = useFormContext();
+  const {userType} = useSelector(state => state.CommonReducer);
+  const contactNoName = userType === 'Admin' ? 'mobile' : 'contact';
   const {
     control,
     handleSubmit,
@@ -30,7 +33,7 @@ const SignUp = ({navigation}) => {
   } = useForm({
     defaultValues: {
       email: '',
-      contact: '',
+      [contactNoName]: '',
       password: '',
     },
   });
@@ -49,7 +52,8 @@ const SignUp = ({navigation}) => {
   };
 
   const handleSignup = () => {
-    handleSubmit(onSubmitData, onSubmitError)();
+    // handleSubmit(onSubmitData, onSubmitError)();
+    handleSubmit(onSubmitData)();
   };
 
   return (
@@ -76,9 +80,15 @@ const SignUp = ({navigation}) => {
         <Controller
           control={control}
           name="email"
-          rules={{
-            required: 'Email is required',
-          }}
+          rules={
+            {
+              // required: 'Email is required',
+              // pattern: {
+              //   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              //   message: 'Invalid email address',
+              // },
+            }
+          }
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
@@ -97,10 +107,16 @@ const SignUp = ({navigation}) => {
 
         <Controller
           control={control}
-          name="contact"
-          rules={{
-            required: 'Contact number is required',
-          }}
+          name={contactNoName}
+          rules={
+            {
+              // required: 'Contact number is required',
+              // pattern: {
+              //   value: /^[0-9]{10}$/,
+              //   message: 'Invalid mobile number. It should be 10 digits long.',
+              // },
+            }
+          }
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"
@@ -120,9 +136,11 @@ const SignUp = ({navigation}) => {
         <Controller
           control={control}
           name="password"
-          rules={{
-            required: 'Password Is Rrequired',
-          }}
+          rules={
+            {
+              // required: 'Password Is Rrequired',
+            }
+          }
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               mode="outlined"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,20 +6,29 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Button, Checkbox, Chip, Searchbar, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  ActivityIndicator,
+  Button,
+  Checkbox,
+  Chip,
+  Searchbar,
+  useTheme,
+} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppBar from '../components/AppBar';
-import { FONTS } from '../constant';
+import {FONTS} from '../constant';
 import axios from 'axios';
-// import {useDispatch} from 'react-redux';
 // import {register_doctor} from '../actions/authActions';
-import { useFormContext } from '../context/FormContext';
-import { onSubmitError } from '../Lib/CommonFunction';
-import { useForm } from 'react-hook-form';
+import {useFormContext} from '../context/FormContext';
+import {onSubmitError} from '../Lib/CommonFunction';
+import {useForm} from 'react-hook-form';
 const logoImg = require('../images/Profile.png');
-import { API_URL } from '@env';
+import {API_URL} from '@env';
 import Toast from 'react-native-toast-message';
+import {useDispatch, useSelector} from 'react-redux';
+import LoadingComponent from '../components/LoadingComponent';
+import {setLoading} from '../Reducer/CommonReducer';
 
 const categoryData = [
   {
@@ -48,18 +57,19 @@ const categoryData = [
   },
 ];
 
-const Profile3 = ({ navigation }) => {
+const Profile3 = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const {userType, loading} = useSelector(state => state.CommonReducer);
   const {
     control,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: {errors},
     setValue,
   } = useForm({
     defaultValues: {
-      doctor_department: [],
+      ...(userType === 'Doctor' && {doctor_department: []}),
       // doctor_department: '',
     },
   });
@@ -70,50 +80,66 @@ const Profile3 = ({ navigation }) => {
   //   }, {}),
   // );
   const [searchQuery, setSearchQuery] = React.useState('');
-  const { formData, setFormData } = useFormContext();
+  const {formData, setFormData} = useFormContext();
   const doctorDepartment = watch('doctor_department');
+  const dispatch = useDispatch();
+
+  const url = userType === 'Admin' ? 'adduser' : 'adddoctor';
 
   const handleChange = item => {
-    const updatedDepartment = doctorDepartment.includes(item)
-      ? doctorDepartment.filter(dept => dept !== item)
-      : [...doctorDepartment, item];
-    setValue('doctor_department', updatedDepartment);
-    // setValue('doctor_department', 'aa');
+    if (userType === 'Doctor') {
+      const updatedDepartment = doctorDepartment?.includes(item)
+        ? doctorDepartment?.filter(dept => dept !== item)
+        : [...doctorDepartment, item];
+      setValue('doctor_department', updatedDepartment);
+    } else {
+      return null;
+    }
   };
 
   const handleClose = item => {
-    setValue(
-      'doctor_department',
-      doctorDepartment.filter(dept => dept !== item),
-    );
+    if (userType === 'Doctor') {
+      setValue(
+        'doctor_department',
+        doctorDepartment.filter(dept => dept !== item),
+      );
+    }
   };
-
 
   const onSubmitData = values => {
     setFormData(prevFormdata => ({
       ...prevFormdata,
       ...values,
     }));
+    dispatch(setLoading(true));
+
+    console.log(`${API_URL}/${url}`);
 
     axios
-      .post(`${API_URL}/adddoctor`, {
+      .post(`${API_URL}/${url}`, {
         ...formData,
         ...values,
       })
       .then(response => {
+        dispatch(setLoading(false));
+        console.log(response);
+        navigation.navigate('Verification');
         Toast.show({
           type: 'success',
-          text1: response.data.conditions.message,
+          text1: response?.data?.conditions?.message
+            ? response?.data?.conditions?.message
+            : 'Registration successfully.',
           visibilityTime: 2500,
           autoHide: true,
         });
       })
       .catch(error => {
+        dispatch(setLoading(false));
         Toast.show({
           type: 'error',
           text1:
-            error.response.data.message ||
-            'An error occurred. Please try again.',
+            error?.response?.data?.message ||
+            'An error occurred. Please try again later.',
           visibilityTime: 2500,
           autoHide: true,
         });
@@ -121,7 +147,8 @@ const Profile3 = ({ navigation }) => {
   };
 
   const handleDone = () => {
-    handleSubmit(onSubmitData, onSubmitError)();
+    // handleSubmit(onSubmitData, onSubmitError)();
+    navigation.navigate('Verification');
 
     // fetch('https://guyana-joins-organize-alarm.trycloudflare.com/addUser', {
     //   method: 'POST',
@@ -143,6 +170,7 @@ const Profile3 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <LoadingComponent />
       <ScrollView>
         <AppBar
           navigation={navigation}
@@ -164,7 +192,7 @@ const Profile3 = ({ navigation }) => {
           />
 
           <View style={styles.chipDiv}>
-            {doctorDepartment.map((item, index) => {
+            {doctorDepartment?.map((item, index) => {
               return (
                 <Chip
                   onClose={() => handleClose(item)}
@@ -186,7 +214,7 @@ const Profile3 = ({ navigation }) => {
               <Checkbox.Item
                 label={item.label}
                 status={
-                  doctorDepartment.includes(item.label)
+                  doctorDepartment?.includes(item.label)
                     ? 'checked'
                     : 'unchecked'
                 }
@@ -200,12 +228,10 @@ const Profile3 = ({ navigation }) => {
           })}
 
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Verification');
-              handleDone();
-            }}
+            onPress={handleDone}
             style={styles.LoginBtn}
-            activeOpacity={0.8}>
+            activeOpacity={0.8}
+            disabled={loading}>
             <Text style={styles.doneText}>Done</Text>
           </TouchableOpacity>
         </ScrollView>

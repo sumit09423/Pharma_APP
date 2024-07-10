@@ -1,13 +1,38 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
-import { useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { FONTS } from '../constant';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Dimensions,
+} from 'react-native';
+import {useTheme} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {FONTS} from '../constant';
+import {useDispatch} from 'react-redux';
+import {setUserType} from '../Reducer/CommonReducer';
 const logoImg = require('../images/LogoWithName.png');
 
-const Welcome = ({ navigation }) => {
+const Welcome = ({navigation}) => {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const dispatch = useDispatch();
+
+  const onGetHereClick = () => {
+    dispatch(setUserType('Admin'));
+    navigation.navigate('Login');
+  };
+
+  const handleLogin = () => {
+    navigation.navigate('Login');
+    dispatch(setUserType('Doctor'));
+  };
+
+  const handleSignup = () => {
+    navigation.navigate('SignUp');
+    dispatch(setUserType('Doctor'));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -17,18 +42,18 @@ const Welcome = ({ navigation }) => {
         Login to enjoy the features we've provided, and save time!
       </Text>
       <View style={styles.innerDiv}>
-        <Text>...</Text>
+        <Text style={{color: '#ffffff', fontWeight: '700'}}>. . .</Text>
         <View style={styles.btnDiv}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Login')}
+            onPress={handleLogin}
             style={[styles.loginBtn, styles.btn]}
             activeOpacity={0.8}>
-            <Text style={[{ color: '#FFFFFF' }, styles.loginSignUpText]}>
+            <Text style={[{color: '#FFFFFF'}, styles.loginSignUpText]}>
               Login
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('SignUp')}
+            onPress={handleSignup}
             style={[styles.signupBtn, styles.btn]}
             activeOpacity={0.8}>
             <Text
@@ -42,13 +67,15 @@ const Welcome = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.loginText}>Are you a seller? Get here! </Text>
+        <Text style={styles.loginText}>
+          Are you a seller? <Text onPress={onGetHereClick}>Get here!</Text>
+        </Text>
       </View>
     </SafeAreaView>
   );
 };
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const createStyles = theme =>
   StyleSheet.create({
