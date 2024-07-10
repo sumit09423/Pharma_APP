@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -6,16 +6,12 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
+  FlatList,
 } from 'react-native';
-import {
-  Card,
-  Searchbar,
-  Text,
-  useTheme,
-} from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import {Card, Searchbar, Text, useTheme} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 import AppBar from '../components/AppBar';
-import { FONTS } from '../constant';
+import {FONTS} from '../constant';
 
 const SalesMan = require('../images/SalesMan.png');
 const UserAvailable = require('../images/user2.png');
@@ -31,8 +27,48 @@ const Landing = () => {
   };
 
   const handlePressAdmin = () => {
-    navigation.navigate('Admin');
-  }
+    // navigation.navigate('Admin');
+  };
+
+  const data = [
+    {
+      id: '1',
+      title: 'Star medica Hub',
+      subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    },
+    {
+      id: '2',
+      title: 'Seller Name',
+      subtitle: 'Mauris a finibus ante, aliquet tincidunt ipsum',
+    },
+    {
+      id: '3',
+      title: 'Company',
+      subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    },
+  ];
+
+  const renderItem = ({item}) => (
+    <TouchableOpacity
+      style={[
+        item.title === 'Star medica Hub'
+          ? styles.cardContainer
+          : styles.cardContainer2,
+        styles.cardCommonContainer,
+      ]}
+      onPress={() => (item.title === 'Seller Name' ? handlePress() : null)}
+      activeOpacity={0.7}>
+      <Card.Title
+        title={item.title}
+        subtitle={item.subtitle}
+        titleStyle={[styles.cardText, styles.cardTitle]}
+        subtitleNumberOfLines={null}
+        subtitleStyle={[styles.cardText, styles.cardSubTitle]}
+        left={() => <Image source={SalesMan} style={styles.cardImage} />}
+        leftStyle={styles.leftStyle}
+      />
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
@@ -47,65 +83,12 @@ const Landing = () => {
         />
       </View>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <TouchableOpacity
-          style={[styles.cardContainer, styles.cardCommonContainer]}
-          onPress={handlePressAdmin}
-          activeOpacity={0.7}>
-          <Card.Title
-            title="Star medica Hub"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-            titleStyle={[styles.cardText, styles.cardTitle]}
-            subtitleNumberOfLines={null}
-            subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-            left={() => (
-              <Image
-                source={SalesMan}
-                style={styles.cardImage}
-              />
-            )}
-            leftStyle={styles.leftStyle}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.cardContainer2, styles.cardCommonContainer]}
-          onPress={handlePress}
-          activeOpacity={0.7}>
-          <Card.Title
-            title="Seller Name"
-            subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
-            titleStyle={[styles.cardText, styles.cardTitle]}
-            subtitleNumberOfLines={null}
-            subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-            left={() => (
-              <Image
-                source={UserAvailable}
-                style={styles.cardImageSmall}
-              />
-            )}
-            leftStyle={styles.leftStyle}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.cardContainer2, styles.cardCommonContainer]}
-          onPress={handlePress}
-          activeOpacity={0.7}>
-          <Card.Title
-            title="Company"
-            subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
-            titleStyle={[styles.cardText, styles.cardTitle]}
-            subtitleNumberOfLines={null}
-            subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-            left={() => (
-              <Image
-                source={UserAvailable}
-                style={styles.cardImageSmall}
-              />
-            )}
-            leftStyle={styles.leftStyle}
-          />
-        </TouchableOpacity>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          // contentContainerStyle={styles.flatListContainer}
+        />
 
         <View style={styles.btncontainer}>
           <TouchableOpacity style={styles.button} activeOpacity={0.8}>
@@ -118,7 +101,7 @@ const Landing = () => {
 };
 
 const createStyles = theme => {
-  const { width } = Dimensions.get('window');
+  const {width} = Dimensions.get('window');
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -196,8 +179,11 @@ const createStyles = theme => {
       borderRadius: 20,
     },
     scrollViewContent: {
-      flexGrow: 1,
-    }
+      // flexGrow: 1,
+    },
+    flatListContainer: {
+      height: 470,
+    },
   });
 };
 
