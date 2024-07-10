@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,10 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {Appbar, IconButton, Searchbar} from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { Appbar, IconButton, Searchbar } from 'react-native-paper';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
+import { FONTS } from '../constant';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -57,8 +57,11 @@ const MultipleProduct = () => {
       buttonText: 'Diprivan',
     },
   ];
+  const filteredData = products.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.productContainer}
       onPress={handlePress}
@@ -89,7 +92,7 @@ const MultipleProduct = () => {
           />
         </View>
         <FlatList
-          data={products}
+          data={filteredData}
           renderItem={renderItem}
           keyExtractor={item => item.id}
           contentContainerStyle={styles.flatListContainer}

@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,9 +8,9 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {Appbar, Button, Searchbar} from 'react-native-paper';
+import { Appbar, Button, Searchbar } from 'react-native-paper';
 import AppBar from '../components/AppBar';
-import {FONTS} from '../constant';
+import { FONTS } from '../constant';
 const Seruff = require('../images/Seruff.png');
 const products = [
   {
@@ -55,10 +55,17 @@ const products = [
   },
 ];
 
+
+
 const ProductCategory = props => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigation = useNavigation();
-  const renderItem = ({item}) => (
+
+  const filteredData = products.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const renderItem = ({ item }) => (
     <View style={styles.productContainer}>
       <View style={styles.imgcontainer}>
         <Image source={item.srcCode} style={styles.productImage} />
@@ -78,7 +85,7 @@ const ProductCategory = props => {
 
         <TouchableOpacity
           style={styles.addToCartButton}
-          onPress={() => navigation.navigate('ProductDetails', {item})}
+          onPress={() => navigation.navigate('ProductDetails', { item })}
           activeOpacity={0.8}>
           <Text style={styles.addToCartText} textColor="#FFFFFF">
             Add to Cart
@@ -106,7 +113,7 @@ const ProductCategory = props => {
       </View>
       <View style={styles.container}>
         <FlatList
-          data={products}
+          data={filteredData}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
