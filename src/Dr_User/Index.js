@@ -48,6 +48,10 @@ const Landing = () => {
     },
   ];
 
+  const filteredData = data.filter(item =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+
   const renderItem = ({item}) => (
     <TouchableOpacity
       style={[
@@ -82,9 +86,9 @@ const Landing = () => {
           style={styles.searchBar}
         />
       </View>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <View contentContainerStyle={styles.ViewContent}>
         <FlatList
-          data={data}
+          data={filteredData}
           renderItem={renderItem}
           keyExtractor={item => item.id}
           // contentContainerStyle={styles.flatListContainer}
@@ -95,7 +99,7 @@ const Landing = () => {
             <Text style={styles.buttonText}>Search Products</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };

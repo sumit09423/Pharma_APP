@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -168,10 +169,26 @@ const Profile3 = ({navigation}) => {
     //   });
   };
 
+  const filteredData = categoryData.filter(item =>
+    item.label.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+
+  const renderItem = ({item}) => (
+    <Checkbox.Item
+      label={item.label}
+      status={doctorDepartment?.includes(item.label) ? 'checked' : 'unchecked'}
+      onPress={() => handleChange(item.label)}
+      uncheckedColor="#D7D7D7"
+      color="#D7D7D7"
+      labelStyle={styles.checkboxLabel}
+      key={item.label}
+    />
+  );
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <LoadingComponent />
-      <ScrollView>
+      <View style={styles.mainContainer}>
         <AppBar
           navigation={navigation}
           backBordered={true}
@@ -209,7 +226,15 @@ const Profile3 = ({navigation}) => {
             })}
           </View>
 
-          {categoryData?.map((item, index) => {
+          <View style={styles.mainContainer}>
+            <FlatList
+              data={filteredData}
+              renderItem={renderItem}
+              keyExtractor={item => item.label}
+              // contentContainerStyle={styles.flatListContainer}
+            />
+          </View>
+          {/* {filteredData?.map((item, index) => {
             return (
               <Checkbox.Item
                 label={item.label}
@@ -225,7 +250,7 @@ const Profile3 = ({navigation}) => {
                 key={index}
               />
             );
-          })}
+          })} */}
 
           <TouchableOpacity
             onPress={handleDone}
@@ -235,7 +260,7 @@ const Profile3 = ({navigation}) => {
             <Text style={styles.doneText}>Done</Text>
           </TouchableOpacity>
         </ScrollView>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

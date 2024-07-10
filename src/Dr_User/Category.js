@@ -43,6 +43,10 @@ const Category = () => {
     },
   ];
 
+  const filteredData = data.filter(item =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+
   const renderItem = ({item}) => (
     <TouchableOpacity
       style={[styles.cardContainer2, styles.cardCommonContainer]}
@@ -75,60 +79,13 @@ const Category = () => {
       </View>
       <View style={styles.flatListContainer}>
         <FlatList
-          data={data}
+          data={filteredData}
           renderItem={renderItem}
           keyExtractor={item => item.id}
           // contentContainerStyle={styles.flatListContainer}
         />
       </View>
-      {/* <TouchableOpacity
-        style={[styles.cardContainer2, styles.cardCommonContainer]}
-        onPress={handlePress}
-        activeOpacity={0.7}>
-        <Card.Title
-          title="Gynecologist"
-          subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
-          titleStyle={[styles.cardText, styles.cardTitle]}
-          subtitleNumberOfLines={2}
-          subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-          left={props => (
-            <Image source={UserAvailable} style={styles.userImage} />
-          )}
-          leftStyle={styles.leftStyle}
-        />
-      </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.cardContainer2, styles.cardCommonContainer]}
-        activeOpacity={0.7}>
-        <Card.Title
-          title="Pediatrician"
-          subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
-          titleStyle={[styles.cardText, styles.cardTitle]}
-          subtitleNumberOfLines={2}
-          subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-          left={props => (
-            <Image source={UserAvailable} style={styles.userImage} />
-          )}
-          leftStyle={styles.leftStyle}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.cardContainer2, styles.cardCommonContainer]}
-        activeOpacity={0.7}>
-        <Card.Title
-          title="GP Doctors"
-          subtitle="Mauris a finibus ante, aliquet tincidunt ipsum"
-          titleStyle={[styles.cardText, styles.cardTitle]}
-          subtitleNumberOfLines={2}
-          subtitleStyle={[styles.cardText, styles.cardSubTitle]}
-          left={props => (
-            <Image source={UserAvailable} style={styles.userImage} />
-          )}
-          leftStyle={styles.leftStyle}
-        />
-      </TouchableOpacity> */}
       <View style={styles.btncontainer}>
         <TouchableOpacity
           style={styles.button}
